@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <title>ReupVz | Underground Resell</title>
+    
+    <style>
+        /* Base Estética Underground */
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Arial Black', sans-serif;
+            margin: 0;
+            padding-bottom: 80px; /* Espacio para el footer */
+        }
+
+        /* Cabecera y Logo */
+        header {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .logo-img {
+            max-width: 250px;
+            filter: invert(1); /* Resalta el stencil oscuro */
+        }
+
+        /* Cinta de texto (Marquee) */
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 3px solid #FF0000;
+            border-bottom: 3px solid #FF0000;
+            padding: 15px 0;
+            margin-bottom: 40px;
+            background-color: #000;
+            color: #FF0000;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+        .marquee p {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        /* Catálogo Grid */
+        #catalogo {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Tarjeta de Producto */
+        .producto {
+            background-color: #121212;
+            border: 2px solid #222;
+            padding: 20px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .producto:hover {
+            border-color: #FF0000;
+        }
+
+        .img-container {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #050505;
+            margin-bottom: 15px;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Sin zoom que corte la ropa */
+            transition: 0.2s;
+        }
+
+        /* Efecto Glitch al Hover */
+        .img-container:hover img {
+            filter: hue-rotate(90deg) contrast(2);
+            transform: scale(1.05);
+        }
+
+        .producto h3 {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .precio {
+            color: #FF0000;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Botón de Compra Brutalista */
+        .btn-compra {
+            background-color: #FF0000;
+            color: white;
+            border: 2px solid #FF0000;
+            padding: 12px 0;
+            width: 100%;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.1s;
+        }
+
+        .btn-compra:hover {
+            background-color: transparent;
+            color: #FF0000;
+        }
+
+        /* Footer con Panel de Control */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #000;
+            border-top: 2px solid #222;
+            padding: 15px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        .btn-admin {
+            background-color: #222;
+            color: #888;
+            border: 1px solid #444;
+            padding: 8px 20px;
+            font-family: monospace;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .btn-admin:hover {
+            color: #FF0000;
+            border-color: #FF0000;
+        }
+
+        /* Modal Panel de Control */
+        #admin-panel {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-content {
+            background-color: #111;
+            border: 2px solid #FF0000;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            color: white;
+            text-align: left;
+        }
+
+        .admin-content h2 { margin-top: 0; color: #FF0000; }
+        .admin-content input {
+            width: 100%; padding: 10px; margin-bottom: 15px;
+            background-color: #222; border: 1px solid #444; color: white;
+            box-sizing: border-box;
+        }
+        
+        .admin-btns { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-save { background-color: #FF0000; color: white; border: none; padding: 10px; flex: 1; cursor: pointer; font-weight: bold;}
+        .btn-close { background-color: #444; color: white; border: none; padding: 10px; flex: 1; cursor: pointer; }
+        .btn-download { background-color: #39FF14; color: #000; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 15px; text-transform: uppercase;}
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="IMG_1846.jpeg" alt="Logo ReupVz" class="logo-img">
+    </header>
+
+    <div class="marquee">
+        <p>🔥 NUEVO DROP 🔥 100% LEGIT 🔥 ENVÍOS A NIVEL NACIONAL 🔥 PIEZAS ÚNICAS 🔥 REUPVZ</p>
+    </div>
+
+    <main id="catalogo"></main>
+
+    <footer>
+        <button class="btn-admin" onclick="accederPanel()">[ ADMIN PANEL ]</button>
+    </footer>
+
+    <div id="admin-panel">
+        <div class="admin-content">
+            <h2>⚙️ SUBIR PRENDA</h2>
+            <label>Nombre de la Pieza:</label>
+            <input type="text" id="prod-name" placeholder="Ej. Supreme Bogo Hoodie">
+            
+            <label>Precio ($):</label>
+            <input type="number" id="prod-price" placeholder="Ej. 150">
+            
+            <label>Imagen (URL o Nombre de archivo):</label>
+            <input type="text" id="prod-img" value="IMG_1846.jpeg" placeholder="Ej. foto1.png o https://...">
+
+            <div class="admin-btns">
+                <button class="btn-save" onclick="agregarProducto()">AÑADIR AL DROP</button>
+                <button class="btn-close" onclick="cerrarPanel()">CERRAR</button>
+            </div>
+
+            <hr style="border-color: #333; margin: 20px 0;">
+            
+            <button class="btn-download" onclick="downloadUpdatedHTML()">⬇️ DESCARGAR HTML ACTUALIZADO</button>
+            <p style="font-size: 0.8rem; color: #888; text-align: center; margin-top: 10px;">Descarga para subir a CloudPages y aplicar el Anti-Caché</p>
+        </div>
+    </div>
+
+    <script>
+        // --- SISTEMA DE VERSIONES ANTI-CACHÉ ---
+        const STORE_VERSION_TIMESTAMP = 1718000000000; 
+
+        // --- BASE DE DATOS DE PRODUCTOS ---
+        /* START_PRODUCTS_ARRAY */
+        const initialProducts = [
+            { id: 1, name: "PRENDA DE PRUEBA", price: 50, img: "IMG_1846.jpeg" }
+        ];
+        /* END_PRODUCTS_ARRAY */
+
+        let products = [...initialProducts];
+
+        // Función para dibujar los productos en la pantalla
+        function renderCatalogo() {
+            const catalogo = document.getElementById('catalogo');
+            catalogo.innerHTML = "";
+
+            products.forEach(p => {
+                catalogo.innerHTML += `
+                    <div class="producto">
+                        <div class="img-container">
+                            <img src="${p.img}" alt="${p.name}">
+                        </div>
+                        <h3>${p.name}</h3>
+                        <div class="precio">$${p.price}</div>
+                        <button class="btn-compra">AÑADIR AL CARRITO</button>
+                    </div>
+                `;
+            });
+        }
+
+        // Seguridad Básica del Panel
+        function accederPanel() {
+            let pass = prompt("Contraseña de Acceso:");
+            if (pass === "reupvz123") {
+                document.getElementById('admin-panel').style.display = 'flex';
+            } else if (pass !== null) {
+                alert("Acceso Denegado 🛑");
+            }
+        }
+
+        function cerrarPanel() {
+            document.getElementById('admin-panel').style.display = 'none';
+        }
+
+        // Agregar nueva prenda
+        function agregarProducto() {
+            const name = document.getElementById('prod-name').value;
+            const price = document.getElementById('prod-price').value;
+            let img = document.getElementById('prod-img').value;
+
+            if (!name || !price) {
+                alert("Faltan datos de la prenda.");
+                return;
+            }
+
+            if(!img) img = "IMG_1846.jpeg";
+
+            const newId = Date.now();
+            products.push({ id: newId, name: name, price: price, img: img });
+            
+            renderCatalogo();
+            alert("Prenda añadida al catálogo. ¡No olvides descargar el HTML para guardar!");
+            
+            // Limpiar inputs
+            document.getElementById('prod-name').value = "";
+            document.getElementById('prod-price').value = "";
+        }
+
+        // --- SISTEMA DE HORNEADO (BAKING) Y ANTI-CACHÉ ---
+        function downloadUpdatedHTML() {
+            // 1. Ocultar panel antes de "tomar la foto" del código
+            cerrarPanel();
+
+            // 2. Extraer todo el HTML actual de la página
+            let htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+
+            // 3. Generar un nuevo número de serie anti-caché
+            const newVersion = Date.now();
+            htmlContent = htmlContent.replace(/const STORE_VERSION_TIMESTAMP = \d+;/, `const STORE_VERSION_TIMESTAMP = ${newVersion};`);
+
+            // 4. Inyectar el inventario actual permanentemente en el código fuente
+            const productsJSON = JSON.stringify(products, null, 4);
+            const regex = /\/\* START_PRODUCTS_ARRAY \*\/[\s\S]*?\/\* END_PRODUCTS_ARRAY \*\//;
+            htmlContent = htmlContent.replace(regex, `/* START_PRODUCTS_ARRAY */\n        const initialProducts = ${productsJSON};\n        /* END_PRODUCTS_ARRAY */`);
+
+            // 5. Descargar el archivo
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Inicializar la página
+        window.onload = function() {
+            renderCatalogo();
+        };
+    </script>
+</body>
+</html>
