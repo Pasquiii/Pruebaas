@@ -8,31 +8,29 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>ReupVz | Underground Resell</title>
+    <title>REUP | Underground Resell</title>
     
     <style>
-        /* Base Estética Underground con Fondo de Rayos Amarillo-Naranja */
+        /* Base Estética Underground con Fondo de Rayos Amarillo-Naranja VISIBLES */
         body {
             background-color: #050505;
             background-image: 
-                /* Capa oscura para mantener el estilo Underground */
-                linear-gradient(to right, rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.85)),
-                /* Rayos inclinados 1 */
+                /* Simple brutalist geometric line pattern, amarillo to naranja, más brillates */
                 repeating-linear-gradient(
                     -45deg,
                     transparent,
                     transparent 60px,
-                    rgba(255, 215, 0, 0.15) 60px, /* Amarillo */
-                    rgba(255, 140, 0, 0.3) 62px,  /* Naranja */
+                    rgba(255, 215, 0, 0.25) 60px, /* Amarillo subtle */
+                    rgba(255, 140, 0, 0.4) 62px,  /* Naranja stronger */
                     transparent 62px
                 ),
-                /* Rayos inclinados 2 cruzados */
+                /* cruzados para un efecto más ruidoso */
                 repeating-linear-gradient(
                     45deg,
                     transparent,
                     transparent 100px,
-                    rgba(255, 215, 0, 0.1) 100px, /* Amarillo suave */
-                    rgba(255, 69, 0, 0.25) 103px, /* Naranja rojizo */
+                    rgba(255, 215, 0, 0.15) 100px, /* Amarillo suave */
+                    rgba(255, 69, 0, 0.3) 103px, /* Naranja rojizo */
                     transparent 103px
                 );
             background-attachment: fixed; /* Hace que el fondo no se mueva al hacer scroll */
@@ -56,9 +54,25 @@
             z-index: 50;
         }
 
+        /* Contenedor de Logo y Nombre */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Espacio entre logo y texto */
+        }
+
         .logo-img {
             max-width: 80px;
-            filter: invert(1);
+            height: auto;
+            filter: invert(1); /* Resalta el stencil oscuro */
+        }
+
+        .logo-text {
+            font-size: 3rem; /* Grande y rudo */
+            color: #FF0000; /* Rojo Sangre */
+            letter-spacing: -3px;
+            margin: 0;
+            text-transform: uppercase;
         }
 
         /* Botón del Carrito en el Header */
@@ -88,7 +102,7 @@
             font-weight: bold;
         }
 
-        /* Icono SVG del carrito */
+        /* Icono SVG del carrito 🛒 */
         .cart-icon {
             width: 24px;
             height: 24px;
@@ -164,10 +178,11 @@
         .img-container img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain; 
+            object-fit: contain; /* ¡Sin zoom que corte la ropa! */
             transition: 0.2s;
         }
 
+        /* Efecto Glitch al Hover */
         .img-container:hover img {
             filter: hue-rotate(90deg) contrast(2);
             transform: scale(1.05);
@@ -263,7 +278,7 @@
         .cart-total { display: flex; justify-content: space-between; font-size: 1.5rem; margin-bottom: 20px; font-weight: bold; }
 
         .btn-whatsapp {
-            background-color: #25D366; 
+            background-color: #25D366; /* Verde WhatsApp */
             color: black;
             border: none;
             padding: 15px;
@@ -275,7 +290,7 @@
         }
         .btn-whatsapp:hover { background-color: #1ebe5d; }
 
-        /* Footer con Panel de Control */
+        /* Footer con Panel de Control secreto */
         footer {
             position: fixed;
             bottom: 0;
@@ -339,7 +354,10 @@
 <body>
 
     <header>
-        <img src="IMG_1846.jpeg" alt="Logo ReupVz" class="logo-img">
+        <div class="logo-container">
+            <img src="IMG_1846.jpeg" alt="Logo REUP" class="logo-img">
+            <h1 class="logo-text">REUP</h1>
+        </div>
         <button class="cart-toggle-btn" onclick="toggleCart()">
             <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <circle cx="9" cy="21" r="1"></circle>
@@ -351,7 +369,7 @@
     </header>
 
     <div class="marquee">
-        <p>🔥 NUEVO DROP 🔥 100% LEGIT 🔥 ENVÍOS A TODO EL PAÍS 🔥 PIEZAS ÚNICAS 🔥 REUPVZ</p>
+        <p>🔥 NUEVO DROP 🔥 100% LEGIT 🔥 ENVÍOS A TODO EL PAÍS 🔥 PIEZAS ÚNICAS 🔥 REUP</p>
     </div>
 
     <main id="catalogo"></main>
@@ -382,7 +400,7 @@
 
     <div id="admin-panel">
         <div class="admin-content">
-            <h2>⚙️ SISTEMA REUPVZ</h2>
+            <h2>⚙️ SISTEMA REUP</h2>
             
             <label>WhatsApp de la Tienda (Ej: 584120000000):</label>
             <input type="text" id="cfg-whatsapp" placeholder="Número con código de país">
@@ -400,17 +418,18 @@
             <input type="text" id="prod-img" value="IMG_1846.jpeg" placeholder="Ej. foto1.png">
 
             <div class="admin-btns">
-                <button class="btn-save" onclick="agregarProducto()">AÑADIR</button>
+                <button class="btn-save" onclick="agregarProducto()">AÑADIR AL DROP</button>
                 <button class="btn-close" onclick="cerrarPanel()">CERRAR</button>
             </div>
 
-            <button class="btn-download" onclick="downloadUpdatedHTML()">⬇️ GUARDAR Y DESCARGAR HTML</button>
+            <button class="btn-download" onclick="downloadUpdatedHTML()">⬇️ GUARDAR Y DESCARGAR HTML ACTUALIZADO</button>
+            <p style="font-size: 0.8rem; color: #666; text-align: center; margin-top: 10px;">Subir este archivo para actualizar caché automáticamente.</p>
         </div>
     </div>
 
     <script>
         // --- VARIABLES GLOBALES Y ANTI-CACHÉ ---
-        const STORE_VERSION_TIMESTAMP = 1718000000000; 
+        const STORE_VERSION_TIMESTAMP = 1718000000000; // Se actualiza automáticamente al descargar
 
         /* START_SETTINGS_JSON */
         let settings = {"whatsapp": "584120000000"};
@@ -439,7 +458,7 @@
                                 <img src="${p.img}" alt="${p.name}">
                             </div>
                             <h3>${p.name}</h3>
-                            <div class="precio">$${p.price.toFixed(2)}</div>
+                            <div class="precio">$${parseFloat(p.price).toFixed(2)}</div>
                         </div>
                         <button class="btn-compra" onclick="addToCart(${p.id})">+ CARRITO</button>
                     </div>
@@ -504,7 +523,7 @@
                 return;
             }
 
-            let text = "🔥 *NUEVA ORDEN - REUPVZ* 🔥\n\n";
+            let text = "🔥 *NUEVA ORDEN - REUP* 🔥\n\n";
             let total = 0;
 
             cart.forEach(item => {
@@ -550,7 +569,7 @@
             products.push({ id: newId, name: name, price: parseFloat(price), img: img });
             
             renderCatalogo();
-            alert("🔥 Prenda añadida al catálogo.");
+            alert("🔥 Prenda añadida al Drop.");
             
             document.getElementById('prod-name').value = "";
             document.getElementById('prod-price').value = "";
@@ -561,13 +580,13 @@
             // Actualizar configuraciones antes de guardar
             settings.whatsapp = document.getElementById('cfg-whatsapp').value.replace(/\D/g,'') || settings.whatsapp;
 
-            // 1. Ocultar panel antes de descargar
+            // 1. Ocultar panel antes de descargar para que baje limpio
             cerrarPanel();
 
-            // 2. Extraer todo el HTML
+            // 2. Extraer todo el HTML actual
             let htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 
-            // 3. Generar nuevo Timestamp Anti-Caché
+            // 3. Generar nuevo Timestamp Anti-Caché para los celulares
             const newVersion = Date.now();
             htmlContent = htmlContent.replace(/const STORE_VERSION_TIMESTAMP = \d+;/, `const STORE_VERSION_TIMESTAMP = ${newVersion};`);
 
@@ -576,7 +595,7 @@
             const regexSettings = /\/\* START_SETTINGS_JSON \*\/[\s\S]*?\/\* END_SETTINGS_JSON \*\//;
             htmlContent = htmlContent.replace(regexSettings, `/* START_SETTINGS_JSON */\n        let settings = ${settingsStr};\n        /* END_SETTINGS_JSON */`);
 
-            // 5. Inyectar productos permanentemente
+            // 5. Inyectar productos permanentemente en el código fuente
             const productsJSON = JSON.stringify(products, null, 4);
             const regex = /\/\* START_PRODUCTS_ARRAY \*\/[\s\S]*?\/\* END_PRODUCTS_ARRAY \*\//;
             htmlContent = htmlContent.replace(regex, `/* START_PRODUCTS_ARRAY */\n        const initialProducts = ${productsJSON};\n        /* END_PRODUCTS_ARRAY */`);
