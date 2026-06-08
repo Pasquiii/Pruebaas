@@ -11,18 +11,52 @@
     <title>REUP | Underground Resell</title>
     
     <style>
-        /* Base Estética Underground con Efecto Lava Lamp */
+        /* Base Estética Underground con Efecto Lava Lamp CSS Puro */
         body {
             background-color: #050505;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200"><defs><filter id="blur"><feGaussianBlur in="SourceGraphic" stdDeviation="3"/></filter></defs><style>@keyframes lava1 { 0%{ cy: 20%%; } 25%{ cy: 60%%; } 50%{ cy: 40%%; } 75%{ cy: 70%%; } 100%{ cy: 20%%; } } @keyframes lava2 { 0%{ cy: 70%%; } 25%{ cy: 30%%; } 50%{ cy: 65%%; } 75%{ cy: 35%%; } 100%{ cy: 70%%; } } @keyframes lava3 { 0%{ cy: 40%%; } 25%{ cy: 75%%; } 50%{ cy: 30%%; } 75%{ cy: 60%%; } 100%{ cy: 40%%; } } @keyframes lava4 { 0%{ cy: 60%%; } 25%{ cy: 25%%; } 50%{ cy: 70%%; } 75%{ cy: 40%%; } 100%{ cy: 60%%; } }</style><circle cx="300" cy="400" r="180" fill="rgba(255, 140, 0, 0.4)" filter="url(%23blur)" style="animation: lava1 8s ease-in-out infinite;"/><circle cx="900" cy="400" r="200" fill="rgba(255, 200, 0, 0.35)" filter="url(%23blur)" style="animation: lava2 9s ease-in-out infinite;"/><circle cx="150" cy="800" r="160" fill="rgba(255, 215, 0, 0.3)" filter="url(%23blur)" style="animation: lava3 10s ease-in-out infinite;"/><circle cx="1050" cy="900" r="190" fill="rgba(255, 140, 0, 0.38)" filter="url(%23blur)" style="animation: lava4 11s ease-in-out infinite;"/><circle cx="600" cy="600" r="220" fill="rgba(255, 180, 0, 0.25)" filter="url(%23blur)" style="animation: lava1 12s ease-in-out infinite; animation-delay: 2s;"/></svg>');
-            background-attachment: fixed;
-            background-size: cover;
-            background-repeat: no-repeat;
             color: #ffffff;
             font-family: 'Arial Black', sans-serif;
             margin: 0;
             padding-bottom: 80px; 
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fondo lava lamp animado */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 140, 0, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 60%, rgba(255, 215, 0, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 165, 0, 0.35) 0%, transparent 50%),
+                radial-gradient(circle at 90% 20%, rgba(255, 200, 0, 0.2) 0%, transparent 50%);
+            background-size: 400% 400%;
+            animation: lavaMove 15s ease infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes lavaMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 100% 50%;
+            }
+            50% {
+                background-position: 100% 0%;
+            }
+            75% {
+                background-position: 0% 100%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         /* Cabecera (Header) Fija */
@@ -48,7 +82,6 @@
         .logo-img {
             max-width: 80px;
             height: auto;
-            filter: invert(1); /* Resalta el stencil oscuro */
         }
 
         .logo-text {
@@ -109,6 +142,8 @@
             text-transform: uppercase;
             font-size: 1.1rem;
             margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
         }
 
         .marquee p {
@@ -130,6 +165,8 @@
             padding: 20px 5%;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 10;
         }
 
         /* Tarjeta de Producto */
