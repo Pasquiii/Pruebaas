@@ -11,29 +11,13 @@
     <title>REUP | Underground Resell</title>
     
     <style>
-        /* Base Estética Underground con Fondo de Rayos Amarillo-Naranja VISIBLES */
+        /* Base Estética Underground con Efecto Lava Lamp */
         body {
             background-color: #050505;
-            background-image: 
-                /* Simple brutalist geometric line pattern, amarillo to naranja, más brillates */
-                repeating-linear-gradient(
-                    -45deg,
-                    transparent,
-                    transparent 60px,
-                    rgba(255, 215, 0, 0.25) 60px, /* Amarillo subtle */
-                    rgba(255, 140, 0, 0.4) 62px,  /* Naranja stronger */
-                    transparent 62px
-                ),
-                /* cruzados para un efecto más ruidoso */
-                repeating-linear-gradient(
-                    45deg,
-                    transparent,
-                    transparent 100px,
-                    rgba(255, 215, 0, 0.15) 100px, /* Amarillo suave */
-                    rgba(255, 69, 0, 0.3) 103px, /* Naranja rojizo */
-                    transparent 103px
-                );
-            background-attachment: fixed; /* Hace que el fondo no se mueva al hacer scroll */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200"><defs><filter id="blur"><feGaussianBlur in="SourceGraphic" stdDeviation="3"/></filter></defs><style>@keyframes lava1 { 0%{ cy: 20%%; } 25%{ cy: 60%%; } 50%{ cy: 40%%; } 75%{ cy: 70%%; } 100%{ cy: 20%%; } } @keyframes lava2 { 0%{ cy: 70%%; } 25%{ cy: 30%%; } 50%{ cy: 65%%; } 75%{ cy: 35%%; } 100%{ cy: 70%%; } } @keyframes lava3 { 0%{ cy: 40%%; } 25%{ cy: 75%%; } 50%{ cy: 30%%; } 75%{ cy: 60%%; } 100%{ cy: 40%%; } } @keyframes lava4 { 0%{ cy: 60%%; } 25%{ cy: 25%%; } 50%{ cy: 70%%; } 75%{ cy: 40%%; } 100%{ cy: 60%%; } }</style><circle cx="300" cy="400" r="180" fill="rgba(255, 140, 0, 0.4)" filter="url(%23blur)" style="animation: lava1 8s ease-in-out infinite;"/><circle cx="900" cy="400" r="200" fill="rgba(255, 200, 0, 0.35)" filter="url(%23blur)" style="animation: lava2 9s ease-in-out infinite;"/><circle cx="150" cy="800" r="160" fill="rgba(255, 215, 0, 0.3)" filter="url(%23blur)" style="animation: lava3 10s ease-in-out infinite;"/><circle cx="1050" cy="900" r="190" fill="rgba(255, 140, 0, 0.38)" filter="url(%23blur)" style="animation: lava4 11s ease-in-out infinite;"/><circle cx="600" cy="600" r="220" fill="rgba(255, 180, 0, 0.25)" filter="url(%23blur)" style="animation: lava1 12s ease-in-out infinite; animation-delay: 2s;"/></svg>');
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
             color: #ffffff;
             font-family: 'Arial Black', sans-serif;
             margin: 0;
@@ -349,6 +333,36 @@
         .btn-save { background-color: #FF0000; color: white; border: none; padding: 10px; flex: 1; cursor: pointer; font-weight: bold;}
         .btn-close { background-color: #333; color: white; border: none; padding: 10px; flex: 1; cursor: pointer; }
         .btn-download { background-color: #ffffff; color: #000; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 20px; text-transform: uppercase;}
+
+        /* Sección para subir logo */
+        .logo-upload-section {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .logo-preview {
+            width: 100px;
+            height: 100px;
+            margin-top: 10px;
+            background-color: #000;
+            border: 1px solid #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #logo-file-input {
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -422,6 +436,18 @@
                 <button class="btn-close" onclick="cerrarPanel()">CERRAR</button>
             </div>
 
+            <hr style="border-color: #333; margin: 25px 0;">
+
+            <div class="logo-upload-section">
+                <h3 style="margin-top: 0; color: #FFD700;">🎨 CAMBIAR LOGO</h3>
+                <label>Subir nuevo logo (PNG o JPG):</label>
+                <input type="file" id="logo-file-input" accept="image/*" onchange="handleLogoUpload(event)">
+                <div class="logo-preview">
+                    <img id="logo-preview-img" src="IMG_1846.jpeg" alt="Preview">
+                </div>
+                <button class="btn-save" style="margin-top: 10px;" onclick="saveLogo()">GUARDAR LOGO</button>
+            </div>
+
             <button class="btn-download" onclick="downloadUpdatedHTML()">⬇️ GUARDAR Y DESCARGAR HTML ACTUALIZADO</button>
             <p style="font-size: 0.8rem; color: #666; text-align: center; margin-top: 10px;">Subir este archivo para actualizar caché automáticamente.</p>
         </div>
@@ -444,6 +470,7 @@
 
         let products = [...initialProducts];
         let cart = [];
+        let logoDataURL = "IMG_1846.jpeg";
 
         // --- RENDERIZADO DEL CATÁLOGO ---
         function renderCatalogo() {
@@ -536,6 +563,28 @@
             const encodedText = encodeURIComponent(text);
             const waLink = `https://wa.me/${settings.whatsapp}?text=${encodedText}`;
             window.open(waLink, '_blank');
+        }
+
+        // --- LÓGICA DEL LOGO ---
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    logoDataURL = e.target.result;
+                    document.getElementById('logo-preview-img').src = logoDataURL;
+                    document.querySelector('.logo-img').src = logoDataURL;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveLogo() {
+            if (logoDataURL && logoDataURL !== "IMG_1846.jpeg") {
+                alert("✅ Logo guardado. Se actualizará cuando descargues el HTML.");
+            } else {
+                alert("⚠️ Sube una imagen primero.");
+            }
         }
 
         // --- LÓGICA DEL PANEL ADMIN ---
