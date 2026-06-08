@@ -11,7 +11,7 @@
     <title>REUP | Underground Resell</title>
     
     <style>
-        /* Base Estética Underground con Efecto Lava Lamp CSS Puro */
+        /* Base Estética Underground con Efecto Lava Lamp Profesional */
         body {
             background-color: #050505;
             color: #ffffff;
@@ -22,40 +22,132 @@
             position: relative;
         }
 
-        /* Fondo lava lamp animado */
-        body::before {
-            content: '';
+        /* Contenedor del fondo lava lamp */
+        .lava-lamp-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 140, 0, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 60%, rgba(255, 215, 0, 0.25) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(255, 165, 0, 0.35) 0%, transparent 50%),
-                radial-gradient(circle at 90% 20%, rgba(255, 200, 0, 0.2) 0%, transparent 50%);
-            background-size: 400% 400%;
-            animation: lavaMove 15s ease infinite;
+            background: linear-gradient(180deg, #0a0505 0%, #1a0800 50%, #050505 100%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Burbujas del lava lamp */
+        .bubble {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(1px);
             z-index: -1;
             pointer-events: none;
         }
 
-        @keyframes lavaMove {
+        .bubble1 {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 35% 35%, rgba(255, 200, 100, 0.9), rgba(255, 100, 0, 0.7));
+            animation: float-up 8s ease-in-out infinite;
+            animation-delay: 0s;
+            left: 10%;
+            bottom: -150px;
+            box-shadow: 0 0 40px rgba(255, 140, 0, 0.6);
+        }
+
+        .bubble2 {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 220, 80, 0.85), rgba(255, 165, 0, 0.65));
+            animation: float-up 7s ease-in-out infinite;
+            animation-delay: 1s;
+            right: 15%;
+            bottom: -120px;
+            box-shadow: 0 0 30px rgba(255, 165, 0, 0.5);
+        }
+
+        .bubble3 {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 40% 40%, rgba(255, 180, 60, 0.8), rgba(255, 120, 0, 0.6));
+            animation: float-up 9s ease-in-out infinite;
+            animation-delay: 2s;
+            left: 30%;
+            bottom: -130px;
+            box-shadow: 0 0 35px rgba(255, 140, 0, 0.55);
+        }
+
+        .bubble4 {
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle at 35% 35%, rgba(255, 210, 90, 0.9), rgba(255, 130, 0, 0.7));
+            animation: float-up 7.5s ease-in-out infinite;
+            animation-delay: 3s;
+            right: 20%;
+            bottom: -110px;
+            box-shadow: 0 0 32px rgba(255, 140, 0, 0.5);
+        }
+
+        .bubble5 {
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 240, 100, 0.85), rgba(255, 150, 0, 0.6));
+            animation: float-up 8.5s ease-in-out infinite;
+            animation-delay: 0.5s;
+            left: 50%;
+            bottom: -100px;
+            box-shadow: 0 0 28px rgba(255, 165, 0, 0.45);
+        }
+
+        .bubble6 {
+            width: 110px;
+            height: 110px;
+            background: radial-gradient(circle at 38% 38%, rgba(255, 190, 70, 0.8), rgba(255, 110, 0, 0.65));
+            animation: float-up 8.2s ease-in-out infinite;
+            animation-delay: 2.5s;
+            left: 70%;
+            bottom: -140px;
+            box-shadow: 0 0 38px rgba(255, 140, 0, 0.58);
+        }
+
+        .bubble7 {
+            width: 85px;
+            height: 85px;
+            background: radial-gradient(circle at 32% 32%, rgba(255, 230, 110, 0.88), rgba(255, 140, 0, 0.68));
+            animation: float-up 7.3s ease-in-out infinite;
+            animation-delay: 1.5s;
+            right: 30%;
+            bottom: -120px;
+            box-shadow: 0 0 31px rgba(255, 155, 0, 0.52);
+        }
+
+        @keyframes float-up {
             0% {
-                background-position: 0% 50%;
+                bottom: -150px;
+                opacity: 0.3;
+                transform: scale(0.8);
             }
-            25% {
-                background-position: 100% 50%;
+            15% {
+                opacity: 0.6;
+            }
+            30% {
+                opacity: 0.8;
+                transform: scale(1) translateX(0);
             }
             50% {
-                background-position: 100% 0%;
+                opacity: 1;
+                transform: scale(1.05);
             }
-            75% {
-                background-position: 0% 100%;
+            70% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            85% {
+                opacity: 0.5;
             }
             100% {
-                background-position: 0% 50%;
+                bottom: 110vh;
+                opacity: 0;
+                transform: scale(0.7);
             }
         }
 
@@ -403,6 +495,18 @@
     </style>
 </head>
 <body>
+
+    <!-- Fondo lava lamp -->
+    <div class="lava-lamp-bg"></div>
+    
+    <!-- Burbujas del lava lamp -->
+    <div class="bubble bubble1"></div>
+    <div class="bubble bubble2"></div>
+    <div class="bubble bubble3"></div>
+    <div class="bubble bubble4"></div>
+    <div class="bubble bubble5"></div>
+    <div class="bubble bubble6"></div>
+    <div class="bubble bubble7"></div>
 
     <header>
         <div class="logo-container">
