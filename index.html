@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es"><head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -190,30 +191,33 @@
             align-items: center;
         }
 
-        /* Botón de Instagram */
+        /* Botón de Instagram - Solo icono con colores naranja/amarillo */
         .ig-btn {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px;
             cursor: pointer;
             transition: 0.3s;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            gap: 0;
             font-weight: bold;
             font-size: 0.9rem;
             border-radius: 5px;
+            width: 40px;
+            height: 40px;
         }
 
         .ig-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(224, 148, 51, 0.6);
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.8);
         }
 
         .ig-icon {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
         }
 
         /* Botón del Carrito en el Header */
@@ -351,18 +355,80 @@
             overflow: hidden;
             background-color: #050505;
             margin-bottom: 15px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .img-container:hover {
+            filter: brightness(1.2);
         }
 
         .img-container img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            transition: 0.2s;
+            transition: 0.3s ease;
         }
 
+        /* EFECTO GLITCH INTENSO AL HOVER */
         .img-container:hover img {
-            filter: hue-rotate(90deg) contrast(2);
-            transform: scale(1.05);
+            animation: glitch-effect 0.4s ease infinite;
+            filter: saturate(2) hue-rotate(25deg) contrast(1.3);
+        }
+
+        @keyframes glitch-effect {
+            0% {
+                transform: translate(0, 0) scale(1);
+                filter: saturate(2) hue-rotate(25deg) contrast(1.3);
+            }
+            20% {
+                transform: translate(-2px, -2px) scale(1.05);
+                filter: saturate(2.5) hue-rotate(35deg) contrast(1.4) drop-shadow(3px 0px 0px rgba(255, 215, 0, 0.8));
+            }
+            40% {
+                transform: translate(2px, 2px) scale(1.02);
+                filter: saturate(2) hue-rotate(45deg) contrast(1.3) drop-shadow(-2px 2px 0px rgba(255, 140, 0, 0.8));
+            }
+            60% {
+                transform: translate(-1px, 2px) scale(1.06);
+                filter: saturate(2.5) hue-rotate(30deg) contrast(1.5) drop-shadow(2px -2px 0px rgba(255, 100, 0, 0.8));
+            }
+            80% {
+                transform: translate(2px, -1px) scale(1.03);
+                filter: saturate(2) hue-rotate(40deg) contrast(1.4) drop-shadow(-3px -2px 0px rgba(255, 215, 0, 0.7));
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+                filter: saturate(2) hue-rotate(25deg) contrast(1.3);
+            }
+        }
+
+        .zoom-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 215, 0, 0.9);
+            color: #000;
+            padding: 8px 12px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .img-container:hover .zoom-icon {
+            opacity: 1;
+            animation: zoom-pulse 0.6s ease infinite;
+        }
+
+        @keyframes zoom-pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
         }
 
         .producto h3 {
@@ -394,6 +460,73 @@
         .btn-compra:hover {
             background-color: transparent;
             color: #FF0000;
+        }
+
+        /* Modal de Zoom de Imagen */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .zoom-modal.active {
+            display: flex;
+        }
+
+        .zoom-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .zoom-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            animation: zoom-in 0.3s ease;
+        }
+
+        @keyframes zoom-in {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .zoom-close {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            background-color: transparent;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            font-size: 2rem;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .zoom-close:hover {
+            background-color: #FFD700;
+            color: #000;
+            transform: scale(1.1);
         }
 
         /* ----- CARRITO LATERAL (DRAWER) ----- */
@@ -604,11 +737,10 @@
             <h1 class="logo-text">REUP</h1>
         </div>
         <div class="social-buttons">
-            <a href="" id="ig-link" class="ig-btn" target="_blank">
+            <a href="#" id="ig-link" class="ig-btn" target="_blank" title="Síguenos en Instagram">
                 <svg class="ig-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.251-.149-4.766-1.69-4.916-4.922-.058-1.265-.07-1.645-.07-4.849s.013-3.583.07-4.849c.149-3.227 1.664-4.771 4.916-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"></path>
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.251-.149-4.766-1.69-4.916-4.922-.058-1.265-.07-1.645-.07-4.849s.013-3.583.07-4.849c.149-3.227 1.664-4.771 4.916-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
                 </svg>
-                Instagram
             </a>
             <button class="cart-toggle-btn" onclick="toggleCart()">
                 <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -625,42 +757,27 @@
         <p>🔥 NUEVO DROP 🔥 100% LEGIT 🔥 ENVÍOS A TODO EL PAÍS 🔥 PIEZAS ÚNICAS 🔥 REUP</p>
     </div>
 
-    <div class="categories-bar" id="categories-bar"><button class="category-btn active">TODO</button><button class="category-btn">T-shirts</button></div>
+    <div class="categories-bar" id="categories-bar"></div>
 
-    <main id="catalogo">
-                    <div class="producto">
-                        <div>
-                            <div class="img-container">
-                                <img src="IMG_1846.jpeg" alt="PRENDA DE PRUEBA UNDERGROUND">
-                            </div>
-                            <h3>PRENDA DE PRUEBA UNDERGROUND</h3>
-                            <p style="font-size: 0.8rem; color: #FFD700;">Sin categoría</p>
-                            <div class="precio">$120.00</div>
-                        </div>
-                        <button class="btn-compra" onclick="addToCart(1)">+ CARRITO</button>
-                    </div>
-                
-                    <div class="producto">
-                        <div>
-                            <div class="img-container">
-                                <img src="https://cdn.phototourl.com/member/2026-06-08-97207200-1a74-4121-bf3d-ad9a739613b9.webp" alt="All Saints White ">
-                            </div>
-                            <h3>All Saints White </h3>
-                            <p style="font-size: 0.8rem; color: #FFD700;">T-shirts</p>
-                            <div class="precio">$100.00</div>
-                        </div>
-                        <button class="btn-compra" onclick="addToCart(1780885396190)">+ CARRITO</button>
-                    </div>
-                </main>
+    <main id="catalogo"></main>
 
-    <div id="cart-modal" style="display: none;">
+    <!-- Modal de Zoom -->
+    <div class="zoom-modal" id="zoom-modal">
+        <div class="zoom-content">
+            <img id="zoom-image" src="" alt="Zoom">
+            <button class="zoom-close" onclick="closeZoom()">✕</button>
+        </div>
+    </div>
+
+    <div id="cart-modal">
         <div class="cart-content">
             <div class="cart-header">
                 <h2>TU CARRITO</h2>
                 <button class="close-cart" onclick="toggleCart()">✖</button>
             </div>
             
-            <div id="cart-items-container" style="flex-grow: 1; overflow-y: auto;"><p style="color:#666; text-align:center; margin-top:50px;">El carrito está vacío.</p></div>
+            <div id="cart-items-container" style="flex-grow: 1; overflow-y: auto;">
+                </div>
 
             <div class="cart-footer">
                 <div class="cart-total">
@@ -676,7 +793,7 @@
         <button class="btn-admin" onclick="accederPanel()">[ CONFIG ]</button>
     </footer>
 
-    <div id="admin-panel" style="display: none;">
+    <div id="admin-panel">
         <div class="admin-content">
             <h2>⚙️ SISTEMA REUP</h2>
             
@@ -695,10 +812,7 @@
             <button class="btn-save" onclick="agregarCategoria()" style="margin-top: 10px;">+ AGREGAR CATEGORÍA</button>
 
             <h3>Categorías Actuales:</h3>
-            <div class="categories-list" id="categories-list"><div class="category-item">
-                    <span>T-shirts</span>
-                    <button class="btn-delete-cat" onclick="eliminarCategoria(0)">ELIMINAR</button>
-                </div></div>
+            <div class="categories-list" id="categories-list"></div>
 
             <hr style="border-color: #333; margin: 25px 0;">
 
@@ -710,7 +824,9 @@
             <input type="number" id="prod-price" placeholder="Ej. 150">
             
             <label>Categoría:</label>
-            <select id="prod-category" style="width: 100%; padding: 10px; margin-top: 5px; background-color: #000; border: 1px solid #444; color: white; box-sizing: border-box;"><option value="">Seleccionar categoría</option><option value="T-shirts">T-shirts</option></select>
+            <select id="prod-category" style="width: 100%; padding: 10px; margin-top: 5px; background-color: #000; border: 1px solid #444; color: white; box-sizing: border-box;">
+                <option value="">Seleccionar categoría</option>
+            </select>
             
             <label style="margin-top: 15px;">Imagen (URL o Nombre de archivo):</label>
             <input type="text" id="prod-img" value="IMG_1846.jpeg" placeholder="Ej. foto1.png">
@@ -739,33 +855,20 @@
 
     <script>
         // --- VARIABLES GLOBALES Y ANTI-CACHÉ ---
-        const STORE_VERSION_TIMESTAMP = 1780885525486;
+        const STORE_VERSION_TIMESTAMP = 1718000000000;
 
         /* START_SETTINGS_JSON */
-        let settings = {"whatsapp":"584120000000","instagram":""};
+        let settings = {"whatsapp": "584120000000", "instagram": ""};
         /* END_SETTINGS_JSON */
 
         /* START_CATEGORIES_ARRAY */
-        const initialCategories = ["T-shirts"];
+        const initialCategories = [];
         /* END_CATEGORIES_ARRAY */
 
         /* START_PRODUCTS_ARRAY */
         const initialProducts = [
-    {
-        "id": 1,
-        "name": "PRENDA DE PRUEBA UNDERGROUND",
-        "price": 120,
-        "img": "IMG_1846.jpeg",
-        "category": ""
-    },
-    {
-        "id": 1780885396190,
-        "name": "All Saints White ",
-        "price": 100,
-        "img": "https://cdn.phototourl.com/member/2026-06-08-97207200-1a74-4121-bf3d-ad9a739613b9.webp",
-        "category": "T-shirts"
-    }
-];
+            { "id": 1, "name": "PRENDA DE PRUEBA UNDERGROUND", "price": 120, "img": "IMG_1846.jpeg", "category": "" }
+        ];
         /* END_PRODUCTS_ARRAY */
 
         let categories = [...initialCategories];
@@ -773,6 +876,34 @@
         let cart = [];
         let logoDataURL = "IMG_1846.jpeg";
         let currentFilter = "";
+
+        // --- FUNCIÓN DE ZOOM ---
+        function openZoom(imgSrc) {
+            const modal = document.getElementById('zoom-modal');
+            const zoomImg = document.getElementById('zoom-image');
+            zoomImg.src = imgSrc;
+            modal.classList.add('active');
+        }
+
+        function closeZoom() {
+            const modal = document.getElementById('zoom-modal');
+            modal.classList.remove('active');
+        }
+
+        // Cerrar modal al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('zoom-modal');
+            if (event.target === modal) {
+                closeZoom();
+            }
+        });
+
+        // Cerrar zoom con tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeZoom();
+            }
+        });
 
         // --- RENDERIZAR CATEGORÍAS ---
         function renderCategories() {
@@ -881,8 +1012,9 @@
                 catalogo.innerHTML += `
                     <div class="producto">
                         <div>
-                            <div class="img-container">
+                            <div class="img-container" onclick="openZoom('${p.img}')">
                                 <img src="${p.img}" alt="${p.name}">
+                                <div class="zoom-icon">🔍</div>
                             </div>
                             <h3>${p.name}</h3>
                             <p style="font-size: 0.8rem; color: #FFD700;">${p.category || 'Sin categoría'}</p>
@@ -1070,5 +1202,5 @@
             document.getElementById('ig-link').href = settings.instagram;
         };
     </script>
-
-</body></html>
+</body>
+</html>
