@@ -17,33 +17,68 @@
             color: #ffffff;
             font-family: 'Arial Black', sans-serif;
             margin: 0;
-            padding-bottom: 80px; /* Espacio para el footer */
+            padding-bottom: 80px; 
+            overflow-x: hidden;
         }
 
-        /* Cabecera y Logo */
+        /* Cabecera (Header) Fija */
         header {
-            text-align: center;
-            padding: 30px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #000;
+            border-bottom: 2px solid #222;
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
         .logo-img {
-            max-width: 250px;
+            max-width: 80px;
             filter: invert(1); /* Resalta el stencil oscuro */
+        }
+
+        /* Botón del Carrito en el Header */
+        .cart-toggle-btn {
+            background-color: transparent;
+            color: #FF0000;
+            border: 2px solid #FF0000;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-toggle-btn:hover {
+            background-color: #FF0000;
+            color: #fff;
+        }
+
+        .cart-badge {
+            background-color: white;
+            color: black;
+            padding: 2px 8px;
+            border-radius: 50%;
+            font-size: 0.9rem;
         }
 
         /* Cinta de texto (Marquee) */
         .marquee {
             overflow: hidden;
             white-space: nowrap;
-            border-top: 3px solid #FF0000;
             border-bottom: 3px solid #FF0000;
-            padding: 15px 0;
-            margin-bottom: 40px;
+            padding: 10px 0;
             background-color: #000;
             color: #FF0000;
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
         }
 
         .marquee p {
@@ -74,6 +109,9 @@
             padding: 20px;
             text-align: center;
             transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .producto:hover {
@@ -105,7 +143,7 @@
         }
 
         .producto h3 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin: 10px 0;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -113,7 +151,7 @@
 
         .precio {
             color: #FF0000;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 15px;
         }
 
@@ -136,6 +174,76 @@
             color: #FF0000;
         }
 
+        /* ----- CARRITO LATERAL (DRAWER) ----- */
+        #cart-modal {
+            display: none;
+            position: fixed;
+            top: 0; right: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: flex-end;
+        }
+
+        .cart-content {
+            background-color: #0a0a0a;
+            border-left: 4px solid #FF0000;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #222;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .cart-header h2 { margin: 0; color: #FF0000; }
+        .close-cart { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            padding: 15px 0;
+        }
+
+        .cart-item-info h4 { margin: 0 0 5px 0; font-size: 0.9rem; }
+        .cart-item-info p { margin: 0; color: #FF0000; font-weight: bold; }
+        
+        .btn-remove { background: #222; color: white; border: 1px solid #444; padding: 5px 10px; cursor: pointer; font-size: 0.8rem; }
+        .btn-remove:hover { background: #FF0000; border-color: #FF0000; }
+
+        .cart-footer {
+            margin-top: auto;
+            border-top: 2px solid #222;
+            padding-top: 20px;
+        }
+
+        .cart-total { display: flex; justify-content: space-between; font-size: 1.5rem; margin-bottom: 20px; font-weight: bold; }
+
+        .btn-whatsapp {
+            background-color: #25D366; /* Verde WhatsApp */
+            color: black;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .btn-whatsapp:hover { background-color: #1ebe5d; }
+
         /* Footer con Panel de Control */
         footer {
             position: fixed;
@@ -143,34 +251,30 @@
             width: 100%;
             background-color: #000;
             border-top: 2px solid #222;
-            padding: 15px;
+            padding: 10px;
             text-align: center;
-            z-index: 100;
+            z-index: 40;
         }
 
         .btn-admin {
-            background-color: #222;
-            color: #888;
-            border: 1px solid #444;
-            padding: 8px 20px;
+            background-color: #111;
+            color: #555;
+            border: 1px solid #333;
+            padding: 5px 15px;
             font-family: monospace;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             transition: 0.3s;
         }
-
-        .btn-admin:hover {
-            color: #FF0000;
-            border-color: #FF0000;
-        }
+        .btn-admin:hover { color: #FF0000; border-color: #FF0000; }
 
         /* Modal Panel de Control */
         #admin-panel {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            z-index: 999;
+            background-color: rgba(0,0,0,0.95);
+            z-index: 9999;
             align-items: center;
             justify-content: center;
         }
@@ -183,40 +287,73 @@
             max-width: 500px;
             color: white;
             text-align: left;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
-        .admin-content h2 { margin-top: 0; color: #FF0000; }
+        .admin-content h2 { margin-top: 0; color: #FF0000; border-bottom: 1px solid #333; padding-bottom: 10px;}
+        .admin-content label { display: block; margin-top: 15px; font-size: 0.9rem; color: #aaa;}
         .admin-content input {
-            width: 100%; padding: 10px; margin-bottom: 15px;
-            background-color: #222; border: 1px solid #444; color: white;
-            box-sizing: border-box;
+            width: 100%; padding: 10px; margin-top: 5px;
+            background-color: #000; border: 1px solid #444; color: white;
+            box-sizing: border-box; font-family: monospace;
         }
         
-        .admin-btns { display: flex; gap: 10px; margin-top: 20px; }
+        .admin-btns { display: flex; gap: 10px; margin-top: 25px; }
         .btn-save { background-color: #FF0000; color: white; border: none; padding: 10px; flex: 1; cursor: pointer; font-weight: bold;}
-        .btn-close { background-color: #444; color: white; border: none; padding: 10px; flex: 1; cursor: pointer; }
-        .btn-download { background-color: #39FF14; color: #000; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 15px; text-transform: uppercase;}
+        .btn-close { background-color: #333; color: white; border: none; padding: 10px; flex: 1; cursor: pointer; }
+        .btn-download { background-color: #ffffff; color: #000; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 20px; text-transform: uppercase;}
     </style>
 </head>
 <body>
 
     <header>
         <img src="IMG_1846.jpeg" alt="Logo ReupVz" class="logo-img">
+        <button class="cart-toggle-btn" onclick="toggleCart()">
+            CART <span id="cart-count" class="cart-badge">0</span>
+        </button>
     </header>
 
     <div class="marquee">
-        <p>🔥 NUEVO DROP 🔥 100% LEGIT 🔥 ENVÍOS A NIVEL NACIONAL 🔥 PIEZAS ÚNICAS 🔥 REUPVZ</p>
+        <p>🔥 NUEVO DROP 🔥 100% LEGIT 🔥 ENVÍOS A TODO EL PAÍS 🔥 PIEZAS ÚNICAS 🔥 REUPVZ</p>
     </div>
 
     <main id="catalogo"></main>
 
+    <div id="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>TU CARRITO</h2>
+                <button class="close-cart" onclick="toggleCart()">✖</button>
+            </div>
+            
+            <div id="cart-items-container" style="flex-grow: 1; overflow-y: auto;">
+                </div>
+
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>TOTAL:</span>
+                    <span id="cart-total-price">$0.00</span>
+                </div>
+                <button class="btn-whatsapp" onclick="checkoutWhatsApp()">PAGAR VÍA WHATSAPP</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
-        <button class="btn-admin" onclick="accederPanel()">[ ADMIN PANEL ]</button>
+        <button class="btn-admin" onclick="accederPanel()">[ CONFIG ]</button>
     </footer>
 
     <div id="admin-panel">
         <div class="admin-content">
-            <h2>⚙️ SUBIR PRENDA</h2>
+            <h2>⚙️ SISTEMA REUPVZ</h2>
+            
+            <label>WhatsApp de la Tienda (Ej: 584120000000):</label>
+            <input type="text" id="cfg-whatsapp" placeholder="Número con código de país">
+
+            <hr style="border-color: #333; margin: 25px 0;">
+
+            <h2>🔥 AÑADIR PRENDA</h2>
             <label>Nombre de la Pieza:</label>
             <input type="text" id="prod-name" placeholder="Ej. Supreme Bogo Hoodie">
             
@@ -224,34 +361,36 @@
             <input type="number" id="prod-price" placeholder="Ej. 150">
             
             <label>Imagen (URL o Nombre de archivo):</label>
-            <input type="text" id="prod-img" value="IMG_1846.jpeg" placeholder="Ej. foto1.png o https://...">
+            <input type="text" id="prod-img" value="IMG_1846.jpeg" placeholder="Ej. foto1.png">
 
             <div class="admin-btns">
-                <button class="btn-save" onclick="agregarProducto()">AÑADIR AL DROP</button>
+                <button class="btn-save" onclick="agregarProducto()">AÑADIR</button>
                 <button class="btn-close" onclick="cerrarPanel()">CERRAR</button>
             </div>
 
-            <hr style="border-color: #333; margin: 20px 0;">
-            
-            <button class="btn-download" onclick="downloadUpdatedHTML()">⬇️ DESCARGAR HTML ACTUALIZADO</button>
-            <p style="font-size: 0.8rem; color: #888; text-align: center; margin-top: 10px;">Descarga para subir a CloudPages y aplicar el Anti-Caché</p>
+            <button class="btn-download" onclick="downloadUpdatedHTML()">⬇️ GUARDAR Y DESCARGAR HTML</button>
         </div>
     </div>
 
     <script>
-        // --- SISTEMA DE VERSIONES ANTI-CACHÉ ---
+        // --- VARIABLES GLOBALES Y ANTI-CACHÉ ---
         const STORE_VERSION_TIMESTAMP = 1718000000000; 
 
-        // --- BASE DE DATOS DE PRODUCTOS ---
+        /* START_SETTINGS_JSON */
+        let settings = {"whatsapp": "584120000000"};
+        /* END_SETTINGS_JSON */
+
+        // --- INVENTARIO DE PRODUCTOS ---
         /* START_PRODUCTS_ARRAY */
         const initialProducts = [
-            { id: 1, name: "PRENDA DE PRUEBA", price: 50, img: "IMG_1846.jpeg" }
+            { "id": 1, "name": "PRENDA DE PRUEBA UNDERGROUND", "price": 120, "img": "IMG_1846.jpeg" }
         ];
         /* END_PRODUCTS_ARRAY */
 
         let products = [...initialProducts];
+        let cart = [];
 
-        // Función para dibujar los productos en la pantalla
+        // --- RENDERIZADO DEL CATÁLOGO ---
         function renderCatalogo() {
             const catalogo = document.getElementById('catalogo');
             catalogo.innerHTML = "";
@@ -259,21 +398,96 @@
             products.forEach(p => {
                 catalogo.innerHTML += `
                     <div class="producto">
-                        <div class="img-container">
-                            <img src="${p.img}" alt="${p.name}">
+                        <div>
+                            <div class="img-container">
+                                <img src="${p.img}" alt="${p.name}">
+                            </div>
+                            <h3>${p.name}</h3>
+                            <div class="precio">$${p.price.toFixed(2)}</div>
                         </div>
-                        <h3>${p.name}</h3>
-                        <div class="precio">$${p.price}</div>
-                        <button class="btn-compra">AÑADIR AL CARRITO</button>
+                        <button class="btn-compra" onclick="addToCart(${p.id})">+ CARRITO</button>
                     </div>
                 `;
             });
         }
 
-        // Seguridad Básica del Panel
+        // --- LÓGICA DEL CARRITO ---
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+            if(modal.style.display === 'flex') renderCart();
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                cart.push(product);
+                updateCartCount();
+                alert(`🔥 ${product.name} añadido al carrito.`);
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            renderCart();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const totalEl = document.getElementById('cart-total-price');
+            container.innerHTML = "";
+            let total = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = "<p style='color:#666; text-align:center; margin-top:50px;'>El carrito está vacío.</p>";
+            } else {
+                cart.forEach((item, index) => {
+                    total += parseFloat(item.price);
+                    container.innerHTML += `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <h4>${item.name}</h4>
+                                <p>$${parseFloat(item.price).toFixed(2)}</p>
+                            </div>
+                            <button class="btn-remove" onclick="removeFromCart(${index})">QUITAR</button>
+                        </div>
+                    `;
+                });
+            }
+            totalEl.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("Agrega artículos al carrito primero.");
+                return;
+            }
+
+            let text = "🔥 *NUEVA ORDEN - REUPVZ* 🔥\n\n";
+            let total = 0;
+
+            cart.forEach(item => {
+                text += `▪️ ${item.name} - $${item.price}\n`;
+                total += parseFloat(item.price);
+            });
+
+            text += `\n*TOTAL: $${total.toFixed(2)}*`;
+
+            const encodedText = encodeURIComponent(text);
+            const waLink = `https://wa.me/${settings.whatsapp}?text=${encodedText}`;
+            window.open(waLink, '_blank');
+        }
+
+        // --- LÓGICA DEL PANEL ADMIN ---
         function accederPanel() {
-            let pass = prompt("Contraseña de Acceso:");
+            let pass = prompt("Contraseña de Acceso (Por defecto: reupvz123):");
             if (pass === "reupvz123") {
+                document.getElementById('cfg-whatsapp').value = settings.whatsapp;
                 document.getElementById('admin-panel').style.display = 'flex';
             } else if (pass !== null) {
                 alert("Acceso Denegado 🛑");
@@ -284,7 +498,6 @@
             document.getElementById('admin-panel').style.display = 'none';
         }
 
-        // Agregar nueva prenda
         function agregarProducto() {
             const name = document.getElementById('prod-name').value;
             const price = document.getElementById('prod-price').value;
@@ -298,34 +511,41 @@
             if(!img) img = "IMG_1846.jpeg";
 
             const newId = Date.now();
-            products.push({ id: newId, name: name, price: price, img: img });
+            products.push({ id: newId, name: name, price: parseFloat(price), img: img });
             
             renderCatalogo();
-            alert("Prenda añadida al catálogo. ¡No olvides descargar el HTML para guardar!");
+            alert("🔥 Prenda añadida al catálogo.");
             
-            // Limpiar inputs
             document.getElementById('prod-name').value = "";
             document.getElementById('prod-price').value = "";
         }
 
         // --- SISTEMA DE HORNEADO (BAKING) Y ANTI-CACHÉ ---
         function downloadUpdatedHTML() {
-            // 1. Ocultar panel antes de "tomar la foto" del código
+            // Actualizar configuraciones antes de guardar
+            settings.whatsapp = document.getElementById('cfg-whatsapp').value.replace(/\D/g,'') || settings.whatsapp;
+
+            // 1. Ocultar panel antes de descargar
             cerrarPanel();
 
-            // 2. Extraer todo el HTML actual de la página
+            // 2. Extraer todo el HTML
             let htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 
-            // 3. Generar un nuevo número de serie anti-caché
+            // 3. Generar nuevo Timestamp Anti-Caché
             const newVersion = Date.now();
             htmlContent = htmlContent.replace(/const STORE_VERSION_TIMESTAMP = \d+;/, `const STORE_VERSION_TIMESTAMP = ${newVersion};`);
 
-            // 4. Inyectar el inventario actual permanentemente en el código fuente
+            // 4. Inyectar configuraciones
+            const settingsStr = JSON.stringify(settings);
+            const regexSettings = /\/\* START_SETTINGS_JSON \*\/[\s\S]*?\/\* END_SETTINGS_JSON \*\//;
+            htmlContent = htmlContent.replace(regexSettings, `/* START_SETTINGS_JSON */\n        let settings = ${settingsStr};\n        /* END_SETTINGS_JSON */`);
+
+            // 5. Inyectar productos permanentemente
             const productsJSON = JSON.stringify(products, null, 4);
             const regex = /\/\* START_PRODUCTS_ARRAY \*\/[\s\S]*?\/\* END_PRODUCTS_ARRAY \*\//;
             htmlContent = htmlContent.replace(regex, `/* START_PRODUCTS_ARRAY */\n        const initialProducts = ${productsJSON};\n        /* END_PRODUCTS_ARRAY */`);
 
-            // 5. Descargar el archivo
+            // 6. Descargar el archivo
             const blob = new Blob([htmlContent], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -335,7 +555,7 @@
             URL.revokeObjectURL(url);
         }
 
-        // Inicializar la página
+        // Inicializar
         window.onload = function() {
             renderCatalogo();
         };
