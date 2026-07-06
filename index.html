@@ -2,327 +2,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fire Hits TCG - Tienda Pokémon</title>
+    <title>FIRE HITS TCG</title>
     <meta name="description" content="Cartas Pokémon TCG originales en Venezuela. Productos sellados, singles y accesorios con envío a todo el país.">
     <meta property="og:title" content="Fire Hits TCG - Tienda Pokémon">
     <meta property="og:description" content="Sellado original, accesorios y próximos lanzamientos Pokémon.">
     <meta property="og:image" content="https://cdn.phototourl.com/member/2026-06-22-8b978832-e8ad-4f33-923e-f2eb146af21a.png">
     <meta property="og:url" content="https://firehitstcg.pages.dev">
     <meta property="og:type" content="website">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Fire Hits TCG","url":"https://firehitstcg.pages.dev","logo":"https://cdn.phototourl.com/member/2026-06-22-8b978832-e8ad-4f33-923e-f2eb146af21a.png","description":"Tienda Pokémon especializada en sellado, accesorios y próximos lanzamientos.","telephone":"+584243178117","areaServed":"VE","priceRange":"$$"}</script>
     <meta name="google-site-verification" content="RuqHbAbAhYulyZj9qKV2Ygi5hobZ1R8zq2TCo7ZpmRo">
     <link rel="icon" type="image/png" href="https://cdn.phototourl.com/member/2026-06-22-8b978832-e8ad-4f33-923e-f2eb146af21a.png">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{brand:{50:'#FFF7ED',100:'#FFEDD5',200:'#FED7AA',400:'#FB923C',500:'#F97316',600:'#EA580C',700:'#C2410C'}}}}}</script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 'display': ['Anton', 'sans-serif'] },
+                    colors: {
+                        'fh-orange': '#FF5A00',
+                        'fh-pink': '#FF006E',
+                        'fh-purple': '#8338EC',
+                        'fh-black': '#0D0D0D'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background: #FAFAF8; color: #0F172A; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0D0D0D;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+        }
+        .font-display { font-family: 'Anton', sans-serif; letter-spacing: 0.02em; }
 
         ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #F1F5F9; }
-        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #1A1A1A; }
+        ::-webkit-scrollbar-thumb { background: #FF5A00; border-radius: 3px; }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        .product-card { opacity: 0; transform: translateY(16px); }
-        .product-card.revealed { animation: fadeUp 0.4s ease forwards; }
-        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(16px); } 100% { opacity: 1; transform: translateY(0); } }
+        .product-card { opacity: 0; transform: translateY(30px) scale(0.95); }
+        .product-card.revealed { animation: popUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        @keyframes popUp { 0% { opacity: 0; transform: translateY(30px) scale(0.95); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
-        .zoom-modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.9); }
+        .zoom-modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.95); }
         .zoom-modal.active { display: flex; align-items: center; justify-content: center; }
         .zoom-modal-content { max-width: 90vw; max-height: 90vh; }
         .zoom-modal-content img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .close-zoom { position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; cursor: pointer; }
-        .close-zoom:hover { color: #EA580C; }
+        .close-zoom { position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; cursor: pointer; z-index: 10; }
+        .close-zoom:hover { color: #FF006E; }
 
         #detail-modal { transition: opacity 0.25s ease; }
         #detail-modal.hide-panel { opacity: 0 !important; pointer-events: none !important; }
-        #detail-modal > div { transition: transform 0.25s ease; }
+        #detail-modal > div { transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
         #detail-modal.hide-panel > div { transform: translateX(100%) !important; }
         #detail-main-image { touch-action: pan-y; user-select: none; overflow: hidden; }
         #detail-main-image.zoomed { touch-action: none; cursor: grab; }
         #detail-main-image.zoomed:active { cursor: grabbing; }
         #detail-main-img.switching { opacity: 0; transform: scale(0.9) !important; }
-        .zoom-indicator { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.5); color: white; border: none; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
-        .zoom-indicator:hover { background: rgba(0,0,0,0.75); }
+        .zoom-indicator { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.6); color: white; border: none; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+        .zoom-indicator:hover { background: #FF5A00; }
 
         #cart-drawer.hide-panel, #admin-modal.hide-panel, #detail-modal.hide-panel { opacity: 0 !important; pointer-events: none !important; }
         #cart-drawer.hide-panel > div, #admin-modal.hide-panel > div, #detail-modal.hide-panel > div { transform: translateX(100%) !important; }
         #password-modal.hide-panel, #confirm-modal.hide-panel { display: none !important; opacity: 0 !important; }
 
-        .product-thumb { cursor: zoom-in; transition: transform 0.2s; }
-        .product-card:hover .product-thumb { transform: scale(1.02); }
+        .product-thumb { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+        .product-card:hover .product-thumb { transform: scale(1.06); }
 
-        #toast { transition: all 0.3s ease; }
+        #toast { transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
 
-        .cat-card { transition: all 0.25s ease; }
-        .cat-card:hover { transform: translateY(-2px); }
+        .glow-hover { transition: all 0.3s ease; }
+        .glow-hover:hover { box-shadow: 0 0 25px rgba(255, 90, 0, 0.3); }
 
-        @keyframes pulse-subtle { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-        .preorder-badge { animation: pulse-subtle 2.5s ease-in-out infinite; }
+        .cat-chip { transition: all 0.2s ease; }
+        .cat-chip:hover { transform: translateY(-2px); }
+
+        .hero-float { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        .bg-grid { background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px; }
+
+        .section-divider { height: 4px; background: linear-gradient(90deg, #FF5A00, #FF006E, #8338EC); }
     </style>
 </head>
 <body>
 
     <!-- TOP BAR -->
-    <div class="bg-[#0F172A] text-white text-[11px] py-2 px-4 text-center font-medium tracking-wide">
+    <div class="bg-[#FF5A00] text-black font-bold text-xs py-2 px-4 text-center tracking-wider">
         <span class="inline-flex items-center justify-center gap-5 sm:gap-8">
-            <span><i class="fa-solid fa-truck mr-1.5 text-orange-400"></i>Envíos a todo Venezuela</span>
-            <span><i class="fa-solid fa-shield-check mr-1.5 text-orange-400"></i>100% Original</span>
-            <span><i class="fa-solid fa-credit-card mr-1.5 text-orange-400"></i>Paga en $ o Bs.</span>
+            <span>🚀 ENVÍOS A TODO VENEZUELA</span>
+            <span class="hidden sm:inline">⚡ 100% ORIGINAL</span>
+            <span>💎 PAGA EN $ O BS.</span>
         </span>
     </div>
 
     <!-- HEADER -->
-    <header class="sticky top-0 z-40 bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
-            <a href="#" class="flex items-center gap-2.5 shrink-0">
-                <div class="w-9 h-9 rounded-lg overflow-hidden border border-orange-200 flex items-center justify-center bg-white">
+    <header class="sticky top-0 z-40 bg-[#0D0D0D] border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg overflow-hidden border-2 border-[#FF5A00] flex items-center justify-center bg-black">
                     <img id="store-logo" src="logo.png" alt="Fire Hits TCG" class="w-full h-full object-cover" onerror="this.style.display='none';document.getElementById('logo-fallback').classList.remove('hidden')">
-                    <div id="logo-fallback" class="hidden text-orange-500"><i class="fa-solid fa-fire"></i></div>
+                    <div id="logo-fallback" class="hidden text-[#FF5A00] text-lg"><i class="fa-solid fa-fire"></i></div>
                 </div>
-                <div>
-                    <span class="text-sm font-black text-gray-900 tracking-tight">FIRE HITS</span>
-                    <span class="text-[8px] font-semibold text-orange-500 tracking-widest block -mt-0.5">TCG STORE</span>
-                </div>
+                <span class="font-display text-xl text-white tracking-wider">FIRE HITS</span>
             </a>
 
-            <nav class="hidden md:flex items-center gap-6">
-                <a href="#catalogo" class="text-sm font-semibold text-gray-500 hover:text-orange-600 transition-colors">Catálogo</a>
-                <a href="#categorias" class="text-sm font-semibold text-gray-500 hover:text-orange-600 transition-colors">Categorías</a>
-                <a href="#como-comprar" class="text-sm font-semibold text-gray-500 hover:text-orange-600 transition-colors">Cómo Comprar</a>
-                <a href="https://wa.me/584243178117" target="_blank" class="text-sm font-semibold text-gray-500 hover:text-green-600 transition-colors">Contacto</a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#catalogo" class="text-sm font-bold text-white/60 hover:text-[#FF5A00] transition-colors uppercase tracking-wider">Catálogo</a>
+                <a href="#categorias" class="text-sm font-bold text-white/60 hover:text-[#FF5A00] transition-colors uppercase tracking-wider">Categorías</a>
+                <a href="#como-comprar" class="text-sm font-bold text-white/60 hover:text-[#FF5A00] transition-colors uppercase tracking-wider">Cómo Comprar</a>
+                <a href="https://wa.me/584243178117" target="_blank" class="text-sm font-bold text-white/60 hover:text-[#FF006E] transition-colors uppercase tracking-wider">Contacto</a>
             </nav>
 
-            <div class="flex items-center gap-1.5">
-                <a id="insta-link-header" href="https://www.instagram.com/firehits.tcg" target="_blank" class="w-8 h-8 rounded-lg bg-gray-100 hover:bg-pink-100 flex items-center justify-center text-gray-400 hover:text-pink-600 transition-all">
-                    <i class="fa-brands fa-instagram text-sm"></i>
+            <div class="flex items-center gap-2">
+                <a id="insta-link-header" href="https://www.instagram.com/firehits.tcg" target="_blank" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-[#FF006E]/20 flex items-center justify-center text-white/40 hover:text-[#FF006E] transition-all border border-white/10">
+                    <i class="fa-brands fa-instagram"></i>
                 </a>
-                <button onclick="toggleCart()" class="relative w-8 h-8 rounded-lg bg-gray-100 hover:bg-orange-100 flex items-center justify-center text-gray-400 hover:text-orange-600 transition-all">
-                    <i class="fa-solid fa-bag-shopping text-sm"></i>
-                    <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-orange-600 text-white text-[10px] font-bold rounded-full h-4.5 w-4.5 flex items-center justify-center border border-white hidden">0</span>
+                <button onclick="toggleCart()" class="relative w-9 h-9 rounded-lg bg-white/5 hover:bg-[#FF5A00]/20 flex items-center justify-center text-white/40 hover:text-[#FF5A00] transition-all border border-white/10">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-[#FF5A00] text-black text-[10px] font-black rounded-full h-5 w-5 flex items-center justify-center border-2 border-black hidden">0</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <main class="w-full">
+    <main>
 
-        <!-- HERO -->
-        <section class="bg-white border-b border-gray-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20">
-                <div class="max-w-2xl">
-                    <span class="inline-flex items-center gap-1.5 bg-orange-50 text-orange-700 font-semibold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-4">
-                        <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                        Nueva Colección 2026
-                    </span>
-                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-gray-900 mb-3 leading-[1.15]">
-                        Pokémon TCG <span class="text-orange-600">original</span><br>
-                        <span class="text-gray-600">directo a tu casa</span>
-                    </h1>
-                    <p class="text-gray-500 text-sm sm:text-base mb-7 leading-relaxed max-w-lg">
-                        Productos <strong class="text-gray-900">100% originales</strong> desde EE.UU. y Japón. 
-                        Entregas en Caracas y envíos a todo Venezuela.
-                    </p>
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-500 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm shadow-sm">
-                            <i class="fa-solid fa-fire"></i>
-                            Explorar Catálogo
-                        </button>
-                        <a href="https://wa.me/584243178117" target="_blank" class="inline-flex items-center gap-2 bg-white hover:bg-green-50 text-gray-700 border border-gray-200 hover:border-green-300 font-semibold px-6 py-3 rounded-xl transition-all text-sm">
-                            <i class="fa-brands fa-whatsapp text-green-500"></i>
-                            WhatsApp Directo
-                        </a>
+        <!-- HERO - Color block split -->
+        <section class="relative overflow-hidden">
+            <div class="absolute inset-0 bg-grid opacity-50"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-28">
+                <div class="grid lg:grid-cols-2 gap-10 items-center">
+                    <div class="relative z-10">
+                        <span class="inline-flex items-center gap-2 bg-[#FF5A00] text-black font-bold text-xs uppercase tracking-widest px-4 py-1.5 mb-5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-black"></span>
+                            COLECCIÓN 2026
+                        </span>
+                        <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.05] mb-4">
+                            FIRE<br>
+                            <span class="text-[#FF5A00]">HITS</span>
+                            <span class="block text-3xl sm:text-4xl lg:text-5xl text-white/60 mt-1">ORIGINAL TCG</span>
+                        </h1>
+                        <p class="text-white/50 text-base sm:text-lg mb-8 max-w-md leading-relaxed font-medium">
+                            Pokémon TCG 100% original desde EE.UU. y Japón. 
+                            Entregas en Caracas y envíos a todo Venezuela.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="inline-flex items-center gap-2 bg-[#FF5A00] hover:bg-[#E55000] text-black font-black px-8 py-4 transition-all text-sm uppercase tracking-wider glow-hover">
+                                <i class="fa-solid fa-fire"></i>
+                                EXPLORAR
+                            </button>
+                            <a href="https://wa.me/584243178117" target="_blank" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white border border-white/20 hover:border-white/40 font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
+                                <i class="fa-brands fa-whatsapp text-[#FF006E]"></i>
+                                WHATSAPP
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative hidden lg:flex items-center justify-center">
+                        <div class="w-80 h-80 bg-gradient-to-br from-[#FF5A00]/30 via-[#FF006E]/20 to-[#8338EC]/30 rounded-full blur-3xl absolute"></div>
+                        <div class="relative bg-[#1A1A1A] border border-white/10 p-8 hero-float">
+                            <img src="https://cdn.phototourl.com/free/2026-06-01-7c516015-8711-40d6-b1eb-941f123eabf2.png" alt="Destined Rivals" class="w-64 h-64 object-contain drop-shadow-2xl">
+                            <div class="absolute -bottom-3 -right-3 bg-[#FF5A00] text-black font-black text-xs px-3 py-1.5 uppercase tracking-wider">
+                                DESTACADO
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- TRUST BADGES -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 -mt-5 relative z-10 mb-10">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div class="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-3 shadow-sm">
-                    <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-shield-check text-lg text-orange-600"></i>
+        <div class="section-divider"></div>
+
+        <!-- TRUST STRIP -->
+        <section class="bg-[#1A1A1A] border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-5">
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div class="flex flex-col items-center gap-1">
+                        <i class="fa-solid fa-shield-check text-[#FF5A00] text-lg"></i>
+                        <span class="font-bold text-white text-xs uppercase tracking-wider">100% Original</span>
+                        <span class="text-[10px] text-white/40">Desde EE.UU. y Japón</span>
                     </div>
-                    <div>
-                        <p class="font-bold text-gray-900 text-sm">100% Original</p>
-                        <p class="text-[11px] text-gray-500">Productos auténticos desde EE.UU. y Japón</p>
+                    <div class="flex flex-col items-center gap-1 border-x border-white/10">
+                        <i class="fa-solid fa-truck text-[#FF5A00] text-lg"></i>
+                        <span class="font-bold text-white text-xs uppercase tracking-wider">Envío Nacional</span>
+                        <span class="text-[10px] text-white/40">Caracas y todo Venezuela</span>
                     </div>
-                </div>
-                <div class="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-3 shadow-sm">
-                    <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-truck text-lg text-orange-600"></i>
-                    </div>
-                    <div>
-                        <p class="font-bold text-gray-900 text-sm">Envío Nacional</p>
-                        <p class="text-[11px] text-gray-500">Entregas en Caracas y todo Venezuela</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-3 shadow-sm">
-                    <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-dollar-sign text-lg text-orange-600"></i>
-                    </div>
-                    <div>
-                        <p class="font-bold text-gray-900 text-sm">Pago Flexible</p>
-                        <p class="text-[11px] text-gray-500">Dólares, Bolívares, Zelle, Binance y más</p>
+                    <div class="flex flex-col items-center gap-1">
+                        <i class="fa-solid fa-dollar-sign text-[#FF5A00] text-lg"></i>
+                        <span class="font-bold text-white text-xs uppercase tracking-wider">Pago Flexible</span>
+                        <span class="text-[10px] text-white/40">$, Bs., Zelle, Binance</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CATEGORIES (MaxOnCards style - large visual cards with product images) -->
-        <section id="categorias" class="max-w-7xl mx-auto px-4 sm:px-6 mb-10 scroll-mt-20">
-            <div class="flex items-center justify-between mb-5">
-                <h2 class="text-lg font-black text-gray-900">Categorías</h2>
+        <!-- CATEGORIES - Color chip style -->
+        <section id="categorias" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-1 h-8 bg-[#FF5A00]"></div>
+                <h2 class="font-display text-3xl text-white tracking-wider">CATEGORÍAS</h2>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                <button onclick="setCategory('Sellado');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-card bg-white rounded-xl border border-gray-200 overflow-hidden text-left hover:shadow-md">
-                    <div class="aspect-[4/3] bg-gradient-to-br from-orange-50 to-orange-100/50 flex items-center justify-center p-5 relative">
-                        <img src="https://cdn.phototourl.com/free/2026-06-01-7c516015-8711-40d6-b1eb-941f123eabf2.png" alt="Sellado" class="w-full h-full object-contain drop-shadow-sm">
-                        <span class="absolute top-2 right-2 bg-white/90 text-[10px] font-bold text-orange-600 px-2 py-0.5 rounded-full border border-orange-200">14</span>
-                    </div>
-                    <div class="p-3">
-                        <p class="font-bold text-gray-900 text-sm">Sellado</p>
-                        <p class="text-[11px] text-gray-500">Booster boxes, bundles, tins</p>
-                    </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <button onclick="setCategory('Sellado');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-chip bg-[#FF5A00]/10 border-2 border-[#FF5A00]/30 hover:border-[#FF5A00] p-6 text-left transition-all">
+                    <div class="text-3xl mb-3">📦</div>
+                    <p class="font-display text-xl text-white tracking-wider">SELLADO</p>
+                    <p class="text-sm text-white/50 font-semibold">Cajas, bundles, tins</p>
+                    <span class="inline-block mt-3 bg-[#FF5A00] text-black font-black text-xs px-2 py-1">14 PRODUCTOS</span>
                 </button>
-                <button onclick="setCategory('Accesorios');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-card bg-white rounded-xl border border-gray-200 overflow-hidden text-left hover:shadow-md">
-                    <div class="aspect-[4/3] bg-gradient-to-br from-gray-50 to-gray-100/50 flex items-center justify-center p-5 relative">
-                        <img src="https://cdn.phototourl.com/member/2026-06-01-9c5c838f-4e9a-496e-96a4-38ead730c058.png" alt="Accesorios" class="w-full h-full object-contain drop-shadow-sm">
-                        <span class="absolute top-2 right-2 bg-white/90 text-[10px] font-bold text-gray-600 px-2 py-0.5 rounded-full border border-gray-200">6</span>
-                    </div>
-                    <div class="p-3">
-                        <p class="font-bold text-gray-900 text-sm">Accesorios</p>
-                        <p class="text-[11px] text-gray-500">Top loaders, sleeves, binders</p>
-                    </div>
+                <button onclick="setCategory('Accesorios');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-chip bg-[#FF006E]/10 border-2 border-[#FF006E]/30 hover:border-[#FF006E] p-6 text-left transition-all">
+                    <div class="text-3xl mb-3">🛡️</div>
+                    <p class="font-display text-xl text-white tracking-wider">ACCESORIOS</p>
+                    <p class="text-sm text-white/50 font-semibold">Top loaders, sleeves</p>
+                    <span class="inline-block mt-3 bg-[#FF006E] text-white font-black text-xs px-2 py-1">6 PRODUCTOS</span>
                 </button>
-                <button onclick="setCategory('Singles Raros');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-card bg-white rounded-xl border border-gray-200 overflow-hidden text-left hover:shadow-md">
-                    <div class="aspect-[4/3] bg-gradient-to-br from-purple-50 to-purple-100/50 flex items-center justify-center p-5 relative">
-                        <div class="text-6xl opacity-30">⭐</div>
-                        <span class="absolute top-2 right-2 bg-white/90 text-[10px] font-bold text-purple-600 px-2 py-0.5 rounded-full border border-purple-200">0</span>
-                    </div>
-                    <div class="p-3">
-                        <p class="font-bold text-gray-900 text-sm">Singles Raros</p>
-                        <p class="text-[11px] text-gray-500">Cartas individuales</p>
-                    </div>
+                <button onclick="setCategory('Singles Raros');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-chip bg-[#8338EC]/10 border-2 border-[#8338EC]/30 hover:border-[#8338EC] p-6 text-left transition-all">
+                    <div class="text-3xl mb-3">⭐</div>
+                    <p class="font-display text-xl text-white tracking-wider">SINGLES</p>
+                    <p class="text-sm text-white/50 font-semibold">Cartas individuales</p>
+                    <span class="inline-block mt-3 bg-[#8338EC] text-white font-black text-xs px-2 py-1">0 PRODUCTOS</span>
                 </button>
-                <button onclick="setCategory('Proximamente');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-card bg-white rounded-xl border border-gray-200 overflow-hidden text-left hover:shadow-md">
-                    <div class="aspect-[4/3] bg-gradient-to-br from-emerald-50 to-emerald-100/50 flex items-center justify-center p-5 relative">
-                        <img src="https://cdn.phototourl.com/free/2026-06-21-c1efb22a-4962-438e-be8f-299bf8c95325.png" alt="Próximamente" class="w-full h-full object-contain drop-shadow-sm">
-                        <span class="absolute top-2 right-2 bg-white/90 text-[10px] font-bold text-emerald-600 px-2 py-0.5 rounded-full border border-emerald-200 preorder-badge">7</span>
-                    </div>
-                    <div class="p-3">
-                        <p class="font-bold text-gray-900 text-sm">Próximamente</p>
-                        <p class="text-[11px] text-gray-500">Pre-orders y nuevos lanzamientos</p>
-                    </div>
+                <button onclick="setCategory('Proximamente');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-chip bg-[#FF5A00]/10 border-2 border-white/10 hover:border-white/40 p-6 text-left transition-all">
+                    <div class="text-3xl mb-3">🚀</div>
+                    <p class="font-display text-xl text-white tracking-wider">PRE-ORDER</p>
+                    <p class="text-sm text-white/50 font-semibold">Nuevos lanzamientos</p>
+                    <span class="inline-block mt-3 bg-white/10 text-white font-black text-xs px-2 py-1">7 PRODUCTOS</span>
                 </button>
             </div>
         </section>
+
+        <div class="section-divider"></div>
 
         <!-- CATALOG -->
-        <section id="catalogo" class="scroll-mt-20 max-w-7xl mx-auto px-4 sm:px-6 mb-10">
-            <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between mb-5">
-                <h2 class="text-lg font-black text-gray-900">Catálogo</h2>
-                <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
-                    <div class="relative w-full sm:w-56">
-                        <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                        <input oninput="renderProducts()" id="search-input" type="text" placeholder="Buscar producto..." class="w-full bg-white border border-gray-200 rounded-lg py-2 pl-9 pr-3 text-gray-900 focus:outline-none focus:border-orange-400 text-sm placeholder:text-gray-400">
+        <section id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-1 h-8 bg-[#FF006E]"></div>
+                <h2 class="font-display text-3xl text-white tracking-wider">CATÁLOGO</h2>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between mb-6">
+                <div class="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+                    <button onclick="setCategory('Todos')" id="cat-Todos" class="cat-btn px-4 py-2 font-black text-sm bg-[#FF5A00] text-black transition-all uppercase tracking-wider">Todos</button>
+                    <button onclick="setCategory('Sellado')" id="cat-Sellado" class="cat-btn px-4 py-2 font-bold text-sm bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-all uppercase tracking-wider border border-white/10">Sellado</button>
+                    <button onclick="setCategory('Singles Raros')" id="cat-Singles-Raros" class="cat-btn px-4 py-2 font-bold text-sm bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-all uppercase tracking-wider border border-white/10">Singles</button>
+                    <button onclick="setCategory('Accesorios')" id="cat-Accesorios" class="cat-btn px-4 py-2 font-bold text-sm bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-all uppercase tracking-wider border border-white/10">Accesorios</button>
+                    <button onclick="setCategory('Proximamente')" id="cat-Proximamente" class="cat-btn px-4 py-2 font-bold text-sm bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-all uppercase tracking-wider border border-white/10">Pre-Order</button>
+                </div>
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <div class="relative flex-1 sm:flex-none sm:w-48">
+                        <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+                        <input oninput="renderProducts()" id="search-input" type="text" placeholder="Buscar..." class="w-full bg-white/5 border border-white/10 text-white rounded-none py-2.5 pl-9 pr-3 focus:outline-none focus:border-[#FF5A00] text-sm placeholder:text-white/30 font-semibold">
                     </div>
-                    <select id="sort-select" onchange="renderProducts()" class="w-full sm:w-44 bg-white border border-gray-200 text-gray-700 py-2 px-3 rounded-lg focus:outline-none focus:border-orange-400 text-sm">
-                        <option value="default">Ordenar por...</option>
-                        <option value="newest">Lo más nuevo</option>
-                        <option value="oldest">Lo más antiguo</option>
-                        <option value="price-asc">Menor precio</option>
-                        <option value="price-desc">Mayor precio</option>
-                        <option value="stock-available">Stock disponible</option>
+                    <select id="sort-select" onchange="renderProducts()" class="w-full sm:w-40 bg-white/5 border border-white/10 text-white/80 py-2.5 px-3 rounded-none focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
+                        <option value="default">Orden</option>
+                        <option value="newest">Nuevo</option>
+                        <option value="oldest">Antiguo</option>
+                        <option value="price-asc">Menor $</option>
+                        <option value="price-desc">Mayor $</option>
+                        <option value="stock-available">Stock</option>
                     </select>
                 </div>
             </div>
 
-            <div class="flex gap-1.5 overflow-x-auto pb-2 no-scrollbar mb-5">
-                <button onclick="setCategory('Todos')" id="cat-Todos" class="cat-btn px-3.5 py-1.5 rounded-lg font-bold text-sm bg-orange-600 text-white transition-all whitespace-nowrap">Todos</button>
-                <button onclick="setCategory('Sellado')" id="cat-Sellado" class="cat-btn px-3.5 py-1.5 rounded-lg font-semibold text-sm bg-white text-gray-600 hover:text-gray-900 transition-all whitespace-nowrap border border-gray-200">Sellado</button>
-                <button onclick="setCategory('Singles Raros')" id="cat-Singles-Raros" class="cat-btn px-3.5 py-1.5 rounded-lg font-semibold text-sm bg-white text-gray-600 hover:text-gray-900 transition-all whitespace-nowrap border border-gray-200">Singles Raros</button>
-                <button onclick="setCategory('Accesorios')" id="cat-Accesorios" class="cat-btn px-3.5 py-1.5 rounded-lg font-semibold text-sm bg-white text-gray-600 hover:text-gray-900 transition-all whitespace-nowrap border border-gray-200">Accesorios</button>
-                <button onclick="setCategory('Proximamente')" id="cat-Proximamente" class="cat-btn px-3.5 py-1.5 rounded-lg font-semibold text-sm bg-white text-gray-600 hover:text-gray-900 transition-all whitespace-nowrap border border-gray-200">Próximamente</button>
-            </div>
+            <div id="products-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
 
-            <div id="products-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"></div>
-
-            <div id="no-results" class="flex-col items-center justify-center py-14 text-center hidden">
-                <div class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 mb-3 border border-gray-200">
-                    <i class="fa-solid fa-ghost text-2xl"></i>
+            <div id="no-results" class="flex-col items-center justify-center py-16 text-center hidden">
+                <div class="w-16 h-16 bg-white/5 border border-white/10 flex items-center justify-center text-white/20 mb-3">
+                    <i class="fa-solid fa-ghost text-3xl"></i>
                 </div>
-                <h3 class="text-base font-bold text-gray-900 mb-1">No encontramos lo que buscas</h3>
-                <p class="text-sm text-gray-500 max-w-sm">Intenta cambiar las palabras clave o el filtro de categorías.</p>
+                <h3 class="font-display text-xl text-white tracking-wider">NO ENCONTRADO</h3>
+                <p class="text-sm text-white/40 font-semibold">Intenta otros términos o filtros.</p>
             </div>
         </section>
+
+        <div class="section-divider"></div>
 
         <!-- HOW TO BUY -->
-        <section id="como-comprar" class="max-w-7xl mx-auto px-4 sm:px-6 mb-10 scroll-mt-20">
-            <h2 class="text-lg font-black text-gray-900 mb-6 text-center">Cómo Comprar</h2>
+        <section id="como-comprar" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-1 h-8 bg-[#8338EC]"></div>
+                <h2 class="font-display text-3xl text-white tracking-wider">CÓMO COMPRAR</h2>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-white rounded-xl border border-gray-200 p-5 text-center hover:border-orange-200 transition-all">
-                    <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-3 border border-orange-100">
-                        <span class="text-lg font-black text-orange-600">1</span>
+                <div class="bg-[#1A1A1A] border border-white/10 p-8 relative">
+                    <span class="font-display text-6xl text-[#FF5A00]/20 absolute top-4 right-4">01</span>
+                    <div class="w-14 h-14 bg-[#FF5A00]/10 border-2 border-[#FF5A00]/30 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-cart-shopping text-[#FF5A00] text-xl"></i>
                     </div>
-                    <h3 class="font-bold text-gray-900 text-sm mb-1.5">Elige tus productos</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Navega por nuestro catálogo y agrega al carrito lo que más te guste.</p>
+                    <h3 class="font-display text-xl text-white tracking-wider mb-2">ELIGE</h3>
+                    <p class="text-white/50 text-sm font-semibold leading-relaxed">Navega por nuestro catálogo y agrega al carrito lo que más te guste.</p>
                 </div>
-                <div class="bg-white rounded-xl border border-gray-200 p-5 text-center hover:border-orange-200 transition-all">
-                    <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-3 border border-orange-100">
-                        <span class="text-lg font-black text-orange-600">2</span>
+                <div class="bg-[#1A1A1A] border border-white/10 p-8 relative">
+                    <span class="font-display text-6xl text-[#FF006E]/20 absolute top-4 right-4">02</span>
+                    <div class="w-14 h-14 bg-[#FF006E]/10 border-2 border-[#FF006E]/30 flex items-center justify-center mb-5">
+                        <i class="fa-brands fa-whatsapp text-[#FF006E] text-xl"></i>
                     </div>
-                    <h3 class="font-bold text-gray-900 text-sm mb-1.5">Confirma tu orden</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Revisa tu carrito y envíanos tu pedido por WhatsApp en un clic.</p>
+                    <h3 class="font-display text-xl text-white tracking-wider mb-2">CONFIRMA</h3>
+                    <p class="text-white/50 text-sm font-semibold leading-relaxed">Revisa tu carrito y envíanos tu pedido por WhatsApp en un clic.</p>
                 </div>
-                <div class="bg-white rounded-xl border border-gray-200 p-5 text-center hover:border-orange-200 transition-all">
-                    <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-3 border border-orange-100">
-                        <span class="text-lg font-black text-orange-600">3</span>
+                <div class="bg-[#1A1A1A] border border-white/10 p-8 relative">
+                    <span class="font-display text-6xl text-[#8338EC]/20 absolute top-4 right-4">03</span>
+                    <div class="w-14 h-14 bg-[#8338EC]/10 border-2 border-[#8338EC]/30 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-truck text-[#8338EC] text-xl"></i>
                     </div>
-                    <h3 class="font-bold text-gray-900 text-sm mb-1.5">Recibe tu pedido</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Coordinamos el envío y lo recibes seguro y rápido en todo Venezuela.</p>
+                    <h3 class="font-display text-xl text-white tracking-wider mb-2">RECIBE</h3>
+                    <p class="text-white/50 text-sm font-semibold leading-relaxed">Coordinamos el envío y lo recibes seguro en todo Venezuela.</p>
                 </div>
             </div>
         </section>
+
+        <div class="section-divider"></div>
 
         <!-- WHATSAPP CTA -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 mb-14">
-            <div class="bg-gray-900 rounded-2xl p-8 sm:p-12 text-center">
-                <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mx-auto mb-4">
-                    <i class="fa-brands fa-whatsapp text-2xl text-green-400"></i>
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+            <div class="bg-gradient-to-r from-[#FF5A00]/20 via-[#FF006E]/10 to-[#8338EC]/20 border border-white/10 p-10 sm:p-14 text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-grid opacity-20"></div>
+                <div class="relative">
+                    <div class="w-16 h-16 bg-[#FF006E]/20 border-2 border-[#FF006E]/40 flex items-center justify-center mx-auto mb-5">
+                        <i class="fa-brands fa-whatsapp text-3xl text-[#FF006E]"></i>
+                    </div>
+                    <h2 class="font-display text-3xl sm:text-4xl text-white tracking-wider mb-3">¿LISTO PARA TU <span class="text-[#FF5A00]">FIRE HIT</span>?</h2>
+                    <p class="text-white/50 text-sm mb-7 max-w-md mx-auto font-semibold">Escríbenos directo a WhatsApp y te atenderemos al instante.</p>
+                    <a href="https://wa.me/584243178117" target="_blank" class="inline-flex items-center gap-3 bg-[#FF006E] hover:bg-[#E50063] text-white font-black px-8 py-4 transition-all text-sm uppercase tracking-wider glow-hover">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        WHATSAPP DIRECTO
+                    </a>
                 </div>
-                <h2 class="text-xl sm:text-2xl font-black text-white mb-2">¿Listo para tu próximo <span class="text-orange-400">Fire Hit</span>?</h2>
-                <p class="text-gray-400 text-sm mb-6 max-w-md mx-auto">Escríbenos directo a WhatsApp y te atenderemos al instante.</p>
-                <a href="https://wa.me/584243178117" target="_blank" class="inline-flex items-center gap-2.5 bg-green-600 hover:bg-green-500 text-white font-bold px-7 py-3 rounded-xl transition-all text-sm shadow-lg shadow-green-600/20">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    Escribir por WhatsApp
-                </a>
             </div>
         </section>
 
+        <div class="section-divider"></div>
+
         <!-- PAYMENT METHODS -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
             <div class="text-center">
-                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Métodos de Pago</p>
-                <div class="flex gap-4 justify-center flex-wrap">
-                    <div class="w-11 h-11 rounded-lg bg-white border border-gray-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Zelle">
-                        <svg viewBox="160 140 320 400" width="22" height="22"><g transform="translate(0,633) scale(0.1,-0.1)" fill="#EA580C" stroke="none"><path d="m 3030,4179.9975 -657.2625,6.0526 -7e-4,-436.0501 H3462 L2330.0025,2299 V1929.9975 H3030 V1505 h420 v425 h714 c6,17 8.1053,62.8446 -29.8947,104.8446 -63,70 -113.1053,143.1579 -159.1053,235.1579 -21,41 -36.9474,90.1053 -42.9474,94.1053 C3791.448,2370.55 2982.5639,2368.8831 2983,2374 l1133,1459.8947 v346.1028 H3450 V4610 h-420z"></path></g></svg>
+                <p class="font-display text-white/30 text-sm tracking-widest mb-5">MÉTODOS DE PAGO</p>
+                <div class="flex gap-5 justify-center flex-wrap">
+                    <div class="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#FF5A00]/10 hover:border-[#FF5A00]/30 transition-all" title="Zelle">
+                        <svg viewBox="160 140 320 400" width="22" height="22"><g transform="translate(0,633) scale(0.1,-0.1)" fill="#FF5A00" stroke="none"><path d="m 3030,4179.9975 -657.2625,6.0526 -7e-4,-436.0501 H3462 L2330.0025,2299 V1929.9975 H3030 V1505 h420 v425 h714 c6,17 8.1053,62.8446 -29.8947,104.8446 -63,70 -113.1053,143.1579 -159.1053,235.1579 -21,41 -36.9474,90.1053 -42.9474,94.1053 C3791.448,2370.55 2982.5639,2368.8831 2983,2374 l1133,1459.8947 v346.1028 H3450 V4610 h-420z"></path></g></svg>
                     </div>
-                    <div class="w-11 h-11 rounded-lg bg-white border border-gray-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Pago Móvil">
-                        <svg viewBox="0 0 48 48" width="22" height="22" fill="none"><rect x="16" y="4" width="16" height="32" rx="3" stroke="#EA580C" stroke-width="2.5" fill="rgba(255,69,0,0.1)"></rect><line x1="24" y1="30" x2="24" y2="30" stroke="#EA580C" stroke-width="3.5" stroke-linecap="round"></line><path d="M8 22 L14 18 L14 26 Z" fill="#EA580C"></path><path d="M40 22 L34 18 L34 26 Z" fill="#EA580C"></path><line x1="22" y1="7" x2="26" y2="7" stroke="#EA580C" stroke-width="1.5"></line></svg>
+                    <div class="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#FF006E]/10 hover:border-[#FF006E]/30 transition-all" title="Pago Móvil">
+                        <svg viewBox="0 0 48 48" width="22" height="22" fill="none"><rect x="16" y="4" width="16" height="32" rx="3" stroke="#FF5A00" stroke-width="2.5" fill="rgba(255,90,0,0.1)"></rect><line x1="24" y1="30" x2="24" y2="30" stroke="#FF5A00" stroke-width="3.5" stroke-linecap="round"></line><path d="M8 22 L14 18 L14 26 Z" fill="#FF5A00"></path><path d="M40 22 L34 18 L34 26 Z" fill="#FF5A00"></path><line x1="22" y1="7" x2="26" y2="7" stroke="#FF5A00" stroke-width="1.5"></line></svg>
                     </div>
-                    <div class="w-11 h-11 rounded-lg bg-white border border-gray-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Binance">
-                        <svg viewBox="0 0 130 150" width="22" height="22" fill="#EA580C"><polygon points="38.171,53.203 62.759,28.616 87.36,53.216 101.667,38.909 62.759,0 23.864,38.896"></polygon><polygon points="38.171,73.408 62.759,97.995 87.359,73.396 101.674,87.695 101.667,87.703 62.759,126.611 23.863,87.716 23.843,87.696"></polygon><polygon points="77.271,63.298 77.277,63.298 62.759,48.78 52.03,59.509 52.029,59.509 50.797,60.742 48.254,63.285 48.254,63.285 48.234,63.305 48.254,63.326 62.759,77.831 77.277,63.313 77.284,63.305"></polygon></svg>
+                    <div class="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#8338EC]/10 hover:border-[#8338EC]/30 transition-all" title="Binance">
+                        <svg viewBox="0 0 130 150" width="22" height="22" fill="#FF5A00"><polygon points="38.171,53.203 62.759,28.616 87.36,53.216 101.667,38.909 62.759,0 23.864,38.896"></polygon><polygon points="38.171,73.408 62.759,97.995 87.359,73.396 101.674,87.695 101.667,87.703 62.759,126.611 23.863,87.716 23.843,87.696"></polygon><polygon points="77.271,63.298 77.277,63.298 62.759,48.78 52.03,59.509 52.029,59.509 50.797,60.742 48.254,63.285 48.254,63.285 48.234,63.305 48.254,63.326 62.759,77.831 77.277,63.313 77.284,63.305"></polygon></svg>
                     </div>
-                    <div class="w-11 h-11 rounded-lg bg-white border border-gray-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Efectivo">
-                        <i class="fa-solid fa-money-bill-1-wave text-orange-500 text-lg"></i>
+                    <div class="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#FF5A00]/10 hover:border-[#FF5A00]/30 transition-all" title="Efectivo">
+                        <i class="fa-solid fa-money-bill-1-wave text-[#FF5A00] text-xl"></i>
                     </div>
                 </div>
             </div>
@@ -331,63 +364,58 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-gray-200 bg-white py-8 px-4">
+    <footer class="border-t border-white/10 bg-[#0D0D0D] py-10 px-4">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div class="md:col-span-1">
-                    <div class="flex items-center gap-2.5 mb-2">
-                        <div class="w-8 h-8 rounded-lg overflow-hidden border border-orange-200 flex items-center justify-center bg-white">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-9 h-9 rounded-lg overflow-hidden border-2 border-[#FF5A00] flex items-center justify-center bg-black">
                             <img src="logo.png" class="w-full h-full object-cover" alt="Fire Hits TCG">
                         </div>
-                        <div>
-                            <span class="text-sm font-black text-gray-900">FIRE HITS</span>
-                            <span class="text-[8px] font-semibold text-orange-500 tracking-widest block">TCG STORE</span>
-                        </div>
+                        <span class="font-display text-lg text-white tracking-wider">FIRE HITS</span>
                     </div>
-                    <p class="text-sm text-gray-500 leading-relaxed max-w-xs">La comunidad TCG más candela de Venezuela. Cartas Pokémon originales, productos sellados y accesorios.</p>
+                    <p class="text-sm text-white/40 font-semibold max-w-xs">La comunidad TCG más candela de Venezuela. Cartas Pokémon originales, productos sellados y accesorios.</p>
                 </div>
                 <div>
-                    <h4 class="text-[11px] font-bold text-gray-900 uppercase tracking-wider mb-3">Enlaces</h4>
-                    <ul class="space-y-1.5">
-                        <li><a href="#catalogo" class="text-sm text-gray-500 hover:text-orange-600 transition-colors">Catálogo</a></li>
-                        <li><a href="#categorias" class="text-sm text-gray-500 hover:text-orange-600 transition-colors">Categorías</a></li>
-                        <li><a href="#como-comprar" class="text-sm text-gray-500 hover:text-orange-600 transition-colors">Cómo Comprar</a></li>
+                    <h4 class="font-display text-xs text-white/50 tracking-widest mb-4 uppercase">Enlaces</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#catalogo" class="text-sm font-bold text-white/60 hover:text-[#FF5A00] transition-colors">Catálogo</a></li>
+                        <li><a href="#categorias" class="text-sm font-bold text-white/60 hover:text-[#FF5A00] transition-colors">Categorías</a></li>
+                        <li><a href="#como-comprar" class="text-sm font-bold text-white/60 hover:text-[#FF5A00] transition-colors">Cómo Comprar</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-[11px] font-bold text-gray-900 uppercase tracking-wider mb-3">Pago</h4>
-                    <div class="flex gap-2 flex-wrap">
-                        <div class="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center" title="Zelle">
-                            <svg viewBox="160 140 320 400" width="18" height="18"><g transform="translate(0,633) scale(0.1,-0.1)" fill="#EA580C"><path d="m 3030,4179.9975 -657.2625,6.0526 -7e-4,-436.0501 H3462 L2330.0025,2299 V1929.9975 H3030 V1505 h420 v425 h714 c6,17 8.1053,62.8446 -29.8947,104.8446 -63,70 -113.1053,143.1579 -159.1053,235.1579 -21,41 -36.9474,90.1053 -42.9474,94.1053 C3791.448,2370.55 2982.5639,2368.8831 2983,2374 l1133,1459.8947 v346.1028 H3450 V4610 h-420z"></path></g></svg>
+                    <h4 class="font-display text-xs text-white/50 tracking-widest mb-4 uppercase">Pago</h4>
+                    <div class="flex gap-3 flex-wrap">
+                        <div class="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center" title="Zelle">
+                            <svg viewBox="160 140 320 400" width="18" height="18"><g transform="translate(0,633) scale(0.1,-0.1)" fill="#FF5A00"><path d="m 3030,4179.9975 -657.2625,6.0526 -7e-4,-436.0501 H3462 L2330.0025,2299 V1929.9975 H3030 V1505 h420 v425 h714 c6,17 8.1053,62.8446 -29.8947,104.8446 -63,70 -113.1053,143.1579 -159.1053,235.1579 -21,41 -36.9474,90.1053 -42.9474,94.1053 C3791.448,2370.55 2982.5639,2368.8831 2983,2374 l1133,1459.8947 v346.1028 H3450 V4610 h-420z"></path></g></svg>
                         </div>
-                        <div class="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center" title="Pago Móvil">
-                            <svg viewBox="0 0 48 48" width="18" height="18" fill="none"><rect x="16" y="4" width="16" height="32" rx="3" stroke="#EA580C" stroke-width="2"></rect><line x1="24" y1="30" x2="24" y2="30" stroke="#EA580C" stroke-width="3" stroke-linecap="round"></line><path d="M8 22 L14 18 L14 26 Z" fill="#EA580C"></path><path d="M40 22 L34 18 L34 26 Z" fill="#EA580C"></path></svg>
+                        <div class="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center" title="Pago Móvil">
+                            <svg viewBox="0 0 48 48" width="18" height="18" fill="none"><rect x="16" y="4" width="16" height="32" rx="3" stroke="#FF5A00" stroke-width="2"></rect><line x1="24" y1="30" x2="24" y2="30" stroke="#FF5A00" stroke-width="3" stroke-linecap="round"></line><path d="M8 22 L14 18 L14 26 Z" fill="#FF5A00"></path><path d="M40 22 L34 18 L34 26 Z" fill="#FF5A00"></path></svg>
                         </div>
-                        <div class="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center" title="Binance">
-                            <svg viewBox="0 0 130 150" width="18" height="18" fill="#EA580C"><polygon points="38.171,53.203 62.759,28.616 87.36,53.216 101.667,38.909 62.759,0 23.864,38.896"></polygon><polygon points="38.171,73.408 62.759,97.995 87.359,73.396 101.674,87.695 101.667,87.703 62.759,126.611 23.863,87.716 23.843,87.696"></polygon><polygon points="77.271,63.298 77.277,63.298 62.759,48.78 52.03,59.509 52.029,59.509 50.797,60.742 48.254,63.285 48.254,63.285 48.234,63.305 48.254,63.326 62.759,77.831 77.277,63.313 77.284,63.305"></polygon></svg>
+                        <div class="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center" title="Binance">
+                            <svg viewBox="0 0 130 150" width="18" height="18" fill="#FF5A00"><polygon points="38.171,53.203 62.759,28.616 87.36,53.216 101.667,38.909 62.759,0 23.864,38.896"></polygon><polygon points="38.171,73.408 62.759,97.995 87.359,73.396 101.674,87.695 101.667,87.703 62.759,126.611 23.863,87.716 23.843,87.696"></polygon><polygon points="77.271,63.298 77.277,63.298 62.759,48.78 52.03,59.509 52.029,59.509 50.797,60.742 48.254,63.285 48.254,63.285 48.234,63.305 48.254,63.326 62.759,77.831 77.277,63.313 77.284,63.305"></polygon></svg>
                         </div>
-                        <div class="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center" title="Efectivo">
-                            <i class="fa-solid fa-money-bill-1-wave text-orange-500 text-sm"></i>
+                        <div class="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center" title="Efectivo">
+                            <i class="fa-solid fa-money-bill-1-wave text-[#FF5A00] text-sm"></i>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-gray-200 pt-5 flex flex-col md:flex-row items-center justify-between gap-3">
-                <span class="text-sm text-gray-500">&copy; 2026 Fire Hits TCG. <span class="text-xs text-gray-400 ml-1">v<span id="display-version">1.0</span></span></span>
-                <div class="flex items-center gap-3">
-                    <button onclick="requestPasswordAccess()" class="inline-flex items-center gap-1.5 bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 px-3.5 rounded-lg transition-all text-xs">
-                        <i class="fa-solid fa-lock"></i>
-                        <span>Panel de Control</span>
-                    </button>
-                </div>
+            <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <span class="text-sm text-white/40 font-semibold">© 2026 FIRE HITS TCG. <span class="text-xs text-white/20 ml-1">v<span id="display-version">1.0</span></span></span>
+                <button onclick="requestPasswordAccess()" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#FF5A00]/40 text-white font-bold py-2 px-4 transition-all text-xs uppercase tracking-wider">
+                    <i class="fa-solid fa-lock text-[#FF5A00]"></i>
+                    <span>Panel de Control</span>
+                </button>
             </div>
         </div>
     </footer>
 
     <!-- TOAST -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-white border border-gray-200 text-gray-900 py-2.5 px-5 rounded-xl flex items-center gap-2.5 shadow-lg shadow-black/5 transition-all duration-300 pointer-events-none translate-y-32 opacity-0">
-        <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-        <p id="toast-message" class="text-sm font-semibold">Acceso Concedido.</p>
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-[#FF5A00] text-black py-3 px-6 flex items-center gap-3 shadow-2xl transition-all duration-300 pointer-events-none translate-y-32 opacity-0">
+        <span class="w-2 h-2 bg-black rounded-full"></span>
+        <p id="toast-message" class="text-sm font-black uppercase tracking-wider">Acceso Concedido.</p>
     </div>
 
     <!-- ZOOM MODAL -->
@@ -399,37 +427,37 @@
     </div>
 
     <!-- DETAIL MODAL -->
-    <div id="detail-modal" class="fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel" data-product-id="">
-        <div class="bg-white w-full max-w-xl h-full border-l border-gray-200 p-6 flex flex-col transform transition-transform duration-300">
-            <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-4">
+    <div id="detail-modal" class="fixed inset-0 bg-black/80 z-50 flex justify-end transition-all duration-300 hide-panel" data-product-id="">
+        <div class="bg-[#0D0D0D] w-full max-w-xl h-full border-l border-white/10 p-6 flex flex-col transform transition-transform duration-300">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
                 <div class="flex items-center gap-2 flex-1 min-w-0">
-                    <i class="fa-solid fa-image text-orange-500 text-lg shrink-0"></i>
-                    <h2 id="detail-name" class="text-lg font-bold text-gray-900 truncate">Producto</h2>
+                    <i class="fa-solid fa-image text-[#FF5A00] text-lg shrink-0"></i>
+                    <h2 id="detail-name" class="text-lg font-black text-white truncate uppercase tracking-wider">Producto</h2>
                 </div>
-                <button onclick="closeProductDetail()" class="close-detail-btn w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-all">
+                <button onclick="closeProductDetail()" class="close-detail-btn w-8 h-8 bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all border border-white/10">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
             <div class="flex-1 overflow-y-auto space-y-5">
-                <div class="w-full bg-gray-50 rounded-xl p-4">
-                    <p id="detail-image-label" class="text-base text-orange-600 font-bold text-center mb-3 hidden">LOS HITS CANDELA</p>
-                    <div id="detail-main-image" class="aspect-square flex items-center justify-center overflow-hidden rounded-lg bg-white border border-gray-100">
+                <div class="w-full bg-[#1A1A1A] p-4 border border-white/10">
+                    <p id="detail-image-label" class="text-base text-[#FF5A00] font-black text-center mb-3 hidden uppercase tracking-wider">LOS HITS CANDELA</p>
+                    <div id="detail-main-image" class="aspect-square flex items-center justify-center overflow-hidden bg-black border border-white/10">
                         <button id="zoom-toggle" class="zoom-indicator" onclick="event.stopPropagation();toggleZoom()"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
                         <img id="detail-main-img" src="" alt="Producto" class="w-full h-full object-contain" style="transition: opacity 0.15s, transform 0.15s;">
                     </div>
                 </div>
                 <div id="detail-thumbnails" class="flex gap-3 justify-center flex-wrap"></div>
-                <div class="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
-                    <div><span class="text-xs text-gray-500 font-semibold">Precio</span><p id="detail-price" class="text-lg font-bold text-orange-600">$0 USD</p></div>
-                    <div><span class="text-xs text-gray-500 font-semibold">Stock</span><p id="detail-stock" class="text-base font-bold text-gray-900">Stock: 0</p></div>
-                    <div><span class="text-xs text-gray-500 font-semibold">Idioma</span><p id="detail-language" class="text-sm font-bold text-gray-900">Inglés</p></div>
-                    <div><span class="text-xs text-gray-500 font-semibold">Categoría</span><p id="detail-category" class="text-sm font-bold text-gray-900">Sellado</p></div>
+                <div class="grid grid-cols-2 gap-4 p-4 bg-[#1A1A1A] border border-white/10">
+                    <div><span class="text-[10px] text-white/30 font-bold uppercase tracking-wider">Precio</span><p id="detail-price" class="text-lg font-black text-[#FF5A00]">$0 USD</p></div>
+                    <div><span class="text-[10px] text-white/30 font-bold uppercase tracking-wider">Stock</span><p id="detail-stock" class="text-base font-black text-white">Stock: 0</p></div>
+                    <div><span class="text-[10px] text-white/30 font-bold uppercase tracking-wider">Idioma</span><p id="detail-language" class="text-sm font-black text-white">Inglés</p></div>
+                    <div><span class="text-[10px] text-white/30 font-bold uppercase tracking-wider">Categoría</span><p id="detail-category" class="text-sm font-black text-white">Sellado</p></div>
                 </div>
-                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
-                    <span class="text-xs text-gray-500 font-semibold">Especificaciones</span>
-                    <p id="detail-specs" class="text-sm text-gray-600 mt-1 leading-relaxed"></p>
+                <div class="p-4 bg-[#1A1A1A] border border-white/10">
+                    <span class="text-[10px] text-white/30 font-bold uppercase tracking-wider">Especificaciones</span>
+                    <p id="detail-specs" class="text-sm text-white/60 mt-1 leading-relaxed font-semibold"></p>
                 </div>
-                <button id="detail-add-cart-btn" onclick="addToCart(parseInt(document.getElementById('detail-modal').dataset.productId))" class="w-full py-3.5 bg-orange-600 hover:bg-orange-500 text-white font-bold rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                <button id="detail-add-cart-btn" onclick="addToCart(parseInt(document.getElementById('detail-modal').dataset.productId))" class="w-full py-3.5 bg-[#FF5A00] hover:bg-[#E55000] text-black font-black transition-all text-sm uppercase tracking-wider flex items-center justify-center gap-2">
                     <i class="fa-solid fa-fire"></i> Añadir al Carrito
                 </button>
             </div>
@@ -437,126 +465,126 @@
     </div>
 
     <!-- PASSWORD MODAL -->
-    <div id="password-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hide-panel">
-        <div class="bg-white border border-gray-200 max-w-sm w-full p-6 rounded-2xl shadow-xl text-center">
-            <div class="w-14 h-14 bg-orange-50 border border-orange-200 rounded-full flex items-center justify-center text-orange-600 mx-auto mb-4 text-xl">
-                <i class="fa-solid fa-shield-halved"></i>
+    <div id="password-modal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hide-panel">
+        <div class="bg-[#0D0D0D] border border-white/10 max-w-sm w-full p-8 text-center">
+            <div class="w-16 h-16 bg-[#FF5A00]/10 border-2 border-[#FF5A00]/30 flex items-center justify-center mx-auto mb-5">
+                <i class="fa-solid fa-shield-halved text-[#FF5A00] text-2xl"></i>
             </div>
-            <h3 class="text-lg font-bold text-gray-900 mb-2">Panel Administrativo</h3>
-            <p class="text-xs text-gray-500 mb-5">Por seguridad, escribe la contraseña para gestionar el inventario.</p>
-            <input id="input-password-check" type="password" placeholder="Escribe la clave secreta..." class="w-full text-center bg-gray-50 border border-gray-200 rounded-lg py-2.5 px-4 text-gray-900 focus:outline-none focus:border-orange-400 text-sm mb-4">
+            <h3 class="font-display text-xl text-white tracking-wider mb-2">PANEL ADMIN</h3>
+            <p class="text-xs text-white/40 font-semibold mb-6">Escribe la contraseña para gestionar el inventario.</p>
+            <input id="input-password-check" type="password" placeholder="Clave secreta..." class="w-full text-center bg-white/5 border border-white/10 rounded-none py-2.5 px-4 text-white focus:outline-none focus:border-[#FF5A00] text-sm mb-4 font-semibold placeholder:text-white/20">
             <div class="flex gap-3">
-                <button onclick="closePasswordModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold py-2.5 px-4 rounded-lg text-sm transition-all">Cancelar</button>
-                <button onclick="submitPasswordCheck()" class="flex-1 bg-orange-600 hover:bg-orange-500 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition-all">Ingresar</button>
+                <button onclick="closePasswordModal()" class="flex-1 bg-white/5 hover:bg-white/10 text-white/60 font-bold py-2.5 px-4 text-sm transition-all uppercase tracking-wider border border-white/10">Cancelar</button>
+                <button onclick="submitPasswordCheck()" class="flex-1 bg-[#FF5A00] hover:bg-[#E55000] text-black font-black py-2.5 px-4 text-sm transition-all uppercase tracking-wider">Ingresar</button>
             </div>
         </div>
     </div>
 
     <!-- CONFIRM MODAL -->
-    <div id="confirm-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hide-panel">
-        <div class="bg-white border border-gray-200 max-w-sm w-full p-6 rounded-2xl shadow-xl text-center">
-            <div class="w-14 h-14 bg-red-50 border border-red-200 rounded-full flex items-center justify-center text-red-500 mx-auto mb-4 text-xl">
-                <i class="fa-solid fa-circle-exclamation"></i>
+    <div id="confirm-modal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hide-panel">
+        <div class="bg-[#0D0D0D] border border-white/10 max-w-sm w-full p-8 text-center">
+            <div class="w-16 h-16 bg-[#FF006E]/10 border-2 border-[#FF006E]/30 flex items-center justify-center mx-auto mb-5">
+                <i class="fa-solid fa-circle-exclamation text-[#FF006E] text-2xl"></i>
             </div>
-            <h3 id="confirm-title" class="text-lg font-bold text-gray-900 mb-2">¿Eliminar producto?</h3>
-            <p id="confirm-desc" class="text-xs text-gray-500 mb-5"></p>
+            <h3 id="confirm-title" class="font-display text-xl text-white tracking-wider mb-2">¿Eliminar?</h3>
+            <p id="confirm-desc" class="text-xs text-white/40 font-semibold mb-6"></p>
             <div class="flex gap-3">
-                <button id="confirm-cancel-btn" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold py-2.5 px-4 rounded-lg text-sm transition-all">No, Cancelar</button>
-            <button id="confirm-yes-btn" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition-all">Sí, Continuar</button>
+                <button id="confirm-cancel-btn" class="flex-1 bg-white/5 hover:bg-white/10 text-white/60 font-bold py-2.5 px-4 text-sm transition-all uppercase tracking-wider border border-white/10">No</button>
+                <button id="confirm-yes-btn" class="flex-1 bg-[#FF006E] hover:bg-[#E50063] text-white font-black py-2.5 px-4 text-sm transition-all uppercase tracking-wider">Sí</button>
             </div>
         </div>
     </div>
 
     <!-- CART DRAWER -->
-    <div id="cart-drawer" class="fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel">
-        <div class="bg-white w-full max-w-md h-full border-l border-gray-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300">
+    <div id="cart-drawer" class="fixed inset-0 bg-black/80 z-50 flex justify-end transition-all duration-300 hide-panel">
+        <div class="bg-[#0D0D0D] w-full max-w-md h-full border-l border-white/10 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300">
             <div>
-                <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-5">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-5">
                     <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-bag-shopping text-orange-600 text-lg"></i>
-                        <h2 class="text-lg font-bold text-gray-900">Tu Carrito</h2>
-                        <span id="cart-drawer-count" class="bg-orange-50 text-orange-600 text-xs font-bold px-2 py-0.5 rounded-full border border-orange-200">0 Items</span>
+                        <i class="fa-solid fa-bag-shopping text-[#FF5A00] text-lg"></i>
+                        <h2 class="font-display text-xl text-white tracking-wider uppercase">Carrito</h2>
+                        <span id="cart-drawer-count" class="bg-[#FF5A00] text-black text-xs font-black px-2 py-0.5 uppercase">0 Items</span>
                     </div>
-                    <button onclick="toggleCart()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-all">
+                    <button onclick="toggleCart()" class="w-8 h-8 bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all border border-white/10">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
                 <div id="cart-items-container" class="flex flex-col gap-3 overflow-y-auto max-h-[55vh] pr-1"></div>
             </div>
-            <div class="border-t border-gray-200 pt-5 mt-auto bg-white sticky bottom-0">
+            <div class="border-t border-white/10 pt-5 mt-auto bg-[#0D0D0D] sticky bottom-0">
                 <div class="flex justify-between items-center mb-5">
-                    <span class="text-gray-500 font-semibold text-sm">Total estimado:</span>
-                    <span class="text-2xl font-bold text-gray-900">$<span id="cart-total-price">0.00</span> <span class="text-sm text-orange-600 font-semibold">USD</span></span>
+                    <span class="text-white/40 font-bold text-sm uppercase tracking-wider">Total:</span>
+                    <span class="text-2xl font-black text-white">$<span id="cart-total-price">0.00</span> <span class="text-sm text-[#FF5A00] font-black">USD</span></span>
                 </div>
-                <button onclick="checkoutToWhatsApp()" id="checkout-btn" class="w-full py-3.5 bg-green-600 hover:bg-green-500 text-white font-bold rounded-xl flex items-center justify-center gap-2 text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                    <i class="fa-brands fa-whatsapp text-lg"></i> Finalizar Pedido vía WhatsApp
+                <button onclick="checkoutToWhatsApp()" id="checkout-btn" class="w-full py-3.5 bg-[#FF006E] hover:bg-[#E50063] text-white font-black rounded-none flex items-center justify-center gap-2 text-sm transition-all uppercase tracking-wider disabled:opacity-30 disabled:cursor-not-allowed" disabled>
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Pedido vía WhatsApp
                 </button>
-                <button onclick="triggerClearCartConfirmation()" class="w-full text-center text-xs text-gray-400 hover:text-red-500 font-semibold mt-3 transition-colors">
-                    <i class="fa-solid fa-trash-can mr-1"></i> Vaciar todo el Carrito
+                <button onclick="triggerClearCartConfirmation()" class="w-full text-center text-xs text-white/30 hover:text-[#FF006E] font-bold mt-3 transition-colors uppercase tracking-wider">
+                    <i class="fa-solid fa-trash-can mr-1"></i> Vaciar Carrito
                 </button>
             </div>
         </div>
     </div>
 
     <!-- ADMIN MODAL -->
-    <div id="admin-modal" class="fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel">
-        <div class="bg-white w-full max-w-lg h-full border-l border-gray-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300">
+    <div id="admin-modal" class="fixed inset-0 bg-black/80 z-50 flex justify-end transition-all duration-300 hide-panel">
+        <div class="bg-[#0D0D0D] w-full max-w-lg h-full border-l border-white/10 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300">
             <div>
-                <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-5">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-5">
                     <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-sliders text-orange-600 text-lg"></i>
-                        <h2 class="text-lg font-bold text-gray-900">Panel de Control</h2>
+                        <i class="fa-solid fa-sliders text-[#FF5A00] text-lg"></i>
+                        <h2 class="font-display text-xl text-white tracking-wider uppercase">Panel de Control</h2>
                     </div>
-                    <button onclick="closeAdminPanel()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-all">
+                    <button onclick="closeAdminPanel()" class="w-8 h-8 bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all border border-white/10">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
 
-                <div class="mb-6 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div class="mb-6 bg-[#1A1A1A] p-4 border border-white/10">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-orange-600 text-sm uppercase tracking-wider">Configuración General</h3>
-                        <button onclick="syncProductsFromCode()" class="text-xs bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5">
-                            <i class="fa-solid fa-rotate"></i> Sincronizar Precios
+                        <h3 class="font-black text-[#FF5A00] text-xs uppercase tracking-wider">Configuración</h3>
+                        <button onclick="syncProductsFromCode()" class="text-xs bg-white/5 hover:bg-white/10 text-white font-bold px-3 py-1.5 transition-all flex items-center gap-1.5 uppercase tracking-wider border border-white/10">
+                            <i class="fa-solid fa-rotate"></i> Sincronizar
                         </button>
                     </div>
                     <div class="space-y-3">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">WhatsApp (con código)</label>
-                            <input id="cfg-whatsapp" type="text" placeholder="584243178117" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">WhatsApp</label>
+                            <input id="cfg-whatsapp" type="text" placeholder="584243178117" class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Instagram (URL completo)</label>
-                            <input oninput="updateInstagramLinkPreview(this.value)" id="cfg-instagram" type="text" placeholder="https://instagram.com/firehitstcg" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Instagram URL</label>
+                            <input oninput="updateInstagramLinkPreview(this.value)" id="cfg-instagram" type="text" placeholder="https://instagram.com/firehitstcg" class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Contraseña del Panel</label>
-                            <input id="cfg-password" type="text" placeholder="Nueva Contraseña" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Contraseña</label>
+                            <input id="cfg-password" type="text" placeholder="Nueva Clave" class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mb-6">
-                    <h3 id="form-title" class="font-bold text-orange-600 text-sm mb-4 uppercase tracking-wider">Agregar Nueva Carta</h3>
+                <div class="bg-[#1A1A1A] p-4 border border-white/10 mb-6">
+                    <h3 id="form-title" class="font-black text-[#FF5A00] text-xs mb-4 uppercase tracking-wider">Agregar Carta</h3>
                     <input id="prod-id" type="hidden" value="">
                     <div class="space-y-3">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Nombre del Producto</label>
-                            <input id="prod-name" type="text" placeholder="Ej: Charizard Ultra Rare" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Nombre</label>
+                            <input id="prod-name" type="text" placeholder="Ej: Charizard Ultra Rare" class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-500 mb-1">Precio (USD)</label>
-                                <input id="prod-price" type="number" placeholder="85" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                                <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Precio USD</label>
+                                <input id="prod-price" type="number" placeholder="85" class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-500 mb-1">Stock</label>
-                                <input id="prod-stock" type="number" placeholder="5" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                                <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Stock</label>
+                                <input id="prod-stock" type="number" placeholder="5" class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-500 mb-1">Categoría</label>
-                                <select id="prod-category" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                                <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Categoría</label>
+                                <select id="prod-category" class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                                     <option value="Sellado">Sellado</option>
                                     <option value="Singles Raros">Singles Raros</option>
                                     <option value="Accesorios">Accesorios</option>
@@ -564,8 +592,8 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-500 mb-1">Idioma</label>
-                                <select id="prod-language" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                                <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Idioma</label>
+                                <select id="prod-language" class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                                     <option value="Inglés">Inglés</option>
                                     <option value="Español">Español</option>
                                     <option value="Japonés">Japonés</option>
@@ -574,52 +602,52 @@
                             </div>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">URL de la Imagen</label>
-                            <input id="prod-image" type="text" placeholder="https://..." class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Imagen URL</label>
+                            <input id="prod-image" type="text" placeholder="https://..." class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">URL Imagen 2 (Opcional)</label>
-                            <input id="prod-image2" type="text" placeholder="URL extra..." class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Imagen 2 (opcional)</label>
+                            <input id="prod-image2" type="text" placeholder="URL extra..." class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Subtítulo Imagen 2</label>
-                            <input id="prod-image2-label" type="text" placeholder="Ej: Mejores cartas" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Subtítulo Img 2</label>
+                            <input id="prod-image2-label" type="text" placeholder="Ej: Mejores cartas" class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">URL Imagen 3 (Opcional)</label>
-                            <input id="prod-image3" type="text" placeholder="URL extra..." class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Imagen 3 (opcional)</label>
+                            <input id="prod-image3" type="text" placeholder="URL extra..." class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Subtítulo Imagen 3</label>
-                            <input id="prod-image3-label" type="text" placeholder="Ej: Reverse holos" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Subtítulo Img 3</label>
+                            <input id="prod-image3-label" type="text" placeholder="Ej: Reverse holos" class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm font-semibold">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Especificaciones</label>
-                            <textarea id="prod-specs" rows="2" placeholder="Condición, contenido..." class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm resize-none"></textarea>
+                            <label class="block text-[10px] font-bold text-white/30 uppercase tracking-wider mb-1">Especificaciones</label>
+                            <textarea id="prod-specs" rows="2" placeholder="Condición, contenido..." class="w-full bg-white/5 border border-white/10 rounded-none py-2 px-3.5 text-white focus:outline-none focus:border-[#FF5A00] text-sm resize-none font-semibold"></textarea>
                         </div>
                         <div class="flex gap-2 pt-1">
-                            <button onclick="saveProduct()" class="flex-grow bg-orange-600 hover:bg-orange-500 text-white font-bold py-2.5 px-4 rounded-lg transition-all text-sm">Guardar Carta</button>
-                            <button id="cancel-edit-btn" onclick="clearProductForm()" class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2.5 px-4 rounded-lg transition-all text-sm hidden">Cancelar</button>
+                            <button onclick="saveProduct()" class="flex-grow bg-[#FF5A00] hover:bg-[#E55000] text-black font-black py-2.5 px-4 transition-all text-sm uppercase tracking-wider">Guardar</button>
+                            <button id="cancel-edit-btn" onclick="clearProductForm()" class="bg-white/10 hover:bg-white/20 text-white font-bold py-2.5 px-4 transition-all text-sm uppercase tracking-wider hidden">Cancelar</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="border-t border-gray-200 pt-5">
-                    <h3 class="font-bold text-orange-600 text-sm mb-4 uppercase tracking-wider">Inventario Actual</h3>
+                <div class="border-t border-white/10 pt-5">
+                    <h3 class="font-black text-[#FF5A00] text-xs mb-4 uppercase tracking-wider">Inventario</h3>
                     <div id="admin-products-list" class="flex flex-col gap-2"></div>
                 </div>
             </div>
 
-            <div class="mt-6 border-t border-gray-200 pt-4 bg-white sticky bottom-0 space-y-2">
-                <button onclick="exportToCSV()" class="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg flex items-center justify-center gap-2 transition-all text-sm border border-gray-200">
-                    <i class="fa-solid fa-file-csv text-green-600"></i>
-                    Exportar Inventario a Excel
+            <div class="mt-6 border-t border-white/10 pt-4 bg-[#0D0D0D] sticky bottom-0 space-y-2">
+                <button onclick="exportToCSV()" class="w-full py-2.5 bg-white/5 hover:bg-white/10 text-white font-bold flex items-center justify-center gap-2 transition-all text-sm uppercase tracking-wider border border-white/10">
+                    <i class="fa-solid fa-file-csv text-[#FF5A00]"></i>
+                    Exportar a Excel
                 </button>
-                <button onclick="downloadUpdatedHTML()" class="w-full py-3 bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg flex items-center justify-center gap-2 transition-all text-sm">
+                <button onclick="downloadUpdatedHTML()" class="w-full py-3 bg-[#FF5A00] hover:bg-[#E55000] text-black font-black flex items-center justify-center gap-2 transition-all text-sm uppercase tracking-wider">
                     <i class="fa-solid fa-cloud-arrow-down"></i>
-                    Descargar HTML Actualizado
+                    Descargar HTML
                 </button>
-                <span class="block text-[10px] text-center text-gray-400 mt-1">Descarga y reemplázalo en tu GitHub para guardar los cambios.</span>
+                <span class="block text-[10px] text-center text-white/20 mt-1 font-semibold">Reemplaza en GitHub para guardar cambios.</span>
             </div>
         </div>
     </div>
@@ -864,7 +892,7 @@
                     "language": "Inglés",
                     "image": "https://cdn.phototourl.com/free/2026-06-21-c1efb22a-4962-438e-be8f-299bf8c95325.png",
                     "image2": "https://cdn.phototourl.com/member/2026-06-22-f7963d13-1429-4be7-bc63-f792e63279eb.jpg",
-                    "image2_label": "LOS HITS CANDELA",
+                    "image2_label": "",
                     "image3": "",
                     "image3_label": "",
                     "specs": "1 Pokémon TCG pack containing 3 of 9 promo cards\n2 Pokémon TCG booster packs\n1 sticker sheet",
@@ -1055,7 +1083,7 @@
             backfillOrders();
             localStorage.setItem("fh_products", JSON.stringify(products));
             renderProducts();
-            showToast("Precios sincronizados desde el código");
+            showToast("Precios sincronizados");
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1185,7 +1213,7 @@
             const thumbs = document.getElementById("detail-thumbnails");
             thumbs.innerHTML = "";
             images.forEach((img, i) => {
-                thumbs.innerHTML += `<img src="${img}" class="w-16 h-16 object-contain rounded-lg border-2 cursor-pointer transition-all ${i === index ? 'border-orange-500 opacity-100' : 'border-gray-200 opacity-60 hover:opacity-100'}" onclick="switchImage(${i})">`;
+                thumbs.innerHTML += `<img src="${img}" class="w-16 h-16 object-contain rounded-lg border-2 cursor-pointer transition-all ${i === index ? 'border-[#FF5A00] opacity-100' : 'border-white/10 opacity-50 hover:opacity-80'}" onclick="switchImage(${i})">`;
             });
         }
 
@@ -1202,7 +1230,7 @@
             if (label) { labelEl.textContent = label; labelEl.classList.remove("hidden"); }
             else { labelEl.classList.add("hidden"); }
             document.querySelectorAll("#detail-thumbnails img").forEach((thumb, i) => {
-                thumb.className = `w-16 h-16 object-contain rounded-lg border-2 cursor-pointer transition-all ${i === index ? 'border-orange-500 opacity-100' : 'border-gray-200 opacity-60 hover:opacity-100'}`;
+                thumb.className = `w-16 h-16 object-contain rounded-lg border-2 cursor-pointer transition-all ${i === index ? 'border-[#FF5A00] opacity-100' : 'border-white/10 opacity-50 hover:opacity-80'}`;
             });
         }
 
@@ -1318,44 +1346,46 @@
             filtered.forEach(p => {
                 const language = p.language || "Inglés";
                 let flagBadge = "";
-                if (language === "Inglés") flagBadge = `<span class="bg-blue-50 text-blue-600 text-[10px] font-semibold px-1.5 py-0.5 rounded border border-blue-200">🇺🇸 Inglés</span>`;
-                else if (language === "Español") flagBadge = `<span class="bg-yellow-50 text-yellow-600 text-[10px] font-semibold px-1.5 py-0.5 rounded border border-yellow-200">🇪🇸 Español</span>`;
-                else if (language === "Japonés") flagBadge = `<span class="bg-red-50 text-red-600 text-[10px] font-semibold px-1.5 py-0.5 rounded border border-red-200">🇯🇵 Japonés</span>`;
+                if (language === "Inglés") flagBadge = `<span class="bg-blue-500/10 text-blue-400 text-[10px] font-bold px-1.5 py-0.5 border border-blue-500/20 uppercase tracking-wider">🇺🇸 INGLÉS</span>`;
+                else if (language === "Español") flagBadge = `<span class="bg-yellow-500/10 text-yellow-400 text-[10px] font-bold px-1.5 py-0.5 border border-yellow-500/20 uppercase tracking-wider">🇪🇸 ESPAÑOL</span>`;
+                else if (language === "Japonés") flagBadge = `<span class="bg-red-500/10 text-red-400 text-[10px] font-bold px-1.5 py-0.5 border border-red-500/20 uppercase tracking-wider">🇯🇵 JAPONÉS</span>`;
 
                 const isProximamente = p.category === "Proximamente";
                 const isOutOfStock = p.stock <= 0 && !isProximamente;
-                const stockColor = p.stock > 10 ? 'text-green-600' : p.stock > 0 ? 'text-orange-600' : 'text-red-500';
+                const stockColor = p.stock > 10 ? 'text-green-400' : p.stock > 0 ? 'text-[#FF5A00]' : 'text-red-400';
 
                 let badgeEl = "";
                 if (isProximamente) {
-                    badgeEl = `<span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-emerald-200 preorder-badge"><i class="fa-regular fa-clock"></i> Pre-Order</span>`;
+                    badgeEl = `<span class="inline-flex items-center gap-1 bg-white/10 text-white text-[10px] font-black px-1.5 py-0.5 border border-white/20 uppercase tracking-wider"><i class="fa-regular fa-clock"></i> PRE-ORDER</span>`;
                 } else if (p.stock > 0 && p.stock <= 3) {
-                    badgeEl = `<span class="inline-flex items-center gap-1 bg-orange-50 text-orange-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-orange-200"><i class="fa-solid fa-bolt"></i> Low Stock</span>`;
+                    badgeEl = `<span class="inline-flex items-center gap-1 bg-[#FF006E]/20 text-[#FF006E] text-[10px] font-black px-1.5 py-0.5 border border-[#FF006E]/30 uppercase tracking-wider"><i class="fa-solid fa-bolt"></i> LOW STOCK</span>`;
                 } else if (p.stock > 10) {
-                    badgeEl = `<span class="inline-flex items-center gap-1 bg-green-50 text-green-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-green-200"><i class="fa-solid fa-circle-check"></i> In Stock</span>`;
+                    badgeEl = `<span class="inline-flex items-center gap-1 bg-green-500/20 text-green-400 text-[10px] font-black px-1.5 py-0.5 border border-green-500/30 uppercase tracking-wider"><i class="fa-solid fa-circle-check"></i> STOCK</span>`;
                 }
 
                 let btnHtml = isProximamente ?
-                    `<button disabled class="w-full bg-emerald-50 text-emerald-600 font-semibold py-2 px-3 rounded-lg text-xs border border-emerald-200 cursor-default flex items-center justify-center gap-1.5"><i class="fa-regular fa-clock"></i> Próximamente</button>` :
+                    `<button disabled class="w-full bg-white/5 text-white/40 font-black py-2.5 px-3 text-xs border border-white/10 cursor-default flex items-center justify-center gap-2 uppercase tracking-wider"><i class="fa-regular fa-clock"></i> Pre-Order</button>` :
                     isOutOfStock ?
-                    `<button disabled class="w-full bg-gray-100 text-gray-400 font-semibold py-2 px-3 rounded-lg text-xs cursor-not-allowed flex items-center justify-center gap-1.5"><i class="fa-solid fa-ban"></i> Agotado</button>` :
-                    `<button onclick="addToCart(${p.id})" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-2 px-3 rounded-lg text-xs transition-all flex items-center justify-center gap-1.5"><i class="fa-solid fa-bag-shopping"></i> Añadir</button>`;
+                    `<button disabled class="w-full bg-white/5 text-white/30 font-black py-2.5 px-3 text-xs border border-white/10 cursor-default flex items-center justify-center gap-2 uppercase tracking-wider"><i class="fa-solid fa-ban"></i> Agotado</button>` :
+                    `<button onclick="addToCart(${p.id})" class="w-full bg-[#FF5A00] hover:bg-[#E55000] text-black font-black py-2.5 px-3 text-xs transition-all flex items-center justify-center gap-2 uppercase tracking-wider"><i class="fa-solid fa-bag-shopping"></i> Añadir</button>`;
+
+                let glowStyle = isProximamente || isOutOfStock ? '' : ' glow-hover';
 
                 grid.innerHTML += `
-                    <div class="product-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-orange-300 hover:shadow-md transition-all duration-200 flex flex-col">
-                        <div class="relative bg-gray-50 flex items-center justify-center p-3 sm:p-4 aspect-square border-b border-gray-100">
-                            <img src="${p.image || 'https://placehold.co/400x400/F1F5F9/EA580C?text=TCG'}" alt="${p.name}" class="product-thumb w-full h-full object-contain cursor-zoom-in" onclick="openProductDetail(${p.id})">
+                    <div class="product-card bg-[#1A1A1A] border border-white/10 hover:border-[#FF5A00]/40 transition-all duration-200 flex flex-col${glowStyle}">
+                        <div class="relative bg-black flex items-center justify-center p-4 sm:p-5 aspect-square border-b border-white/5">
+                            <img src="${p.image || 'https://placehold.co/400x400/1A1A1A/FF5A00?text=TCG'}" alt="${p.name}" class="product-thumb w-full h-full object-contain cursor-zoom-in" onclick="openProductDetail(${p.id})">
                             ${badgeEl ? `<div class="absolute top-2 left-2">${badgeEl}</div>` : ''}
                         </div>
                         <div class="p-3 flex flex-col flex-1">
-                            <div class="flex items-center gap-1.5 mb-1 flex-wrap">
+                            <div class="flex items-center gap-1.5 mb-1.5 flex-wrap">
                                 ${flagBadge}
                             </div>
-                            <h3 class="text-sm font-bold text-gray-900 leading-tight mb-0.5">${p.name}</h3>
-                            ${p.specs ? `<p class="text-[11px] text-gray-500 mb-2 line-clamp-2 leading-relaxed">${p.specs}</p>` : `<div class="mb-2"></div>`}
-                            <div class="mt-auto flex items-center justify-between">
-                                ${isProximamente ? `<span class="text-sm font-bold text-emerald-600">A consultar</span>` : `<span class="text-base font-black text-orange-600">$${p.price}</span>`}
-                                <span class="text-[10px] font-medium ${stockColor}">${p.stock > 0 ? p.stock+' unid.' : 'Agotado'}</span>
+                            <h3 class="text-sm font-black text-white leading-tight mb-0.5 uppercase tracking-tight">${p.name}</h3>
+                            ${p.specs ? `<p class="text-[11px] text-white/40 font-semibold mb-2 line-clamp-2 leading-relaxed">${p.specs}</p>` : `<div class="mb-2"></div>`}
+                            <div class="mt-auto flex items-center justify-between border-t border-white/5 pt-2.5">
+                                ${isProximamente ? `<span class="text-sm font-black text-white/60 uppercase tracking-wider">A consultar</span>` : `<span class="text-base font-black text-[#FF5A00]">$${p.price}</span>`}
+                                <span class="text-[10px] font-black uppercase tracking-wider ${stockColor}">${p.stock > 0 ? p.stock+' unid.' : 'AGOTADO'}</span>
                             </div>
                             <div class="mt-2.5">
                                 ${btnHtml}
@@ -1380,7 +1410,7 @@
             if (product.category === "Proximamente") return;
             const cartItemIndex = cart.findIndex(item => item.id === productId);
             if (cartItemIndex !== -1) {
-                if (cart[cartItemIndex].quantity >= product.stock) { showToast(`Solo tenemos ${product.stock} unids. en stock!`); return; }
+                if (cart[cartItemIndex].quantity >= product.stock) { showToast(`Solo ${product.stock} unids. en stock!`); return; }
                 cart[cartItemIndex].quantity++;
             } else {
                 cart.push({ id: product.id, name: product.name, price: product.price, image: product.image, language: product.language || "Inglés", stock: product.stock, quantity: 1 });
@@ -1394,7 +1424,7 @@
             if (index === -1) return;
             const newQty = cart[index].quantity + amount;
             if (newQty <= 0) { cart.splice(index, 1); }
-            else if (newQty > cart[index].stock) { showToast("Stock máximo alcanzado!"); return; }
+            else if (newQty > cart[index].stock) { showToast("Stock máximo!"); return; }
             else { cart[index].quantity = newQty; }
             updateCartUI(); renderCartItems();
         }
@@ -1418,7 +1448,7 @@
             const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
             if (totalItems > 0) { badge.innerText = totalItems; badge.classList.remove("hidden"); checkoutBtn.removeAttribute("disabled"); }
             else { badge.classList.add("hidden"); checkoutBtn.setAttribute("disabled", "true"); }
-            drawerCount.innerText = `${totalItems} ${totalItems === 1 ? 'Item' : 'Items'}`;
+            drawerCount.innerText = `${totalItems} ${totalItems === 1 ? 'ITEM' : 'ITEMS'}`;
             document.getElementById("cart-total-price").innerText = cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
         }
 
@@ -1426,28 +1456,26 @@
             const container = document.getElementById("cart-items-container");
             container.innerHTML = "";
             if (cart.length === 0) {
-                container.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-center text-gray-400"><i class="fa-solid fa-bag-shopping text-4xl mb-3 opacity-30"></i><p class="font-semibold text-sm text-gray-500">Tu carrito está vacío</p><p class="text-xs mt-1">Explora el catálogo y agrega tus favoritos.</p></div>`;
+                container.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-center"><i class="fa-solid fa-bag-shopping text-4xl mb-3 text-white/10"></i><p class="font-black text-sm text-white/60 uppercase tracking-wider">Carrito vacío</p><p class="text-xs text-white/30 font-semibold mt-1">Agrega productos del catálogo.</p></div>`;
                 return;
             }
             cart.forEach(item => {
-                const flagEmoji = item.language === "Ninguno" ? "📦" : "🇺🇸";
                 container.innerHTML += `
-                    <div class="bg-gray-50 border border-gray-200 p-3 rounded-xl flex gap-3 items-center justify-between">
+                    <div class="bg-white/5 border border-white/10 p-3 flex gap-3 items-center justify-between">
                         <div class="flex items-center gap-3 overflow-hidden">
-                            <img src="${item.image || 'https://placehold.co/100x100'}" class="w-12 h-12 object-contain bg-white rounded-lg border border-gray-100" onerror="this.src='https://placehold.co/100x100'">
+                            <img src="${item.image || 'https://placehold.co/100x100'}" class="w-12 h-12 object-contain bg-black border border-white/10" onerror="this.src='https://placehold.co/100x100'">
                             <div class="overflow-hidden">
-                                <span class="text-[10px] bg-white text-gray-500 font-semibold px-1.5 py-0.5 rounded border border-gray-200 inline-block mb-0.5">${flagEmoji}</span>
-                                <h4 class="text-sm font-bold text-gray-900 truncate max-w-[160px]">${item.name}</h4>
-                                <span class="text-xs text-orange-600 font-bold">$${item.price} USD</span>
+                                <h4 class="text-sm font-black text-white truncate max-w-[160px] uppercase tracking-tight">${item.name}</h4>
+                                <span class="text-xs font-black text-[#FF5A00]">$${item.price} USD</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
-                            <div class="flex items-center bg-white rounded-lg border border-gray-200 p-0.5">
-                                <button onclick="updateCartQuantity(${item.id}, -1)" class="w-6 h-6 rounded text-gray-400 hover:text-gray-700 hover:bg-gray-100 flex items-center justify-center text-sm">-</button>
-                                <span class="text-xs font-bold text-gray-900 w-6 text-center">${item.quantity}</span>
-                                <button onclick="updateCartQuantity(${item.id}, 1)" class="w-6 h-6 rounded text-gray-400 hover:text-gray-700 hover:bg-gray-100 flex items-center justify-center text-sm">+</button>
+                            <div class="flex items-center border border-white/10">
+                                <button onclick="updateCartQuantity(${item.id}, -1)" class="w-7 h-7 text-white/40 hover:text-white hover:bg-white/10 flex items-center justify-center text-sm font-black">-</button>
+                                <span class="text-xs font-black text-white w-6 text-center">${item.quantity}</span>
+                                <button onclick="updateCartQuantity(${item.id}, 1)" class="w-7 h-7 text-white/40 hover:text-white hover:bg-white/10 flex items-center justify-center text-sm font-black">+</button>
                             </div>
-                            <button onclick="removeItemFromCart(${item.id})" class="text-gray-400 hover:text-red-500 transition-colors p-1 text-sm"><i class="fa-solid fa-trash-can"></i></button>
+                            <button onclick="removeItemFromCart(${item.id})" class="text-white/30 hover:text-[#FF006E] transition-colors p-1"><i class="fa-solid fa-trash-can"></i></button>
                         </div>
                     </div>
                 `;
@@ -1464,17 +1492,17 @@
             });
             message += `\n💰 *Total:* $${total} USD\n\nMe confirman disponibilidad para coordinar el pago y envio?`;
             window.open(`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
-            cart = []; updateCartUI(); toggleCart(); showToast("Pedido enviado a WhatsApp!");
+            cart = []; updateCartUI(); toggleCart(); showToast("Pedido enviado!");
         }
 
         function setCategory(catName) {
             activeCategory = catName;
             document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.className = "cat-btn px-3.5 py-1.5 rounded-lg font-semibold text-sm bg-white text-gray-600 hover:text-gray-900 transition-all whitespace-nowrap border border-gray-200";
+                btn.className = "cat-btn px-4 py-2 font-bold text-sm bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-all uppercase tracking-wider border border-white/10";
             });
             const activeBtnId = `cat-${catName.replace(/\s+/g, '-')}`;
             const activeBtn = document.getElementById(activeBtnId);
-            if (activeBtn) activeBtn.className = "cat-btn px-3.5 py-1.5 rounded-lg font-bold text-sm bg-orange-600 text-white transition-all whitespace-nowrap";
+            if (activeBtn) activeBtn.className = "cat-btn px-4 py-2 font-black text-sm bg-[#FF5A00] text-black transition-all uppercase tracking-wider";
             renderProducts();
         }
 
@@ -1638,24 +1666,24 @@
             catOrder.forEach(cat => {
                 const catProducts = products.filter(p => p.category === cat).sort((a, b) => (a.order || 0) - (b.order || 0));
                 if (catProducts.length === 0) return;
-                list.innerHTML += `<div class="flex items-center gap-2 border-b border-gray-200 pb-2 mt-3 first:mt-0"><i class="fa-solid fa-folder-open text-orange-500 text-xs"></i><h4 class="text-sm font-bold text-orange-600 uppercase tracking-wider">${cat}</h4><span class="text-xs text-gray-400 font-normal">(${catProducts.length})</span></div>`;
+                list.innerHTML += `<div class="flex items-center gap-2 border-b border-white/10 pb-2 mt-3 first:mt-0"><i class="fa-solid fa-folder-open text-[#FF5A00] text-xs"></i><h4 class="text-sm font-black text-[#FF5A00] uppercase tracking-wider">${cat}</h4><span class="text-xs text-white/30 font-normal">(${catProducts.length})</span></div>`;
                 catProducts.forEach((p, idx) => {
                     const isFirst = idx === 0;
                     const isLast = idx === catProducts.length - 1;
                     list.innerHTML += `
-                        <div class="bg-white border border-gray-200 p-3 rounded-xl flex items-center justify-between gap-3 mt-2">
+                        <div class="bg-white/5 border border-white/10 p-3 flex items-center justify-between gap-3 mt-2">
                             <div class="flex items-center gap-3 overflow-hidden flex-1 min-w-0">
-                                <img src="${p.image || 'https://placehold.co/100x100'}" class="w-10 h-10 object-contain rounded-lg bg-gray-50 border border-gray-100 flex-shrink-0" onerror="this.src='https://placehold.co/100x100'">
+                                <img src="${p.image || 'https://placehold.co/100x100'}" class="w-10 h-10 object-contain bg-black border border-white/10 flex-shrink-0" onerror="this.src='https://placehold.co/100x100'">
                                 <div class="overflow-hidden">
-                                    <span class="text-xs font-bold text-orange-600 block">${p.category}</span>
-                                    <span class="text-sm text-gray-900 font-bold block truncate max-w-[180px]">${p.name}</span>
+                                    <span class="text-xs font-black text-[#FF5A00] block uppercase tracking-wider">${p.category}</span>
+                                    <span class="text-sm font-black text-white block truncate max-w-[180px] uppercase tracking-tight">${p.name}</span>
                                 </div>
                             </div>
                             <div class="flex items-center gap-1 flex-shrink-0">
-                                <button onclick="moveProduct(${p.id}, 'up')" class="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-xs ${isFirst ? 'opacity-30 cursor-default' : 'hover:bg-gray-200 text-gray-500 cursor-pointer'}" ${isFirst ? 'disabled' : ''}><i class="fa-solid fa-chevron-up"></i></button>
-                                <button onclick="moveProduct(${p.id}, 'down')" class="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-xs ${isLast ? 'opacity-30 cursor-default' : 'hover:bg-gray-200 text-gray-500 cursor-pointer'}" ${isLast ? 'disabled' : ''}><i class="fa-solid fa-chevron-down"></i></button>
-                                <button onclick="editProductForm(${p.id})" class="w-8 h-8 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-600 flex items-center justify-center text-sm"><i class="fa-solid fa-pen-to-square"></i></button>
-                                <button onclick="deleteProduct(${p.id})" class="w-8 h-8 rounded-lg bg-red-50 hover:bg-red-100 text-red-500 flex items-center justify-center text-sm"><i class="fa-solid fa-trash-can"></i></button>
+                                <button onclick="moveProduct(${p.id}, 'up')" class="w-7 h-7 bg-white/5 flex items-center justify-center text-xs ${isFirst ? 'opacity-20 cursor-default' : 'hover:bg-white/10 text-white/60 cursor-pointer'}" ${isFirst ? 'disabled' : ''}><i class="fa-solid fa-chevron-up"></i></button>
+                                <button onclick="moveProduct(${p.id}, 'down')" class="w-7 h-7 bg-white/5 flex items-center justify-center text-xs ${isLast ? 'opacity-20 cursor-default' : 'hover:bg-white/10 text-white/60 cursor-pointer'}" ${isLast ? 'disabled' : ''}><i class="fa-solid fa-chevron-down"></i></button>
+                                <button onclick="editProductForm(${p.id})" class="w-8 h-8 bg-[#FF5A00]/10 hover:bg-[#FF5A00]/20 text-[#FF5A00] flex items-center justify-center text-sm border border-[#FF5A00]/20"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button onclick="deleteProduct(${p.id})" class="w-8 h-8 bg-[#FF006E]/10 hover:bg-[#FF006E]/20 text-[#FF006E] flex items-center justify-center text-sm border border-[#FF006E]/20"><i class="fa-solid fa-trash-can"></i></button>
                             </div>
                         </div>
                     `;
@@ -1696,15 +1724,15 @@
 
                 document.body.removeAttribute("style");
                 openPanelCount = 0;
-                if (adminModal) adminModal.className = "fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel";
-                if (adminChild) adminChild.className = "bg-white w-full max-w-lg h-full border-l border-gray-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300";
-                if (cartDrawer) cartDrawer.className = "fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel";
-                if (cartChild) cartChild.className = "bg-white w-full max-w-md h-full border-l border-gray-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300";
-                if (passwordModal) passwordModal.className = "fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hide-panel";
-                if (confirmModal) confirmModal.className = "fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hide-panel";
-                if (detailModal) detailModal.className = "fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel";
-                if (detailChild) detailChild.className = "bg-white w-full max-w-xl h-full border-l border-gray-200 p-6 flex flex-col transform transition-transform duration-300";
-                if (toastEl) toastEl.className = "fixed bottom-6 right-6 z-50 bg-white border border-gray-200 text-gray-900 py-2.5 px-5 rounded-xl flex items-center gap-2.5 shadow-lg shadow-black/5 transition-all duration-300 pointer-events-none translate-y-32 opacity-0";
+                if (adminModal) adminModal.className = "fixed inset-0 bg-black/80 z-50 flex justify-end transition-all duration-300 hide-panel";
+                if (adminChild) adminChild.className = "bg-[#0D0D0D] w-full max-w-lg h-full border-l border-white/10 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300";
+                if (cartDrawer) cartDrawer.className = "fixed inset-0 bg-black/80 z-50 flex justify-end transition-all duration-300 hide-panel";
+                if (cartChild) cartChild.className = "bg-[#0D0D0D] w-full max-w-md h-full border-l border-white/10 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300";
+                if (passwordModal) passwordModal.className = "fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hide-panel";
+                if (confirmModal) confirmModal.className = "fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hide-panel";
+                if (detailModal) detailModal.className = "fixed inset-0 bg-black/80 z-50 flex justify-end transition-all duration-300 hide-panel";
+                if (detailChild) detailChild.className = "bg-[#0D0D0D] w-full max-w-xl h-full border-l border-white/10 p-6 flex flex-col transform transition-transform duration-300";
+                if (toastEl) toastEl.className = "fixed bottom-6 right-6 z-50 bg-[#FF5A00] text-black py-3 px-6 flex items-center gap-3 shadow-2xl transition-all duration-300 pointer-events-none translate-y-32 opacity-0";
 
                 let modifiedHTML = document.documentElement.outerHTML;
 
@@ -1731,10 +1759,10 @@
                 a.download = "index.html";
                 a.click();
                 URL.revokeObjectURL(url);
-                showToast("Archivo index.html listo! Súbelo a GitHub.");
+                showToast("Archivo index.html listo! Subelo a GitHub.");
             } catch (error) {
                 console.error("Error:", error);
-                showToast("Hubo un detalle al procesar el archivo.");
+                showToast("Hubo un detalle al procesar.");
             }
         }
 
