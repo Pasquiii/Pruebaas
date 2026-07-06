@@ -2,10 +2,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fire Hits TCG - Tienda Pokémon en Venezuela</title>
-    <meta name="description" content="Compra cartas Pokémon TCG originales en Venezuela. Productos sellados, singles raros y accesorios con envío a todo el país.">
+    <title>Fire Hits TCG - Tienda Pokémon</title>
+    <meta name="description" content="Cartas Pokémon TCG originales en Venezuela. Productos sellados, singles y accesorios con envío a todo el país.">
     <meta property="og:title" content="Fire Hits TCG - Tienda Pokémon">
-    <meta property="og:description" content="Sellado original, accesorios y próximos lanzamientos Pokémon al mejor precio. Envíos a todo Venezuela.">
+    <meta property="og:description" content="Sellado original, accesorios y próximos lanzamientos Pokémon.">
     <meta property="og:image" content="https://cdn.phototourl.com/member/2026-06-22-8b978832-e8ad-4f33-923e-f2eb146af21a.png">
     <meta property="og:url" content="https://firehitstcg.pages.dev">
     <meta property="og:type" content="website">
@@ -13,29 +13,26 @@
     <meta name="google-site-verification" content="RuqHbAbAhYulyZj9qKV2Ygi5hobZ1R8zq2TCo7ZpmRo">
     <link rel="icon" type="image/png" href="https://cdn.phototourl.com/member/2026-06-22-8b978832-e8ad-4f33-923e-f2eb146af21a.png">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{brand:{50:'#FFF7ED',100:'#FFEDD5',200:'#FED7AA',400:'#FB923C',500:'#F97316',600:'#EA580C',700:'#C2410C'}}}}}</script>
     <style>
-        body { font-family: 'Inter', sans-serif; background: #FAFAF8; color: #1A1A1A; }
+        body { font-family: 'Inter', sans-serif; background: #FAFAF8; color: #0F172A; -webkit-font-smoothing: antialiased; }
 
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #F1F5F9; }
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Scroll reveal */
-        .product-card { opacity: 0; transform: translateY(20px); }
-        .product-card.revealed { animation: fadeUp 0.5s ease forwards; }
-        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        .product-card { opacity: 0; transform: translateY(16px); }
+        .product-card.revealed { animation: fadeUp 0.4s ease forwards; }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(16px); } 100% { opacity: 1; transform: translateY(0); } }
 
-        /* Zoom modal */
         .zoom-modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.9); }
         .zoom-modal.active { display: flex; align-items: center; justify-content: center; }
         .zoom-modal-content { max-width: 90vw; max-height: 90vh; }
@@ -43,10 +40,9 @@
         .close-zoom { position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; cursor: pointer; }
         .close-zoom:hover { color: #EA580C; }
 
-        /* Detail modal */
-        #detail-modal { transition: opacity 0.3s ease; }
+        #detail-modal { transition: opacity 0.25s ease; }
         #detail-modal.hide-panel { opacity: 0 !important; pointer-events: none !important; }
-        #detail-modal > div { transition: transform 0.3s ease; }
+        #detail-modal > div { transition: transform 0.25s ease; }
         #detail-modal.hide-panel > div { transform: translateX(100%) !important; }
         #detail-main-image { touch-action: pan-y; user-select: none; overflow: hidden; }
         #detail-main-image.zoomed { touch-action: none; cursor: grab; }
@@ -55,66 +51,61 @@
         .zoom-indicator { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.5); color: white; border: none; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
         .zoom-indicator:hover { background: rgba(0,0,0,0.75); }
 
-        /* Hide panels */
         #cart-drawer.hide-panel, #admin-modal.hide-panel, #detail-modal.hide-panel { opacity: 0 !important; pointer-events: none !important; }
         #cart-drawer.hide-panel > div, #admin-modal.hide-panel > div, #detail-modal.hide-panel > div { transform: translateX(100%) !important; }
         #password-modal.hide-panel, #confirm-modal.hide-panel { display: none !important; opacity: 0 !important; }
 
-        /* Product image zoom */
-        .product-image { cursor: zoom-in; transition: transform 0.2s; }
-        .product-card:hover .product-image { transform: scale(1.03); }
+        .product-thumb { cursor: zoom-in; transition: transform 0.2s; }
+        .product-card:hover .product-thumb { transform: scale(1.02); }
 
-        /* Toast */
         #toast { transition: all 0.3s ease; }
 
-        /* Trust badges pulse */
-        @keyframes subtlePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-        .trust-pulse { animation: subtlePulse 3s ease-in-out infinite; }
+        .cat-card { transition: all 0.25s ease; }
+        .cat-card:hover { transform: translateY(-2px); }
 
-        /* Coming soon badge blink */
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .badge-blink { animation: blink 2s ease-in-out infinite; }
+        @keyframes pulse-subtle { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .preorder-badge { animation: pulse-subtle 2.5s ease-in-out infinite; }
     </style>
 </head>
 <body>
 
-    <!-- ===== TOP TRUST BAR ===== -->
-    <div class="bg-slate-900 text-white text-xs py-2 px-4 text-center font-medium tracking-wide">
-        <span class="inline-flex items-center gap-4 sm:gap-8">
+    <!-- TOP BAR -->
+    <div class="bg-[#0F172A] text-white text-[11px] py-2 px-4 text-center font-medium tracking-wide">
+        <span class="inline-flex items-center justify-center gap-5 sm:gap-8">
             <span><i class="fa-solid fa-truck mr-1.5 text-orange-400"></i>Envíos a todo Venezuela</span>
             <span><i class="fa-solid fa-shield-check mr-1.5 text-orange-400"></i>100% Original</span>
-            <span><i class="fa-solid fa-dollar-sign mr-1.5 text-orange-400"></i>Paga en $ o Bs.</span>
+            <span><i class="fa-solid fa-credit-card mr-1.5 text-orange-400"></i>Paga en $ o Bs.</span>
         </span>
     </div>
 
-    <!-- ===== HEADER ===== -->
-    <header class="sticky top-0 z-40 bg-white border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-            <a href="#" class="flex items-center gap-3 shrink-0">
-                <div class="w-10 h-10 rounded-lg overflow-hidden border-2 border-orange-200 flex items-center justify-center bg-white">
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+            <a href="#" class="flex items-center gap-2.5 shrink-0">
+                <div class="w-9 h-9 rounded-lg overflow-hidden border border-orange-200 flex items-center justify-center bg-white">
                     <img id="store-logo" src="logo.png" alt="Fire Hits TCG" class="w-full h-full object-cover" onerror="this.style.display='none';document.getElementById('logo-fallback').classList.remove('hidden')">
-                    <div id="logo-fallback" class="hidden text-orange-500 text-lg"><i class="fa-solid fa-fire"></i></div>
+                    <div id="logo-fallback" class="hidden text-orange-500"><i class="fa-solid fa-fire"></i></div>
                 </div>
-                <div class="hidden sm:block">
-                    <span class="text-base font-extrabold text-slate-900 tracking-tight">FIRE HITS</span>
-                    <span class="text-[9px] font-semibold text-orange-500 tracking-widest block -mt-0.5">TCG STORE</span>
+                <div>
+                    <span class="text-sm font-black text-gray-900 tracking-tight">FIRE HITS</span>
+                    <span class="text-[8px] font-semibold text-orange-500 tracking-widest block -mt-0.5">TCG STORE</span>
                 </div>
             </a>
 
-            <nav class="hidden md:flex items-center gap-8">
-                <a href="#catalogo" class="text-sm font-semibold text-slate-500 hover:text-orange-600 transition-colors">Catálogo</a>
-                <a href="#" class="text-sm font-semibold text-slate-500 hover:text-orange-600 transition-colors">Novedades</a>
-                <a href="#como-comprar" class="text-sm font-semibold text-slate-500 hover:text-orange-600 transition-colors">Cómo Comprar</a>
-                <a href="https://wa.me/584243178117" target="_blank" class="text-sm font-semibold text-slate-500 hover:text-green-600 transition-colors">Contacto</a>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#catalogo" class="text-sm font-semibold text-gray-500 hover:text-orange-600 transition-colors">Catálogo</a>
+                <a href="#categorias" class="text-sm font-semibold text-gray-500 hover:text-orange-600 transition-colors">Categorías</a>
+                <a href="#como-comprar" class="text-sm font-semibold text-gray-500 hover:text-orange-600 transition-colors">Cómo Comprar</a>
+                <a href="https://wa.me/584243178117" target="_blank" class="text-sm font-semibold text-gray-500 hover:text-green-600 transition-colors">Contacto</a>
             </nav>
 
-            <div class="flex items-center gap-2">
-                <a id="insta-link-header" href="https://www.instagram.com/firehits.tcg" target="_blank" class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-pink-100 flex items-center justify-center text-slate-400 hover:text-pink-600 transition-all">
-                    <i class="fa-brands fa-instagram text-base"></i>
+            <div class="flex items-center gap-1.5">
+                <a id="insta-link-header" href="https://www.instagram.com/firehits.tcg" target="_blank" class="w-8 h-8 rounded-lg bg-gray-100 hover:bg-pink-100 flex items-center justify-center text-gray-400 hover:text-pink-600 transition-all">
+                    <i class="fa-brands fa-instagram text-sm"></i>
                 </a>
-                <button onclick="toggleCart()" class="relative w-9 h-9 rounded-lg bg-slate-100 hover:bg-orange-100 flex items-center justify-center text-slate-400 hover:text-orange-600 transition-all">
-                    <i class="fa-solid fa-shopping-cart text-base"></i>
-                    <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-orange-600 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white hidden">0</span>
+                <button onclick="toggleCart()" class="relative w-8 h-8 rounded-lg bg-gray-100 hover:bg-orange-100 flex items-center justify-center text-gray-400 hover:text-orange-600 transition-all">
+                    <i class="fa-solid fa-bag-shopping text-sm"></i>
+                    <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-orange-600 text-white text-[10px] font-bold rounded-full h-4.5 w-4.5 flex items-center justify-center border border-white hidden">0</span>
                 </button>
             </div>
         </div>
@@ -122,107 +113,128 @@
 
     <main class="w-full">
 
-        <!-- ===== HERO BANNER ===== -->
-        <section class="bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100/50 border-b border-orange-200/50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-24">
-                <div class="max-w-3xl">
-                    <span class="inline-flex items-center gap-1.5 bg-orange-100 text-orange-700 font-semibold text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border border-orange-200 mb-5">
+        <!-- HERO -->
+        <section class="bg-white border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20">
+                <div class="max-w-2xl">
+                    <span class="inline-flex items-center gap-1.5 bg-orange-50 text-orange-700 font-semibold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-4">
                         <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
                         Nueva Colección 2026
                     </span>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 mb-4 leading-[1.15]">
-                        Tus <span class="text-orange-600">Fire Hits</span><br>
-                        <span class="text-slate-700">te esperan</span>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-gray-900 mb-3 leading-[1.15]">
+                        Pokémon TCG <span class="text-orange-600">original</span><br>
+                        <span class="text-gray-600">directo a tu casa</span>
                     </h1>
-                    <p class="text-slate-500 text-base sm:text-lg mb-8 leading-relaxed max-w-xl">
-                        La tienda de cartas Pokémon más confiable de Venezuela. Productos <strong class="text-slate-900">100% originales</strong> desde EE.UU. y Japón, con entregas en Caracas y envíos a todo el país.
+                    <p class="text-gray-500 text-sm sm:text-base mb-7 leading-relaxed max-w-lg">
+                        Productos <strong class="text-gray-900">100% originales</strong> desde EE.UU. y Japón. 
+                        Entregas en Caracas y envíos a todo Venezuela.
                     </p>
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-500 text-white font-bold px-7 py-3.5 rounded-xl transition-all text-sm shadow-sm shadow-orange-200">
+                        <button onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-500 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm shadow-sm">
                             <i class="fa-solid fa-fire"></i>
                             Explorar Catálogo
                         </button>
-                        <a href="https://wa.me/584243178117" target="_blank" class="inline-flex items-center gap-2 bg-white hover:bg-green-50 text-slate-700 border border-slate-200 hover:border-green-300 font-semibold px-7 py-3.5 rounded-xl transition-all text-sm">
+                        <a href="https://wa.me/584243178117" target="_blank" class="inline-flex items-center gap-2 bg-white hover:bg-green-50 text-gray-700 border border-gray-200 hover:border-green-300 font-semibold px-6 py-3 rounded-xl transition-all text-sm">
                             <i class="fa-brands fa-whatsapp text-green-500"></i>
-            WhatsApp Directo
+                            WhatsApp Directo
                         </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== TRUST BADGES ===== -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 -mt-6 relative z-10 mb-12">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="bg-white rounded-xl border border-slate-200 p-5 flex items-center gap-4 shadow-sm">
-                    <div class="w-12 h-12 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-shield-check text-xl text-orange-600"></i>
+        <!-- TRUST BADGES -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 -mt-5 relative z-10 mb-10">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div class="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-3 shadow-sm">
+                    <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-shield-check text-lg text-orange-600"></i>
                     </div>
                     <div>
-                        <p class="font-bold text-slate-900 text-sm">100% Original</p>
-                        <p class="text-xs text-slate-500">Productos auténticos desde EE.UU. y Japón</p>
+                        <p class="font-bold text-gray-900 text-sm">100% Original</p>
+                        <p class="text-[11px] text-gray-500">Productos auténticos desde EE.UU. y Japón</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-xl border border-slate-200 p-5 flex items-center gap-4 shadow-sm">
-                    <div class="w-12 h-12 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-truck text-xl text-orange-600"></i>
+                <div class="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-3 shadow-sm">
+                    <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-truck text-lg text-orange-600"></i>
                     </div>
                     <div>
-                        <p class="font-bold text-slate-900 text-sm">Envío Nacional</p>
-                        <p class="text-xs text-slate-500">Entregas en Caracas y todo Venezuela</p>
+                        <p class="font-bold text-gray-900 text-sm">Envío Nacional</p>
+                        <p class="text-[11px] text-gray-500">Entregas en Caracas y todo Venezuela</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-xl border border-slate-200 p-5 flex items-center gap-4 shadow-sm">
-                    <div class="w-12 h-12 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-dollar-sign text-xl text-orange-600"></i>
+                <div class="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-3 shadow-sm">
+                    <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-dollar-sign text-lg text-orange-600"></i>
                     </div>
                     <div>
-                        <p class="font-bold text-slate-900 text-sm">Pago Flexible</p>
-                        <p class="text-xs text-slate-500">Dólares, Bolívares, Zelle, Binance y más</p>
+                        <p class="font-bold text-gray-900 text-sm">Pago Flexible</p>
+                        <p class="text-[11px] text-gray-500">Dólares, Bolívares, Zelle, Binance y más</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== CATEGORÍAS VISUALES ===== -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl font-extrabold text-slate-900">Categorías</h2>
+        <!-- CATEGORIES (MaxOnCards style - large visual cards with product images) -->
+        <section id="categorias" class="max-w-7xl mx-auto px-4 sm:px-6 mb-10 scroll-mt-20">
+            <div class="flex items-center justify-between mb-5">
+                <h2 class="text-lg font-black text-gray-900">Categorías</h2>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <button onclick="setCategory('Sellado');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="group bg-white rounded-xl border border-slate-200 hover:border-orange-300 p-5 text-left transition-all hover:shadow-md">
-                    <div class="w-12 h-12 rounded-lg bg-orange-50 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">📦</div>
-                    <p class="font-bold text-slate-900">Sellado</p>
-                    <p class="text-xs text-slate-500">Cajas, blister y más</p>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                <button onclick="setCategory('Sellado');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-card bg-white rounded-xl border border-gray-200 overflow-hidden text-left hover:shadow-md">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-orange-50 to-orange-100/50 flex items-center justify-center p-5 relative">
+                        <img src="https://cdn.phototourl.com/free/2026-06-01-7c516015-8711-40d6-b1eb-941f123eabf2.png" alt="Sellado" class="w-full h-full object-contain drop-shadow-sm">
+                        <span class="absolute top-2 right-2 bg-white/90 text-[10px] font-bold text-orange-600 px-2 py-0.5 rounded-full border border-orange-200">14</span>
+                    </div>
+                    <div class="p-3">
+                        <p class="font-bold text-gray-900 text-sm">Sellado</p>
+                        <p class="text-[11px] text-gray-500">Booster boxes, bundles, tins</p>
+                    </div>
                 </button>
-                <button onclick="setCategory('Singles Raros');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="group bg-white rounded-xl border border-slate-200 hover:border-purple-300 p-5 text-left transition-all hover:shadow-md">
-                    <div class="w-12 h-12 rounded-lg bg-purple-50 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">⭐</div>
-                    <p class="font-bold text-slate-900">Singles Raros</p>
-                    <p class="text-xs text-slate-500">Cartas individuales</p>
+                <button onclick="setCategory('Accesorios');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-card bg-white rounded-xl border border-gray-200 overflow-hidden text-left hover:shadow-md">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-gray-50 to-gray-100/50 flex items-center justify-center p-5 relative">
+                        <img src="https://cdn.phototourl.com/member/2026-06-01-9c5c838f-4e9a-496e-96a4-38ead730c058.png" alt="Accesorios" class="w-full h-full object-contain drop-shadow-sm">
+                        <span class="absolute top-2 right-2 bg-white/90 text-[10px] font-bold text-gray-600 px-2 py-0.5 rounded-full border border-gray-200">6</span>
+                    </div>
+                    <div class="p-3">
+                        <p class="font-bold text-gray-900 text-sm">Accesorios</p>
+                        <p class="text-[11px] text-gray-500">Top loaders, sleeves, binders</p>
+                    </div>
                 </button>
-                <button onclick="setCategory('Accesorios');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="group bg-white rounded-xl border border-slate-200 hover:border-slate-400 p-5 text-left transition-all hover:shadow-md">
-                    <div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">🛡️</div>
-                    <p class="font-bold text-slate-900">Accesorios</p>
-                    <p class="text-xs text-slate-500">Top loaders, sleeves</p>
+                <button onclick="setCategory('Singles Raros');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-card bg-white rounded-xl border border-gray-200 overflow-hidden text-left hover:shadow-md">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-purple-50 to-purple-100/50 flex items-center justify-center p-5 relative">
+                        <div class="text-6xl opacity-30">⭐</div>
+                        <span class="absolute top-2 right-2 bg-white/90 text-[10px] font-bold text-purple-600 px-2 py-0.5 rounded-full border border-purple-200">0</span>
+                    </div>
+                    <div class="p-3">
+                        <p class="font-bold text-gray-900 text-sm">Singles Raros</p>
+                        <p class="text-[11px] text-gray-500">Cartas individuales</p>
+                    </div>
                 </button>
-                <button onclick="setCategory('Proximamente');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="group bg-white rounded-xl border border-slate-200 hover:border-emerald-300 p-5 text-left transition-all hover:shadow-md">
-                    <div class="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">🚀</div>
-                    <p class="font-bold text-slate-900">Próximamente</p>
-                    <p class="text-xs text-slate-500">Nuevos lanzamientos</p>
+                <button onclick="setCategory('Proximamente');document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="cat-card bg-white rounded-xl border border-gray-200 overflow-hidden text-left hover:shadow-md">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-emerald-50 to-emerald-100/50 flex items-center justify-center p-5 relative">
+                        <img src="https://cdn.phototourl.com/free/2026-06-21-c1efb22a-4962-438e-be8f-299bf8c95325.png" alt="Próximamente" class="w-full h-full object-contain drop-shadow-sm">
+                        <span class="absolute top-2 right-2 bg-white/90 text-[10px] font-bold text-emerald-600 px-2 py-0.5 rounded-full border border-emerald-200 preorder-badge">7</span>
+                    </div>
+                    <div class="p-3">
+                        <p class="font-bold text-gray-900 text-sm">Próximamente</p>
+                        <p class="text-[11px] text-gray-500">Pre-orders y nuevos lanzamientos</p>
+                    </div>
                 </button>
             </div>
         </section>
 
-        <!-- ===== CATÁLOGO ===== -->
-        <section id="catalogo" class="scroll-mt-20 max-w-7xl mx-auto px-4 sm:px-6 mb-12">
-            <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between mb-6">
-                <h2 class="text-xl font-extrabold text-slate-900">Catálogo</h2>
-                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                    <div class="relative w-full sm:w-64">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                        <input oninput="renderProducts()" id="search-input" type="text" placeholder="Buscar producto..." class="w-full bg-white border border-slate-200 rounded-lg py-2.5 pl-9 pr-3 text-slate-900 focus:outline-none focus:border-orange-400 text-sm placeholder:text-slate-400">
+        <!-- CATALOG -->
+        <section id="catalogo" class="scroll-mt-20 max-w-7xl mx-auto px-4 sm:px-6 mb-10">
+            <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between mb-5">
+                <h2 class="text-lg font-black text-gray-900">Catálogo</h2>
+                <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+                    <div class="relative w-full sm:w-56">
+                        <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                        <input oninput="renderProducts()" id="search-input" type="text" placeholder="Buscar producto..." class="w-full bg-white border border-gray-200 rounded-lg py-2 pl-9 pr-3 text-gray-900 focus:outline-none focus:border-orange-400 text-sm placeholder:text-gray-400">
                     </div>
-                    <select id="sort-select" onchange="renderProducts()" class="w-full sm:w-48 bg-white border border-slate-200 text-slate-700 py-2.5 px-3 rounded-lg focus:outline-none focus:border-orange-400 text-sm">
+                    <select id="sort-select" onchange="renderProducts()" class="w-full sm:w-44 bg-white border border-gray-200 text-gray-700 py-2 px-3 rounded-lg focus:outline-none focus:border-orange-400 text-sm">
                         <option value="default">Ordenar por...</option>
                         <option value="newest">Lo más nuevo</option>
                         <option value="oldest">Lo más antiguo</option>
@@ -233,83 +245,84 @@
                 </div>
             </div>
 
-            <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar mb-6">
-                <button onclick="setCategory('Sellado')" id="cat-Sellado" class="cat-btn px-4 py-2 rounded-lg font-bold text-sm bg-orange-600 text-white transition-all whitespace-nowrap">Sellado</button>
-                <button onclick="setCategory('Singles Raros')" id="cat-Singles-Raros" class="cat-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-slate-600 hover:text-slate-900 transition-all whitespace-nowrap border border-slate-200">Singles Raros</button>
-                <button onclick="setCategory('Accesorios')" id="cat-Accesorios" class="cat-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-slate-600 hover:text-slate-900 transition-all whitespace-nowrap border border-slate-200">Accesorios</button>
-                <button onclick="setCategory('Proximamente')" id="cat-Proximamente" class="cat-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-slate-600 hover:text-slate-900 transition-all whitespace-nowrap border border-slate-200">🚀 Próximamente</button>
+            <div class="flex gap-1.5 overflow-x-auto pb-2 no-scrollbar mb-5">
+                <button onclick="setCategory('Todos')" id="cat-Todos" class="cat-btn px-3.5 py-1.5 rounded-lg font-bold text-sm bg-orange-600 text-white transition-all whitespace-nowrap">Todos</button>
+                <button onclick="setCategory('Sellado')" id="cat-Sellado" class="cat-btn px-3.5 py-1.5 rounded-lg font-semibold text-sm bg-white text-gray-600 hover:text-gray-900 transition-all whitespace-nowrap border border-gray-200">Sellado</button>
+                <button onclick="setCategory('Singles Raros')" id="cat-Singles-Raros" class="cat-btn px-3.5 py-1.5 rounded-lg font-semibold text-sm bg-white text-gray-600 hover:text-gray-900 transition-all whitespace-nowrap border border-gray-200">Singles Raros</button>
+                <button onclick="setCategory('Accesorios')" id="cat-Accesorios" class="cat-btn px-3.5 py-1.5 rounded-lg font-semibold text-sm bg-white text-gray-600 hover:text-gray-900 transition-all whitespace-nowrap border border-gray-200">Accesorios</button>
+                <button onclick="setCategory('Proximamente')" id="cat-Proximamente" class="cat-btn px-3.5 py-1.5 rounded-lg font-semibold text-sm bg-white text-gray-600 hover:text-gray-900 transition-all whitespace-nowrap border border-gray-200">Próximamente</button>
             </div>
 
-            <div id="products-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
+            <div id="products-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"></div>
 
-            <div id="no-results" class="flex-col items-center justify-center py-16 text-center hidden">
-                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 mb-4 border border-slate-200">
+            <div id="no-results" class="flex-col items-center justify-center py-14 text-center hidden">
+                <div class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 mb-3 border border-gray-200">
                     <i class="fa-solid fa-ghost text-2xl"></i>
                 </div>
-                <h3 class="text-lg font-bold text-slate-900 mb-1">No encontramos lo que buscas</h3>
-                <p class="text-sm text-slate-500 max-w-sm">Intenta cambiar las palabras clave o el filtro de categorías.</p>
+                <h3 class="text-base font-bold text-gray-900 mb-1">No encontramos lo que buscas</h3>
+                <p class="text-sm text-gray-500 max-w-sm">Intenta cambiar las palabras clave o el filtro de categorías.</p>
             </div>
         </section>
 
-        <!-- ===== CÓMO COMPRAR ===== -->
-        <section id="como-comprar" class="max-w-7xl mx-auto px-4 sm:px-6 mb-12 scroll-mt-20">
-            <h2 class="text-xl font-extrabold text-slate-900 mb-8 text-center">Cómo Comprar</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-xl border border-slate-200 p-6 text-center hover:border-orange-200 transition-all hover:shadow-sm">
-                    <div class="w-14 h-14 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-black text-orange-600">1</span>
+        <!-- HOW TO BUY -->
+        <section id="como-comprar" class="max-w-7xl mx-auto px-4 sm:px-6 mb-10 scroll-mt-20">
+            <h2 class="text-lg font-black text-gray-900 mb-6 text-center">Cómo Comprar</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white rounded-xl border border-gray-200 p-5 text-center hover:border-orange-200 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-3 border border-orange-100">
+                        <span class="text-lg font-black text-orange-600">1</span>
                     </div>
-                    <h3 class="font-bold text-slate-900 mb-2">Elige tus productos</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Navega por nuestro catálogo y agrega al carrito lo que más te guste.</p>
+                    <h3 class="font-bold text-gray-900 text-sm mb-1.5">Elige tus productos</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Navega por nuestro catálogo y agrega al carrito lo que más te guste.</p>
                 </div>
-                <div class="bg-white rounded-xl border border-slate-200 p-6 text-center hover:border-orange-200 transition-all hover:shadow-sm">
-                    <div class="w-14 h-14 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-black text-orange-600">2</span>
+                <div class="bg-white rounded-xl border border-gray-200 p-5 text-center hover:border-orange-200 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-3 border border-orange-100">
+                        <span class="text-lg font-black text-orange-600">2</span>
                     </div>
-                    <h3 class="font-bold text-slate-900 mb-2">Confirma tu orden</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Revisa tu carrito y envíanos tu pedido por WhatsApp en un clic.</p>
+                    <h3 class="font-bold text-gray-900 text-sm mb-1.5">Confirma tu orden</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Revisa tu carrito y envíanos tu pedido por WhatsApp en un clic.</p>
                 </div>
-                <div class="bg-white rounded-xl border border-slate-200 p-6 text-center hover:border-orange-200 transition-all hover:shadow-sm">
-                    <div class="w-14 h-14 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-black text-orange-600">3</span>
+                <div class="bg-white rounded-xl border border-gray-200 p-5 text-center hover:border-orange-200 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-3 border border-orange-100">
+                        <span class="text-lg font-black text-orange-600">3</span>
                     </div>
-                    <h3 class="font-bold text-slate-900 mb-2">Recibe tu pedido</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Coordinamos el envío y lo recibes seguro y rápido en todo Venezuela.</p>
+                    <h3 class="font-bold text-gray-900 text-sm mb-1.5">Recibe tu pedido</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Coordinamos el envío y lo recibes seguro y rápido en todo Venezuela.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ===== WHATSAPP CTA ===== -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 mb-16">
-            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-10 sm:p-14 text-center">
-                <div class="w-14 h-14 rounded-xl bg-green-500/15 flex items-center justify-center mx-auto mb-5">
+        <!-- WHATSAPP CTA -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 mb-14">
+            <div class="bg-gray-900 rounded-2xl p-8 sm:p-12 text-center">
+                <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mx-auto mb-4">
                     <i class="fa-brands fa-whatsapp text-2xl text-green-400"></i>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">¿Listo para tu próximo <span class="text-orange-400">Fire Hit</span>?</h2>
-                <p class="text-slate-400 text-base mb-8 max-w-lg mx-auto">Escríbenos directo a WhatsApp y te atenderemos al instante.</p>
-                <a href="https://wa.me/584243178117" target="_blank" class="inline-flex items-center gap-3 bg-green-600 hover:bg-green-500 text-white font-bold px-8 py-3.5 rounded-xl transition-all text-sm shadow-lg shadow-green-600/20">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                <h2 class="text-xl sm:text-2xl font-black text-white mb-2">¿Listo para tu próximo <span class="text-orange-400">Fire Hit</span>?</h2>
+                <p class="text-gray-400 text-sm mb-6 max-w-md mx-auto">Escríbenos directo a WhatsApp y te atenderemos al instante.</p>
+                <a href="https://wa.me/584243178117" target="_blank" class="inline-flex items-center gap-2.5 bg-green-600 hover:bg-green-500 text-white font-bold px-7 py-3 rounded-xl transition-all text-sm shadow-lg shadow-green-600/20">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
                     Escribir por WhatsApp
                 </a>
             </div>
         </section>
 
-        <!-- ===== MÉTODOS DE PAGO ===== -->
+        <!-- PAYMENT METHODS -->
         <section class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
             <div class="text-center">
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Métodos de Pago</p>
+                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Métodos de Pago</p>
                 <div class="flex gap-4 justify-center flex-wrap">
-                    <div class="w-12 h-12 rounded-lg bg-white border border-slate-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Zelle">
-                        <svg viewBox="160 140 320 400" width="24" height="24"><g transform="translate(0,633) scale(0.1,-0.1)" fill="#EA580C" stroke="none"><path d="m 3030,4179.9975 -657.2625,6.0526 -7e-4,-436.0501 H3462 L2330.0025,2299 V1929.9975 H3030 V1505 h420 v425 h714 c6,17 8.1053,62.8446 -29.8947,104.8446 -63,70 -113.1053,143.1579 -159.1053,235.1579 -21,41 -36.9474,90.1053 -42.9474,94.1053 C3791.448,2370.55 2982.5639,2368.8831 2983,2374 l1133,1459.8947 v346.1028 H3450 V4610 h-420z"></path></g></svg>
+                    <div class="w-11 h-11 rounded-lg bg-white border border-gray-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Zelle">
+                        <svg viewBox="160 140 320 400" width="22" height="22"><g transform="translate(0,633) scale(0.1,-0.1)" fill="#EA580C" stroke="none"><path d="m 3030,4179.9975 -657.2625,6.0526 -7e-4,-436.0501 H3462 L2330.0025,2299 V1929.9975 H3030 V1505 h420 v425 h714 c6,17 8.1053,62.8446 -29.8947,104.8446 -63,70 -113.1053,143.1579 -159.1053,235.1579 -21,41 -36.9474,90.1053 -42.9474,94.1053 C3791.448,2370.55 2982.5639,2368.8831 2983,2374 l1133,1459.8947 v346.1028 H3450 V4610 h-420z"></path></g></svg>
                     </div>
-                    <div class="w-12 h-12 rounded-lg bg-white border border-slate-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Pago Móvil">
-                        <svg viewBox="0 0 48 48" width="24" height="24" fill="none"><rect x="16" y="4" width="16" height="32" rx="3" stroke="#EA580C" stroke-width="2.5" fill="rgba(255,69,0,0.1)"></rect><line x1="24" y1="30" x2="24" y2="30" stroke="#EA580C" stroke-width="3.5" stroke-linecap="round"></line><path d="M8 22 L14 18 L14 26 Z" fill="#EA580C"></path><path d="M40 22 L34 18 L34 26 Z" fill="#EA580C"></path><line x1="22" y1="7" x2="26" y2="7" stroke="#EA580C" stroke-width="1.5"></line></svg>
+                    <div class="w-11 h-11 rounded-lg bg-white border border-gray-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Pago Móvil">
+                        <svg viewBox="0 0 48 48" width="22" height="22" fill="none"><rect x="16" y="4" width="16" height="32" rx="3" stroke="#EA580C" stroke-width="2.5" fill="rgba(255,69,0,0.1)"></rect><line x1="24" y1="30" x2="24" y2="30" stroke="#EA580C" stroke-width="3.5" stroke-linecap="round"></line><path d="M8 22 L14 18 L14 26 Z" fill="#EA580C"></path><path d="M40 22 L34 18 L34 26 Z" fill="#EA580C"></path><line x1="22" y1="7" x2="26" y2="7" stroke="#EA580C" stroke-width="1.5"></line></svg>
                     </div>
-                    <div class="w-12 h-12 rounded-lg bg-white border border-slate-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Binance">
-                        <svg viewBox="0 0 130 150" width="24" height="24" fill="#EA580C"><polygon points="38.171,53.203 62.759,28.616 87.36,53.216 101.667,38.909 62.759,0 23.864,38.896"></polygon><polygon points="38.171,73.408 62.759,97.995 87.359,73.396 101.674,87.695 101.667,87.703 62.759,126.611 23.863,87.716 23.843,87.696"></polygon><polygon points="77.271,63.298 77.277,63.298 62.759,48.78 52.03,59.509 52.029,59.509 50.797,60.742 48.254,63.285 48.254,63.285 48.234,63.305 48.254,63.326 62.759,77.831 77.277,63.313 77.284,63.305"></polygon><g transform="matrix(0.7071 0.7071 -0.7071 0.7071 48.7933 8.8106)"><rect x="3.644" y="53.188" width="20.233" height="20.234"></rect></g><g transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 235.5457 29.0503)"><rect x="101.64" y="53.189" width="20.234" height="20.233"></rect></g></svg>
+                    <div class="w-11 h-11 rounded-lg bg-white border border-gray-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Binance">
+                        <svg viewBox="0 0 130 150" width="22" height="22" fill="#EA580C"><polygon points="38.171,53.203 62.759,28.616 87.36,53.216 101.667,38.909 62.759,0 23.864,38.896"></polygon><polygon points="38.171,73.408 62.759,97.995 87.359,73.396 101.674,87.695 101.667,87.703 62.759,126.611 23.863,87.716 23.843,87.696"></polygon><polygon points="77.271,63.298 77.277,63.298 62.759,48.78 52.03,59.509 52.029,59.509 50.797,60.742 48.254,63.285 48.254,63.285 48.234,63.305 48.254,63.326 62.759,77.831 77.277,63.313 77.284,63.305"></polygon></svg>
                     </div>
-                    <div class="w-12 h-12 rounded-lg bg-white border border-slate-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Efectivo">
-                        <i class="fa-solid fa-money-bill-1-wave text-orange-500 text-xl"></i>
+                    <div class="w-11 h-11 rounded-lg bg-white border border-gray-200 flex items-center justify-center hover:border-orange-300 transition-all" title="Efectivo">
+                        <i class="fa-solid fa-money-bill-1-wave text-orange-500 text-lg"></i>
                     </div>
                 </div>
             </div>
@@ -317,52 +330,52 @@
 
     </main>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="border-t border-slate-200 bg-white py-10 px-4">
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-200 bg-white py-8 px-4">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                 <div class="md:col-span-1">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-9 h-9 rounded-lg overflow-hidden border-2 border-orange-200 flex items-center justify-center bg-white">
+                    <div class="flex items-center gap-2.5 mb-2">
+                        <div class="w-8 h-8 rounded-lg overflow-hidden border border-orange-200 flex items-center justify-center bg-white">
                             <img src="logo.png" class="w-full h-full object-cover" alt="Fire Hits TCG">
                         </div>
                         <div>
-                            <span class="text-sm font-extrabold text-slate-900">FIRE HITS</span>
-                            <span class="text-[9px] font-semibold text-orange-500 tracking-widest block">TCG STORE</span>
+                            <span class="text-sm font-black text-gray-900">FIRE HITS</span>
+                            <span class="text-[8px] font-semibold text-orange-500 tracking-widest block">TCG STORE</span>
                         </div>
                     </div>
-                    <p class="text-sm text-slate-500 leading-relaxed max-w-xs">La comunidad TCG más candela de toda Venezuela. Cartas Pokémon originales, productos sellados y accesorios.</p>
+                    <p class="text-sm text-gray-500 leading-relaxed max-w-xs">La comunidad TCG más candela de Venezuela. Cartas Pokémon originales, productos sellados y accesorios.</p>
                 </div>
                 <div>
-                    <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">Enlaces</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#catalogo" class="text-sm text-slate-500 hover:text-orange-600 transition-colors">Catálogo</a></li>
-                        <li><a href="#" class="text-sm text-slate-500 hover:text-orange-600 transition-colors">Novedades</a></li>
-                        <li><a href="#como-comprar" class="text-sm text-slate-500 hover:text-orange-600 transition-colors">Cómo Comprar</a></li>
+                    <h4 class="text-[11px] font-bold text-gray-900 uppercase tracking-wider mb-3">Enlaces</h4>
+                    <ul class="space-y-1.5">
+                        <li><a href="#catalogo" class="text-sm text-gray-500 hover:text-orange-600 transition-colors">Catálogo</a></li>
+                        <li><a href="#categorias" class="text-sm text-gray-500 hover:text-orange-600 transition-colors">Categorías</a></li>
+                        <li><a href="#como-comprar" class="text-sm text-gray-500 hover:text-orange-600 transition-colors">Cómo Comprar</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">Pago</h4>
-                    <div class="flex gap-3 flex-wrap">
-                        <div class="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center" title="Zelle">
-                            <svg viewBox="160 140 320 400" width="20" height="20"><g transform="translate(0,633) scale(0.1,-0.1)" fill="#EA580C"><path d="m 3030,4179.9975 -657.2625,6.0526 -7e-4,-436.0501 H3462 L2330.0025,2299 V1929.9975 H3030 V1505 h420 v425 h714 c6,17 8.1053,62.8446 -29.8947,104.8446 -63,70 -113.1053,143.1579 -159.1053,235.1579 -21,41 -36.9474,90.1053 -42.9474,94.1053 C3791.448,2370.55 2982.5639,2368.8831 2983,2374 l1133,1459.8947 v346.1028 H3450 V4610 h-420z"></path></g></svg>
+                    <h4 class="text-[11px] font-bold text-gray-900 uppercase tracking-wider mb-3">Pago</h4>
+                    <div class="flex gap-2 flex-wrap">
+                        <div class="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center" title="Zelle">
+                            <svg viewBox="160 140 320 400" width="18" height="18"><g transform="translate(0,633) scale(0.1,-0.1)" fill="#EA580C"><path d="m 3030,4179.9975 -657.2625,6.0526 -7e-4,-436.0501 H3462 L2330.0025,2299 V1929.9975 H3030 V1505 h420 v425 h714 c6,17 8.1053,62.8446 -29.8947,104.8446 -63,70 -113.1053,143.1579 -159.1053,235.1579 -21,41 -36.9474,90.1053 -42.9474,94.1053 C3791.448,2370.55 2982.5639,2368.8831 2983,2374 l1133,1459.8947 v346.1028 H3450 V4610 h-420z"></path></g></svg>
                         </div>
-                        <div class="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center" title="Pago Móvil">
-                            <svg viewBox="0 0 48 48" width="20" height="20" fill="none"><rect x="16" y="4" width="16" height="32" rx="3" stroke="#EA580C" stroke-width="2"></rect><line x1="24" y1="30" x2="24" y2="30" stroke="#EA580C" stroke-width="3" stroke-linecap="round"></line><path d="M8 22 L14 18 L14 26 Z" fill="#EA580C"></path><path d="M40 22 L34 18 L34 26 Z" fill="#EA580C"></path></svg>
+                        <div class="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center" title="Pago Móvil">
+                            <svg viewBox="0 0 48 48" width="18" height="18" fill="none"><rect x="16" y="4" width="16" height="32" rx="3" stroke="#EA580C" stroke-width="2"></rect><line x1="24" y1="30" x2="24" y2="30" stroke="#EA580C" stroke-width="3" stroke-linecap="round"></line><path d="M8 22 L14 18 L14 26 Z" fill="#EA580C"></path><path d="M40 22 L34 18 L34 26 Z" fill="#EA580C"></path></svg>
                         </div>
-                        <div class="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center" title="Binance">
-                            <svg viewBox="0 0 130 150" width="20" height="20" fill="#EA580C"><polygon points="38.171,53.203 62.759,28.616 87.36,53.216 101.667,38.909 62.759,0 23.864,38.896"></polygon><polygon points="38.171,73.408 62.759,97.995 87.359,73.396 101.674,87.695 101.667,87.703 62.759,126.611 23.863,87.716 23.843,87.696"></polygon><polygon points="77.271,63.298 77.277,63.298 62.759,48.78 52.03,59.509 52.029,59.509 50.797,60.742 48.254,63.285 48.254,63.285 48.234,63.305 48.254,63.326 62.759,77.831 77.277,63.313 77.284,63.305"></polygon></svg>
+                        <div class="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center" title="Binance">
+                            <svg viewBox="0 0 130 150" width="18" height="18" fill="#EA580C"><polygon points="38.171,53.203 62.759,28.616 87.36,53.216 101.667,38.909 62.759,0 23.864,38.896"></polygon><polygon points="38.171,73.408 62.759,97.995 87.359,73.396 101.674,87.695 101.667,87.703 62.759,126.611 23.863,87.716 23.843,87.696"></polygon><polygon points="77.271,63.298 77.277,63.298 62.759,48.78 52.03,59.509 52.029,59.509 50.797,60.742 48.254,63.285 48.254,63.285 48.234,63.305 48.254,63.326 62.759,77.831 77.277,63.313 77.284,63.305"></polygon></svg>
                         </div>
-                        <div class="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center" title="Efectivo">
-                            <i class="fa-solid fa-money-bill-1-wave text-orange-500 text-base"></i>
+                        <div class="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center" title="Efectivo">
+                            <i class="fa-solid fa-money-bill-1-wave text-orange-500 text-sm"></i>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-slate-200 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-                <span class="text-sm text-slate-500">© 2026 Fire Hits TCG. <span class="text-xs text-slate-400 ml-1">v<span id="display-version">1.0</span></span></span>
+            <div class="border-t border-gray-200 pt-5 flex flex-col md:flex-row items-center justify-between gap-3">
+                <span class="text-sm text-gray-500">&copy; 2026 Fire Hits TCG. <span class="text-xs text-gray-400 ml-1">v<span id="display-version">1.0</span></span></span>
                 <div class="flex items-center gap-3">
-                    <button onclick="requestPasswordAccess()" class="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded-lg transition-all text-sm">
+                    <button onclick="requestPasswordAccess()" class="inline-flex items-center gap-1.5 bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 px-3.5 rounded-lg transition-all text-xs">
                         <i class="fa-solid fa-lock"></i>
                         <span>Panel de Control</span>
                     </button>
@@ -371,13 +384,13 @@
         </div>
     </footer>
 
-    <!-- ===== TOAST ===== -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-white border border-slate-200 text-slate-900 py-3 px-5 rounded-xl flex items-center gap-3 shadow-lg shadow-black/5 transition-all duration-300 pointer-events-none translate-y-32 opacity-0">
+    <!-- TOAST -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-white border border-gray-200 text-gray-900 py-2.5 px-5 rounded-xl flex items-center gap-2.5 shadow-lg shadow-black/5 transition-all duration-300 pointer-events-none translate-y-32 opacity-0">
         <span class="w-2 h-2 rounded-full bg-orange-500"></span>
         <p id="toast-message" class="text-sm font-semibold">Acceso Concedido.</p>
     </div>
 
-    <!-- ===== ZOOM MODAL ===== -->
+    <!-- ZOOM MODAL -->
     <div id="zoom-modal" class="zoom-modal">
         <span class="close-zoom" onclick="closeZoomModal()">&times;</span>
         <div class="zoom-modal-content">
@@ -385,36 +398,36 @@
         </div>
     </div>
 
-    <!-- ===== DETAIL MODAL ===== -->
+    <!-- DETAIL MODAL -->
     <div id="detail-modal" class="fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel" data-product-id="">
-        <div class="bg-white w-full max-w-xl h-full border-l border-slate-200 p-6 flex flex-col transform transition-transform duration-300">
-            <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
+        <div class="bg-white w-full max-w-xl h-full border-l border-gray-200 p-6 flex flex-col transform transition-transform duration-300">
+            <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-4">
                 <div class="flex items-center gap-2 flex-1 min-w-0">
                     <i class="fa-solid fa-image text-orange-500 text-lg shrink-0"></i>
-                    <h2 id="detail-name" class="text-lg font-bold text-slate-900 truncate">Producto</h2>
+                    <h2 id="detail-name" class="text-lg font-bold text-gray-900 truncate">Producto</h2>
                 </div>
-                <button onclick="closeProductDetail()" class="close-detail-btn w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition-all">
+                <button onclick="closeProductDetail()" class="close-detail-btn w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-all">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
             <div class="flex-1 overflow-y-auto space-y-5">
-                <div class="w-full bg-slate-50 rounded-xl p-4">
+                <div class="w-full bg-gray-50 rounded-xl p-4">
                     <p id="detail-image-label" class="text-base text-orange-600 font-bold text-center mb-3 hidden">LOS HITS CANDELA</p>
-                    <div id="detail-main-image" class="aspect-square flex items-center justify-center overflow-hidden rounded-lg bg-white border border-slate-100">
+                    <div id="detail-main-image" class="aspect-square flex items-center justify-center overflow-hidden rounded-lg bg-white border border-gray-100">
                         <button id="zoom-toggle" class="zoom-indicator" onclick="event.stopPropagation();toggleZoom()"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
                         <img id="detail-main-img" src="" alt="Producto" class="w-full h-full object-contain" style="transition: opacity 0.15s, transform 0.15s;">
                     </div>
                 </div>
                 <div id="detail-thumbnails" class="flex gap-3 justify-center flex-wrap"></div>
-                <div class="grid grid-cols-2 gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <div><span class="text-xs text-slate-500 font-semibold">Precio</span><p id="detail-price" class="text-lg font-bold text-orange-600">$0 USD</p></div>
-                    <div><span class="text-xs text-slate-500 font-semibold">Stock</span><p id="detail-stock" class="text-base font-bold text-slate-900">Stock: 0</p></div>
-                    <div><span class="text-xs text-slate-500 font-semibold">Idioma</span><p id="detail-language" class="text-sm font-bold text-slate-900">Inglés</p></div>
-                    <div><span class="text-xs text-slate-500 font-semibold">Categoría</span><p id="detail-category" class="text-sm font-bold text-slate-900">Sellado</p></div>
+                <div class="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <div><span class="text-xs text-gray-500 font-semibold">Precio</span><p id="detail-price" class="text-lg font-bold text-orange-600">$0 USD</p></div>
+                    <div><span class="text-xs text-gray-500 font-semibold">Stock</span><p id="detail-stock" class="text-base font-bold text-gray-900">Stock: 0</p></div>
+                    <div><span class="text-xs text-gray-500 font-semibold">Idioma</span><p id="detail-language" class="text-sm font-bold text-gray-900">Inglés</p></div>
+                    <div><span class="text-xs text-gray-500 font-semibold">Categoría</span><p id="detail-category" class="text-sm font-bold text-gray-900">Sellado</p></div>
                 </div>
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <span class="text-xs text-slate-500 font-semibold">Especificaciones</span>
-                    <p id="detail-specs" class="text-sm text-slate-600 mt-1 leading-relaxed"></p>
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <span class="text-xs text-gray-500 font-semibold">Especificaciones</span>
+                    <p id="detail-specs" class="text-sm text-gray-600 mt-1 leading-relaxed"></p>
                 </div>
                 <button id="detail-add-cart-btn" onclick="addToCart(parseInt(document.getElementById('detail-modal').dataset.productId))" class="w-full py-3.5 bg-orange-600 hover:bg-orange-500 text-white font-bold rounded-xl transition-all text-sm flex items-center justify-center gap-2">
                     <i class="fa-solid fa-fire"></i> Añadir al Carrito
@@ -423,83 +436,83 @@
         </div>
     </div>
 
-    <!-- ===== PASSWORD MODAL ===== -->
+    <!-- PASSWORD MODAL -->
     <div id="password-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hide-panel">
-        <div class="bg-white border border-slate-200 max-w-sm w-full p-6 rounded-2xl shadow-xl text-center">
+        <div class="bg-white border border-gray-200 max-w-sm w-full p-6 rounded-2xl shadow-xl text-center">
             <div class="w-14 h-14 bg-orange-50 border border-orange-200 rounded-full flex items-center justify-center text-orange-600 mx-auto mb-4 text-xl">
                 <i class="fa-solid fa-shield-halved"></i>
             </div>
-            <h3 class="text-lg font-bold text-slate-900 mb-2">Panel Administrativo</h3>
-            <p class="text-xs text-slate-500 mb-5">Por seguridad, escribe la contraseña para gestionar el inventario.</p>
-            <input id="input-password-check" type="password" placeholder="Escribe la clave secreta..." class="w-full text-center bg-slate-50 border border-slate-200 rounded-lg py-2.5 px-4 text-slate-900 focus:outline-none focus:border-orange-400 text-sm mb-4">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Panel Administrativo</h3>
+            <p class="text-xs text-gray-500 mb-5">Por seguridad, escribe la contraseña para gestionar el inventario.</p>
+            <input id="input-password-check" type="password" placeholder="Escribe la clave secreta..." class="w-full text-center bg-gray-50 border border-gray-200 rounded-lg py-2.5 px-4 text-gray-900 focus:outline-none focus:border-orange-400 text-sm mb-4">
             <div class="flex gap-3">
-                <button onclick="closePasswordModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold py-2.5 px-4 rounded-lg text-sm transition-all">Cancelar</button>
+                <button onclick="closePasswordModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold py-2.5 px-4 rounded-lg text-sm transition-all">Cancelar</button>
                 <button onclick="submitPasswordCheck()" class="flex-1 bg-orange-600 hover:bg-orange-500 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition-all">Ingresar</button>
             </div>
         </div>
     </div>
 
-    <!-- ===== CONFIRM MODAL ===== -->
+    <!-- CONFIRM MODAL -->
     <div id="confirm-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hide-panel">
-        <div class="bg-white border border-slate-200 max-w-sm w-full p-6 rounded-2xl shadow-xl text-center">
+        <div class="bg-white border border-gray-200 max-w-sm w-full p-6 rounded-2xl shadow-xl text-center">
             <div class="w-14 h-14 bg-red-50 border border-red-200 rounded-full flex items-center justify-center text-red-500 mx-auto mb-4 text-xl">
                 <i class="fa-solid fa-circle-exclamation"></i>
             </div>
-            <h3 id="confirm-title" class="text-lg font-bold text-slate-900 mb-2">¿Eliminar producto?</h3>
-            <p id="confirm-desc" class="text-xs text-slate-500 mb-5"></p>
+            <h3 id="confirm-title" class="text-lg font-bold text-gray-900 mb-2">¿Eliminar producto?</h3>
+            <p id="confirm-desc" class="text-xs text-gray-500 mb-5"></p>
             <div class="flex gap-3">
-                <button id="confirm-cancel-btn" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold py-2.5 px-4 rounded-lg text-sm transition-all">No, Cancelar</button>
-                <button id="confirm-yes-btn" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition-all">Sí, Continuar</button>
+                <button id="confirm-cancel-btn" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold py-2.5 px-4 rounded-lg text-sm transition-all">No, Cancelar</button>
+            <button id="confirm-yes-btn" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition-all">Sí, Continuar</button>
             </div>
         </div>
     </div>
 
-    <!-- ===== CART DRAWER ===== -->
+    <!-- CART DRAWER -->
     <div id="cart-drawer" class="fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel">
-        <div class="bg-white w-full max-w-md h-full border-l border-slate-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300">
+        <div class="bg-white w-full max-w-md h-full border-l border-gray-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300">
             <div>
-                <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-5">
+                <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-5">
                     <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-shopping-cart text-orange-600 text-lg"></i>
-                        <h2 class="text-lg font-bold text-slate-900">Tu Carrito</h2>
+                        <i class="fa-solid fa-bag-shopping text-orange-600 text-lg"></i>
+                        <h2 class="text-lg font-bold text-gray-900">Tu Carrito</h2>
                         <span id="cart-drawer-count" class="bg-orange-50 text-orange-600 text-xs font-bold px-2 py-0.5 rounded-full border border-orange-200">0 Items</span>
                     </div>
-                    <button onclick="toggleCart()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition-all">
+                    <button onclick="toggleCart()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-all">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
                 <div id="cart-items-container" class="flex flex-col gap-3 overflow-y-auto max-h-[55vh] pr-1"></div>
             </div>
-            <div class="border-t border-slate-200 pt-5 mt-auto bg-white sticky bottom-0">
+            <div class="border-t border-gray-200 pt-5 mt-auto bg-white sticky bottom-0">
                 <div class="flex justify-between items-center mb-5">
-                    <span class="text-slate-500 font-semibold text-sm">Total estimado:</span>
-                    <span class="text-2xl font-bold text-slate-900">$<span id="cart-total-price">0.00</span> <span class="text-sm text-orange-600 font-semibold">USD</span></span>
+                    <span class="text-gray-500 font-semibold text-sm">Total estimado:</span>
+                    <span class="text-2xl font-bold text-gray-900">$<span id="cart-total-price">0.00</span> <span class="text-sm text-orange-600 font-semibold">USD</span></span>
                 </div>
                 <button onclick="checkoutToWhatsApp()" id="checkout-btn" class="w-full py-3.5 bg-green-600 hover:bg-green-500 text-white font-bold rounded-xl flex items-center justify-center gap-2 text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                     <i class="fa-brands fa-whatsapp text-lg"></i> Finalizar Pedido vía WhatsApp
                 </button>
-                <button onclick="triggerClearCartConfirmation()" class="w-full text-center text-xs text-slate-400 hover:text-red-500 font-semibold mt-3 transition-colors">
+                <button onclick="triggerClearCartConfirmation()" class="w-full text-center text-xs text-gray-400 hover:text-red-500 font-semibold mt-3 transition-colors">
                     <i class="fa-solid fa-trash-can mr-1"></i> Vaciar todo el Carrito
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- ===== ADMIN MODAL ===== -->
+    <!-- ADMIN MODAL -->
     <div id="admin-modal" class="fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel">
-        <div class="bg-white w-full max-w-lg h-full border-l border-slate-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300">
+        <div class="bg-white w-full max-w-lg h-full border-l border-gray-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300">
             <div>
-                <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-5">
+                <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-5">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-sliders text-orange-600 text-lg"></i>
-                        <h2 class="text-lg font-bold text-slate-900">Panel de Control</h2>
+                        <h2 class="text-lg font-bold text-gray-900">Panel de Control</h2>
                     </div>
-                    <button onclick="closeAdminPanel()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition-all">
+                    <button onclick="closeAdminPanel()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-all">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
 
-                <div class="mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <div class="mb-6 bg-gray-50 p-4 rounded-xl border border-gray-200">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-bold text-orange-600 text-sm uppercase tracking-wider">Configuración General</h3>
                         <button onclick="syncProductsFromCode()" class="text-xs bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5">
@@ -508,42 +521,42 @@
                     </div>
                     <div class="space-y-3">
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">WhatsApp (con código)</label>
-                            <input id="cfg-whatsapp" type="text" placeholder="584243178117" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">WhatsApp (con código)</label>
+                            <input id="cfg-whatsapp" type="text" placeholder="584243178117" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">Instagram (URL completo)</label>
-                            <input oninput="updateInstagramLinkPreview(this.value)" id="cfg-instagram" type="text" placeholder="https://instagram.com/firehitstcg" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Instagram (URL completo)</label>
+                            <input oninput="updateInstagramLinkPreview(this.value)" id="cfg-instagram" type="text" placeholder="https://instagram.com/firehitstcg" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">Contraseña del Panel</label>
-                            <input id="cfg-password" type="text" placeholder="Nueva Contraseña" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Contraseña del Panel</label>
+                            <input id="cfg-password" type="text" placeholder="Nueva Contraseña" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6">
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mb-6">
                     <h3 id="form-title" class="font-bold text-orange-600 text-sm mb-4 uppercase tracking-wider">Agregar Nueva Carta</h3>
                     <input id="prod-id" type="hidden" value="">
                     <div class="space-y-3">
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">Nombre del Producto</label>
-                            <input id="prod-name" type="text" placeholder="Ej: Charizard Ultra Rare" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Nombre del Producto</label>
+                            <input id="prod-name" type="text" placeholder="Ej: Charizard Ultra Rare" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-xs font-semibold text-slate-500 mb-1">Precio (USD)</label>
-                                <input id="prod-price" type="number" placeholder="85" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                                <label class="block text-xs font-semibold text-gray-500 mb-1">Precio (USD)</label>
+                                <input id="prod-price" type="number" placeholder="85" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-500 mb-1">Stock</label>
-                                <input id="prod-stock" type="number" placeholder="5" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                                <label class="block text-xs font-semibold text-gray-500 mb-1">Stock</label>
+                                <input id="prod-stock" type="number" placeholder="5" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-xs font-semibold text-slate-500 mb-1">Categoría</label>
-                                <select id="prod-category" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                                <label class="block text-xs font-semibold text-gray-500 mb-1">Categoría</label>
+                                <select id="prod-category" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                                     <option value="Sellado">Sellado</option>
                                     <option value="Singles Raros">Singles Raros</option>
                                     <option value="Accesorios">Accesorios</option>
@@ -551,8 +564,8 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-500 mb-1">Idioma</label>
-                                <select id="prod-language" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                                <label class="block text-xs font-semibold text-gray-500 mb-1">Idioma</label>
+                                <select id="prod-language" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                                     <option value="Inglés">Inglés</option>
                                     <option value="Español">Español</option>
                                     <option value="Japonés">Japonés</option>
@@ -561,44 +574,44 @@
                             </div>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">URL de la Imagen</label>
-                            <input id="prod-image" type="text" placeholder="https://..." class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">URL de la Imagen</label>
+                            <input id="prod-image" type="text" placeholder="https://..." class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">URL Imagen 2 (Opcional)</label>
-                            <input id="prod-image2" type="text" placeholder="URL extra..." class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">URL Imagen 2 (Opcional)</label>
+                            <input id="prod-image2" type="text" placeholder="URL extra..." class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">Subtítulo Imagen 2</label>
-                            <input id="prod-image2-label" type="text" placeholder="Ej: Mejores cartas" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Subtítulo Imagen 2</label>
+                            <input id="prod-image2-label" type="text" placeholder="Ej: Mejores cartas" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">URL Imagen 3 (Opcional)</label>
-                            <input id="prod-image3" type="text" placeholder="URL extra..." class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">URL Imagen 3 (Opcional)</label>
+                            <input id="prod-image3" type="text" placeholder="URL extra..." class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">Subtítulo Imagen 3</label>
-                            <input id="prod-image3-label" type="text" placeholder="Ej: Reverse holos" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm">
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Subtítulo Imagen 3</label>
+                            <input id="prod-image3-label" type="text" placeholder="Ej: Reverse holos" class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 mb-1">Especificaciones</label>
-                            <textarea id="prod-specs" rows="2" placeholder="Condición, contenido..." class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3.5 text-slate-900 focus:outline-none focus:border-orange-400 text-sm resize-none"></textarea>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Especificaciones</label>
+                            <textarea id="prod-specs" rows="2" placeholder="Condición, contenido..." class="w-full bg-white border border-gray-200 rounded-lg py-2 px-3.5 text-gray-900 focus:outline-none focus:border-orange-400 text-sm resize-none"></textarea>
                         </div>
                         <div class="flex gap-2 pt-1">
                             <button onclick="saveProduct()" class="flex-grow bg-orange-600 hover:bg-orange-500 text-white font-bold py-2.5 px-4 rounded-lg transition-all text-sm">Guardar Carta</button>
-                            <button id="cancel-edit-btn" onclick="clearProductForm()" class="bg-slate-200 hover:bg-slate-300 text-slate-600 font-bold py-2.5 px-4 rounded-lg transition-all text-sm hidden">Cancelar</button>
+                            <button id="cancel-edit-btn" onclick="clearProductForm()" class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2.5 px-4 rounded-lg transition-all text-sm hidden">Cancelar</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="border-t border-slate-200 pt-5">
+                <div class="border-t border-gray-200 pt-5">
                     <h3 class="font-bold text-orange-600 text-sm mb-4 uppercase tracking-wider">Inventario Actual</h3>
                     <div id="admin-products-list" class="flex flex-col gap-2"></div>
                 </div>
             </div>
 
-            <div class="mt-6 border-t border-slate-200 pt-4 bg-white sticky bottom-0 space-y-2">
-                <button onclick="exportToCSV()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg flex items-center justify-center gap-2 transition-all text-sm border border-slate-200">
+            <div class="mt-6 border-t border-gray-200 pt-4 bg-white sticky bottom-0 space-y-2">
+                <button onclick="exportToCSV()" class="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg flex items-center justify-center gap-2 transition-all text-sm border border-gray-200">
                     <i class="fa-solid fa-file-csv text-green-600"></i>
                     Exportar Inventario a Excel
                 </button>
@@ -606,7 +619,7 @@
                     <i class="fa-solid fa-cloud-arrow-down"></i>
                     Descargar HTML Actualizado
                 </button>
-                <span class="block text-[10px] text-center text-slate-400 mt-1">Descarga y reemplázalo en tu GitHub para guardar los cambios.</span>
+                <span class="block text-[10px] text-center text-gray-400 mt-1">Descarga y reemplázalo en tu GitHub para guardar los cambios.</span>
             </div>
         </div>
     </div>
@@ -1025,7 +1038,7 @@
         ];
         /* END_PRODUCTS_ARRAY */
 
-        let activeCategory = "Sellado";
+        let activeCategory = "Todos";
         let cart = [];
         const CODE_PRODUCTS = JSON.parse(JSON.stringify(products));
 
@@ -1172,7 +1185,7 @@
             const thumbs = document.getElementById("detail-thumbnails");
             thumbs.innerHTML = "";
             images.forEach((img, i) => {
-                thumbs.innerHTML += `<img src="${img}" class="w-16 h-16 object-contain rounded-lg border-2 cursor-pointer transition-all ${i === index ? 'border-orange-500 opacity-100' : 'border-slate-200 opacity-60 hover:opacity-100'}" onclick="switchImage(${i})">`;
+                thumbs.innerHTML += `<img src="${img}" class="w-16 h-16 object-contain rounded-lg border-2 cursor-pointer transition-all ${i === index ? 'border-orange-500 opacity-100' : 'border-gray-200 opacity-60 hover:opacity-100'}" onclick="switchImage(${i})">`;
             });
         }
 
@@ -1189,7 +1202,7 @@
             if (label) { labelEl.textContent = label; labelEl.classList.remove("hidden"); }
             else { labelEl.classList.add("hidden"); }
             document.querySelectorAll("#detail-thumbnails img").forEach((thumb, i) => {
-                thumb.className = `w-16 h-16 object-contain rounded-lg border-2 cursor-pointer transition-all ${i === index ? 'border-orange-500 opacity-100' : 'border-slate-200 opacity-60 hover:opacity-100'}`;
+                thumb.className = `w-16 h-16 object-contain rounded-lg border-2 cursor-pointer transition-all ${i === index ? 'border-orange-500 opacity-100' : 'border-gray-200 opacity-60 hover:opacity-100'}`;
             });
         }
 
@@ -1305,38 +1318,49 @@
             filtered.forEach(p => {
                 const language = p.language || "Inglés";
                 let flagBadge = "";
-                if (language === "Inglés") flagBadge = `<span class="bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-0.5 rounded border border-blue-200">🇺🇸 Inglés</span>`;
-                else if (language === "Español") flagBadge = `<span class="bg-yellow-50 text-yellow-600 text-xs font-semibold px-2 py-0.5 rounded border border-yellow-200">🇪🇸 Español</span>`;
-                else if (language === "Japonés") flagBadge = `<span class="bg-red-50 text-red-600 text-xs font-semibold px-2 py-0.5 rounded border border-red-200">🇯🇵 Japonés</span>`;
+                if (language === "Inglés") flagBadge = `<span class="bg-blue-50 text-blue-600 text-[10px] font-semibold px-1.5 py-0.5 rounded border border-blue-200">🇺🇸 Inglés</span>`;
+                else if (language === "Español") flagBadge = `<span class="bg-yellow-50 text-yellow-600 text-[10px] font-semibold px-1.5 py-0.5 rounded border border-yellow-200">🇪🇸 Español</span>`;
+                else if (language === "Japonés") flagBadge = `<span class="bg-red-50 text-red-600 text-[10px] font-semibold px-1.5 py-0.5 rounded border border-red-200">🇯🇵 Japonés</span>`;
 
                 const isProximamente = p.category === "Proximamente";
-                const isOutOfStock = p.stock <= 0;
+                const isOutOfStock = p.stock <= 0 && !isProximamente;
                 const stockColor = p.stock > 10 ? 'text-green-600' : p.stock > 0 ? 'text-orange-600' : 'text-red-500';
 
+                let badgeEl = "";
+                if (isProximamente) {
+                    badgeEl = `<span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-emerald-200 preorder-badge"><i class="fa-regular fa-clock"></i> Pre-Order</span>`;
+                } else if (p.stock > 0 && p.stock <= 3) {
+                    badgeEl = `<span class="inline-flex items-center gap-1 bg-orange-50 text-orange-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-orange-200"><i class="fa-solid fa-bolt"></i> Low Stock</span>`;
+                } else if (p.stock > 10) {
+                    badgeEl = `<span class="inline-flex items-center gap-1 bg-green-50 text-green-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-green-200"><i class="fa-solid fa-circle-check"></i> In Stock</span>`;
+                }
+
                 let btnHtml = isProximamente ?
-                    `<button disabled class="w-full bg-emerald-50 text-emerald-600 font-semibold py-2.5 px-4 rounded-lg text-sm border border-emerald-200 cursor-default flex items-center justify-center gap-2"><i class="fa-regular fa-clock"></i> Próximamente</button>` :
+                    `<button disabled class="w-full bg-emerald-50 text-emerald-600 font-semibold py-2 px-3 rounded-lg text-xs border border-emerald-200 cursor-default flex items-center justify-center gap-1.5"><i class="fa-regular fa-clock"></i> Próximamente</button>` :
                     isOutOfStock ?
-                    `<button disabled class="w-full bg-slate-100 text-slate-400 font-semibold py-2.5 px-4 rounded-lg text-sm cursor-not-allowed flex items-center justify-center gap-2"><i class="fa-solid fa-ban"></i> Agotado</button>` :
-                    `<button onclick="addToCart(${p.id})" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-fire text-orange-200"></i> Añadir</button>`;
+                    `<button disabled class="w-full bg-gray-100 text-gray-400 font-semibold py-2 px-3 rounded-lg text-xs cursor-not-allowed flex items-center justify-center gap-1.5"><i class="fa-solid fa-ban"></i> Agotado</button>` :
+                    `<button onclick="addToCart(${p.id})" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-2 px-3 rounded-lg text-xs transition-all flex items-center justify-center gap-1.5"><i class="fa-solid fa-bag-shopping"></i> Añadir</button>`;
 
                 grid.innerHTML += `
-                    <div class="product-card bg-white border border-slate-200 rounded-xl p-3 flex flex-col justify-between hover:border-orange-300 hover:shadow-md transition-all duration-200">
-                        <div>
-                            <div class="relative w-full aspect-square bg-slate-50 flex items-center justify-center p-4 rounded-lg mb-3 border border-slate-100">
-                                <img src="${p.image || 'https://placehold.co/400x400/F1F5F9/EA580C?text=TCG'}" alt="${p.name}" class="product-image w-full h-full object-contain" onclick="openProductDetail(${p.id})">
-                                <span class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-[10px] font-semibold text-slate-600 px-2 py-0.5 rounded border border-slate-200 shadow-sm">${p.category}</span>
+                    <div class="product-card bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-orange-300 hover:shadow-md transition-all duration-200 flex flex-col">
+                        <div class="relative bg-gray-50 flex items-center justify-center p-3 sm:p-4 aspect-square border-b border-gray-100">
+                            <img src="${p.image || 'https://placehold.co/400x400/F1F5F9/EA580C?text=TCG'}" alt="${p.name}" class="product-thumb w-full h-full object-contain cursor-zoom-in" onclick="openProductDetail(${p.id})">
+                            ${badgeEl ? `<div class="absolute top-2 left-2">${badgeEl}</div>` : ''}
+                        </div>
+                        <div class="p-3 flex flex-col flex-1">
+                            <div class="flex items-center gap-1.5 mb-1 flex-wrap">
+                                ${flagBadge}
                             </div>
-                            <div class="px-0.5 pb-2">
-                                <div class="flex items-center gap-2 mb-1.5 flex-wrap">
-                                    ${flagBadge}
-                                    <span class="text-[10px] font-medium ${stockColor}">${p.stock > 0 ? 'Stock: '+p.stock : 'Sin stock'}</span>
-                                </div>
-                                <h3 class="text-sm font-bold text-slate-900 mb-1 leading-tight">${p.name}</h3>
-                                ${p.specs ? `<p class="text-xs text-slate-500 mb-2 line-clamp-2 leading-relaxed">${p.specs}</p>` : ''}
-                                ${isProximamente ? `<p class="text-base font-bold text-emerald-600">A consultar</p>` : `<p class="text-lg font-bold text-orange-600">$${p.price}</p>`}
+                            <h3 class="text-sm font-bold text-gray-900 leading-tight mb-0.5">${p.name}</h3>
+                            ${p.specs ? `<p class="text-[11px] text-gray-500 mb-2 line-clamp-2 leading-relaxed">${p.specs}</p>` : `<div class="mb-2"></div>`}
+                            <div class="mt-auto flex items-center justify-between">
+                                ${isProximamente ? `<span class="text-sm font-bold text-emerald-600">A consultar</span>` : `<span class="text-base font-black text-orange-600">$${p.price}</span>`}
+                                <span class="text-[10px] font-medium ${stockColor}">${p.stock > 0 ? p.stock+' unid.' : 'Agotado'}</span>
+                            </div>
+                            <div class="mt-2.5">
+                                ${btnHtml}
                             </div>
                         </div>
-                        ${btnHtml}
                     </div>
                 `;
             });
@@ -1402,28 +1426,28 @@
             const container = document.getElementById("cart-items-container");
             container.innerHTML = "";
             if (cart.length === 0) {
-                container.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-center text-slate-400"><i class="fa-solid fa-cart-shopping text-4xl mb-3 opacity-30"></i><p class="font-semibold text-sm text-slate-500">Tu carrito está vacío</p><p class="text-xs mt-1">Explora el catálogo y agrega tus favoritos.</p></div>`;
+                container.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-center text-gray-400"><i class="fa-solid fa-bag-shopping text-4xl mb-3 opacity-30"></i><p class="font-semibold text-sm text-gray-500">Tu carrito está vacío</p><p class="text-xs mt-1">Explora el catálogo y agrega tus favoritos.</p></div>`;
                 return;
             }
             cart.forEach(item => {
                 const flagEmoji = item.language === "Ninguno" ? "📦" : "🇺🇸";
                 container.innerHTML += `
-                    <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex gap-3 items-center justify-between">
+                    <div class="bg-gray-50 border border-gray-200 p-3 rounded-xl flex gap-3 items-center justify-between">
                         <div class="flex items-center gap-3 overflow-hidden">
-                            <img src="${item.image || 'https://placehold.co/100x100'}" class="w-12 h-12 object-contain bg-white rounded-lg border border-slate-100" onerror="this.src='https://placehold.co/100x100'">
+                            <img src="${item.image || 'https://placehold.co/100x100'}" class="w-12 h-12 object-contain bg-white rounded-lg border border-gray-100" onerror="this.src='https://placehold.co/100x100'">
                             <div class="overflow-hidden">
-                                <span class="text-[10px] bg-white text-slate-500 font-semibold px-1.5 py-0.5 rounded border border-slate-200 inline-block mb-0.5">${flagEmoji}</span>
-                                <h4 class="text-sm font-bold text-slate-900 truncate max-w-[160px]">${item.name}</h4>
+                                <span class="text-[10px] bg-white text-gray-500 font-semibold px-1.5 py-0.5 rounded border border-gray-200 inline-block mb-0.5">${flagEmoji}</span>
+                                <h4 class="text-sm font-bold text-gray-900 truncate max-w-[160px]">${item.name}</h4>
                                 <span class="text-xs text-orange-600 font-bold">$${item.price} USD</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
-                            <div class="flex items-center bg-white rounded-lg border border-slate-200 p-0.5">
-                                <button onclick="updateCartQuantity(${item.id}, -1)" class="w-6 h-6 rounded text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center text-sm">-</button>
-                                <span class="text-xs font-bold text-slate-900 w-6 text-center">${item.quantity}</span>
-                                <button onclick="updateCartQuantity(${item.id}, 1)" class="w-6 h-6 rounded text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center text-sm">+</button>
+                            <div class="flex items-center bg-white rounded-lg border border-gray-200 p-0.5">
+                                <button onclick="updateCartQuantity(${item.id}, -1)" class="w-6 h-6 rounded text-gray-400 hover:text-gray-700 hover:bg-gray-100 flex items-center justify-center text-sm">-</button>
+                                <span class="text-xs font-bold text-gray-900 w-6 text-center">${item.quantity}</span>
+                                <button onclick="updateCartQuantity(${item.id}, 1)" class="w-6 h-6 rounded text-gray-400 hover:text-gray-700 hover:bg-gray-100 flex items-center justify-center text-sm">+</button>
                             </div>
-                            <button onclick="removeItemFromCart(${item.id})" class="text-slate-400 hover:text-red-500 transition-colors p-1 text-sm"><i class="fa-solid fa-trash-can"></i></button>
+                            <button onclick="removeItemFromCart(${item.id})" class="text-gray-400 hover:text-red-500 transition-colors p-1 text-sm"><i class="fa-solid fa-trash-can"></i></button>
                         </div>
                     </div>
                 `;
@@ -1432,25 +1456,25 @@
 
         function checkoutToWhatsApp() {
             if (cart.length === 0) return;
-            let message = "¡Hola Fire Hits TCG! 🔥 Me gustaría realizar el siguiente pedido:\n\n";
+            let message = "Hola Fire Hits TCG! 🔥 Me gustaria realizar el siguiente pedido:\n\n";
             let total = 0;
             cart.forEach(item => {
                 total += item.price * item.quantity;
                 message += `• *${item.quantity}x* ${item.name} - $${item.price} USD${item.quantity > 1 ? ' c/u' : ''}\n`;
             });
-            message += `\n💰 *Total:* $${total} USD\n\n¿Me confirman disponibilidad para coordinar el pago y envío?`;
+            message += `\n💰 *Total:* $${total} USD\n\nMe confirman disponibilidad para coordinar el pago y envio?`;
             window.open(`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
-            cart = []; updateCartUI(); toggleCart(); showToast("¡Pedido enviado a WhatsApp!");
+            cart = []; updateCartUI(); toggleCart(); showToast("Pedido enviado a WhatsApp!");
         }
 
         function setCategory(catName) {
             activeCategory = catName;
             document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.className = "cat-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-slate-600 hover:text-slate-900 transition-all whitespace-nowrap border border-slate-200";
+                btn.className = "cat-btn px-3.5 py-1.5 rounded-lg font-semibold text-sm bg-white text-gray-600 hover:text-gray-900 transition-all whitespace-nowrap border border-gray-200";
             });
             const activeBtnId = `cat-${catName.replace(/\s+/g, '-')}`;
             const activeBtn = document.getElementById(activeBtnId);
-            if (activeBtn) activeBtn.className = "cat-btn px-4 py-2 rounded-lg font-bold text-sm bg-orange-600 text-white transition-all whitespace-nowrap";
+            if (activeBtn) activeBtn.className = "cat-btn px-3.5 py-1.5 rounded-lg font-bold text-sm bg-orange-600 text-white transition-all whitespace-nowrap";
             renderProducts();
         }
 
@@ -1560,7 +1584,7 @@
         function deleteProduct(id) {
             const p = products.find(prod => prod.id == id);
             if (!p) return;
-            showConfirmDialog("Eliminar producto?", `¿Quitar "${p.name}" del inventario?`, () => {
+            showConfirmDialog("Eliminar producto?", `Quitar "${p.name}" del inventario?`, () => {
                 products = products.filter(item => item.id != id);
                 localStorage.setItem("fh_products", JSON.stringify(products));
                 renderAdminProductsList(); renderProducts(); showToast("Producto eliminado.");
@@ -1614,22 +1638,22 @@
             catOrder.forEach(cat => {
                 const catProducts = products.filter(p => p.category === cat).sort((a, b) => (a.order || 0) - (b.order || 0));
                 if (catProducts.length === 0) return;
-                list.innerHTML += `<div class="flex items-center gap-2 border-b border-slate-200 pb-2 mt-3 first:mt-0"><i class="fa-solid fa-folder-open text-orange-500 text-xs"></i><h4 class="text-sm font-bold text-orange-600 uppercase tracking-wider">${cat}</h4><span class="text-xs text-slate-400 font-normal">(${catProducts.length})</span></div>`;
+                list.innerHTML += `<div class="flex items-center gap-2 border-b border-gray-200 pb-2 mt-3 first:mt-0"><i class="fa-solid fa-folder-open text-orange-500 text-xs"></i><h4 class="text-sm font-bold text-orange-600 uppercase tracking-wider">${cat}</h4><span class="text-xs text-gray-400 font-normal">(${catProducts.length})</span></div>`;
                 catProducts.forEach((p, idx) => {
                     const isFirst = idx === 0;
                     const isLast = idx === catProducts.length - 1;
                     list.innerHTML += `
-                        <div class="bg-white border border-slate-200 p-3 rounded-xl flex items-center justify-between gap-3 mt-2">
+                        <div class="bg-white border border-gray-200 p-3 rounded-xl flex items-center justify-between gap-3 mt-2">
                             <div class="flex items-center gap-3 overflow-hidden flex-1 min-w-0">
-                                <img src="${p.image || 'https://placehold.co/100x100'}" class="w-10 h-10 object-contain rounded-lg bg-slate-50 border border-slate-100 flex-shrink-0" onerror="this.src='https://placehold.co/100x100'">
+                                <img src="${p.image || 'https://placehold.co/100x100'}" class="w-10 h-10 object-contain rounded-lg bg-gray-50 border border-gray-100 flex-shrink-0" onerror="this.src='https://placehold.co/100x100'">
                                 <div class="overflow-hidden">
                                     <span class="text-xs font-bold text-orange-600 block">${p.category}</span>
-                                    <span class="text-sm text-slate-900 font-bold block truncate max-w-[180px]">${p.name}</span>
+                                    <span class="text-sm text-gray-900 font-bold block truncate max-w-[180px]">${p.name}</span>
                                 </div>
                             </div>
                             <div class="flex items-center gap-1 flex-shrink-0">
-                                <button onclick="moveProduct(${p.id}, 'up')" class="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center text-xs ${isFirst ? 'opacity-30 cursor-default' : 'hover:bg-slate-200 text-slate-500 cursor-pointer'}" ${isFirst ? 'disabled' : ''}><i class="fa-solid fa-chevron-up"></i></button>
-                                <button onclick="moveProduct(${p.id}, 'down')" class="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center text-xs ${isLast ? 'opacity-30 cursor-default' : 'hover:bg-slate-200 text-slate-500 cursor-pointer'}" ${isLast ? 'disabled' : ''}><i class="fa-solid fa-chevron-down"></i></button>
+                                <button onclick="moveProduct(${p.id}, 'up')" class="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-xs ${isFirst ? 'opacity-30 cursor-default' : 'hover:bg-gray-200 text-gray-500 cursor-pointer'}" ${isFirst ? 'disabled' : ''}><i class="fa-solid fa-chevron-up"></i></button>
+                                <button onclick="moveProduct(${p.id}, 'down')" class="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-xs ${isLast ? 'opacity-30 cursor-default' : 'hover:bg-gray-200 text-gray-500 cursor-pointer'}" ${isLast ? 'disabled' : ''}><i class="fa-solid fa-chevron-down"></i></button>
                                 <button onclick="editProductForm(${p.id})" class="w-8 h-8 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-600 flex items-center justify-center text-sm"><i class="fa-solid fa-pen-to-square"></i></button>
                                 <button onclick="deleteProduct(${p.id})" class="w-8 h-8 rounded-lg bg-red-50 hover:bg-red-100 text-red-500 flex items-center justify-center text-sm"><i class="fa-solid fa-trash-can"></i></button>
                             </div>
@@ -1673,14 +1697,14 @@
                 document.body.removeAttribute("style");
                 openPanelCount = 0;
                 if (adminModal) adminModal.className = "fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel";
-                if (adminChild) adminChild.className = "bg-white w-full max-w-lg h-full border-l border-slate-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300";
+                if (adminChild) adminChild.className = "bg-white w-full max-w-lg h-full border-l border-gray-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300";
                 if (cartDrawer) cartDrawer.className = "fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel";
-                if (cartChild) cartChild.className = "bg-white w-full max-w-md h-full border-l border-slate-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300";
+                if (cartChild) cartChild.className = "bg-white w-full max-w-md h-full border-l border-gray-200 p-6 flex flex-col overflow-y-auto transform transition-transform duration-300";
                 if (passwordModal) passwordModal.className = "fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hide-panel";
                 if (confirmModal) confirmModal.className = "fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hide-panel";
                 if (detailModal) detailModal.className = "fixed inset-0 bg-black/60 z-50 flex justify-end transition-all duration-300 hide-panel";
-                if (detailChild) detailChild.className = "bg-white w-full max-w-xl h-full border-l border-slate-200 p-6 flex flex-col transform transition-transform duration-300";
-                if (toastEl) toastEl.className = "fixed bottom-6 right-6 z-50 bg-white border border-slate-200 text-slate-900 py-3 px-5 rounded-xl flex items-center gap-3 shadow-lg shadow-black/5 transition-all duration-300 pointer-events-none translate-y-32 opacity-0";
+                if (detailChild) detailChild.className = "bg-white w-full max-w-xl h-full border-l border-gray-200 p-6 flex flex-col transform transition-transform duration-300";
+                if (toastEl) toastEl.className = "fixed bottom-6 right-6 z-50 bg-white border border-gray-200 text-gray-900 py-2.5 px-5 rounded-xl flex items-center gap-2.5 shadow-lg shadow-black/5 transition-all duration-300 pointer-events-none translate-y-32 opacity-0";
 
                 let modifiedHTML = document.documentElement.outerHTML;
 
@@ -1707,7 +1731,7 @@
                 a.download = "index.html";
                 a.click();
                 URL.revokeObjectURL(url);
-                showToast("¡Archivo index.html listo! Súbelo a GitHub.");
+                showToast("Archivo index.html listo! Súbelo a GitHub.");
             } catch (error) {
                 console.error("Error:", error);
                 showToast("Hubo un detalle al procesar el archivo.");
