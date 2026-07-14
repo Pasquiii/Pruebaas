@@ -1,34 +1,35 @@
+<!DOCTYPE html>
 <html lang="es"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fire Hits TCG - Catálogo</title>
 <style>
 :root {
-  --bg-primary: #0f0f1a;
-  --bg-card: #1a1a2e;
-  --bg-card-hover: #222244;
-  --bg-input: #1a1a2e;
-  --border: #2a2a4a;
-  --border-focus: #e63946;
-  --text-primary: #e0e0e0;
-  --text-secondary: #888;
-  --text-muted: #555;
-  --accent: #e63946;
-  --accent-hover: #c1121f;
+  --bg-primary: #000000;
+  --bg-card: #111111;
+  --bg-card-hover: #1a1a1a;
+  --bg-input: #111111;
+  --border: #222222;
+  --border-focus: #ff8c00;
+  --text-primary: #f0f0f0;
+  --text-secondary: #999999;
+  --text-muted: #555555;
+  --accent: #ff8c00;
+  --accent-hover: #e67a00;
   --success: #2d6a4f;
   --success-hover: #1b4332;
-  --danger: #9b2226;
-  --danger-hover: #6a040f;
-  --warning: #e09f3e;
-  --warning-hover: #c17c2e;
-  --badge-lang-bg: #2a2a4a;
-  --badge-lang-text: #a8a8d0;
-  --badge-price-bg: #2d6a4f;
-  --badge-price-text: #95d5b2;
-  --header-gradient: linear-gradient(135deg, #1a1a2e, #16213e);
+  --danger: #cc3300;
+  --danger-hover: #992600;
+  --warning: #ff8c00;
+  --warning-hover: #e67a00;
+  --badge-lang-bg: #1a1a1a;
+  --badge-lang-text: #cccccc;
+  --badge-price-bg: #1a1a1a;
+  --badge-price-text: #ff8c00;
+  --header-gradient: linear-gradient(135deg, #000000, #1a1a1a);
   --radius: 8px;
   --radius-lg: 16px;
-  --shadow: 0 8px 24px rgba(0,0,0,0.4);
+  --shadow: 0 8px 24px rgba(0,0,0,0.6);
   --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -386,8 +387,24 @@ header h1 span {
   font-size: 0.9rem;
 }
 
+.admin-btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.admin-btn:hover {
+  background: var(--accent-hover);
+  transform: scale(1.02);
+}
+
 .admin-panel {
-  display: flex;
+  display: none;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
@@ -449,7 +466,7 @@ header h1 span {
   }
 }
 </style>
-<link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style></head>
+</head>
 <body>
 
 <header>
@@ -458,6 +475,7 @@ header h1 span {
     <h1>Fire <span>Hits</span> TCG</h1>
   </div>
   <div class="actions">
+    <button class="admin-btn" id="btnToggleAdmin" aria-label="Activar modo administrador">👤 Admin</button>
     <div class="admin-panel" id="adminPanel" role="toolbar" aria-label="Panel de administración">
       <button class="btn btn-primary" id="btnAddProduct" aria-label="Agregar nuevo producto">+ Agregar Producto</button>
       <button class="btn btn-secondary" id="btnExportCSV">Exportar CSV</button>
@@ -489,7 +507,7 @@ header h1 span {
 
   <div class="grid" id="catalogGrid" role="list" aria-label="Lista de productos">
         <div class="card" role="listitem" data-id="2" tabindex="0" aria-label="Mega Dream EX Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-b6c4a203-67eb-4c5e-8adb-293133b91c40.jpg" alt="Mega Dream EX Booster Box" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-b6c4a203-67eb-4c5e-8adb-293133b91c40.jpg" alt="Mega Dream EX Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">Mega Dream EX Booster Box</div>
@@ -506,7 +524,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="3" tabindex="0" aria-label="Abyss Eye Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-7e3715dd-b112-4f2c-a450-b8fda756f609.jpg" alt="Abyss Eye Booster Box" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-7e3715dd-b112-4f2c-a450-b8fda756f609.jpg" alt="Abyss Eye Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">Abyss Eye Booster Box</div>
@@ -523,7 +541,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="4" tabindex="0" aria-label="Ninja Spinner Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-3c49f6f2-5dee-4a40-a0c4-4c59362de788.jpg" alt="Ninja Spinner Booster Box" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-3c49f6f2-5dee-4a40-a0c4-4c59362de788.jpg" alt="Ninja Spinner Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">Ninja Spinner Booster Box</div>
@@ -540,7 +558,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="5" tabindex="0" aria-label="Terastal Festival Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-ea5a6318-055d-43eb-adc5-3594a7de62dd.jpg" alt="Terastal Festival Booster Box" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-ea5a6318-055d-43eb-adc5-3594a7de62dd.jpg" alt="Terastal Festival Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">Terastal Festival Booster Box</div>
@@ -557,7 +575,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="6" tabindex="0" aria-label="The Glory of Team Rocket Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-20e837d9-4128-4194-97e8-8f81619cc64d.jpg" alt="The Glory of Team Rocket Booster Box" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-20e837d9-4128-4194-97e8-8f81619cc64d.jpg" alt="The Glory of Team Rocket Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">The Glory of Team Rocket Booster Box</div>
@@ -574,7 +592,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="7" tabindex="0" aria-label="Heat Wave Arena Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-3cb0b512-ffcf-4be9-bc76-a3b46e12d13e.jpg" alt="Heat Wave Arena Booster Box" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-3cb0b512-ffcf-4be9-bc76-a3b46e12d13e.jpg" alt="Heat Wave Arena Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">Heat Wave Arena Booster Box</div>
@@ -591,7 +609,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="8" tabindex="0" aria-label="Mega - Ninja Spinner (Versión Coreana)">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-0f7167cb-e502-4214-849d-b41aadfb322e.jpg" alt="Mega - Ninja Spinner (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-0f7167cb-e502-4214-849d-b41aadfb322e.jpg" alt="Mega - Ninja Spinner (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">Mega - Ninja Spinner (Versión Coreana)</div>
@@ -608,7 +626,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="9" tabindex="0" aria-label="Mega Brave Booster Box (Versión Coreana)">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-954e7f7b-1285-4083-b3f0-4459f05ce01d.jpg" alt="Mega Brave Booster Box (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-954e7f7b-1285-4083-b3f0-4459f05ce01d.jpg" alt="Mega Brave Booster Box (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">Mega Brave Booster Box (Versión Coreana)</div>
@@ -625,7 +643,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="10" tabindex="0" aria-label="Black Bolt Booster Box (Versión Coreana)">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-0169dacd-6547-4063-a36e-e4cee66e3347.jpg" alt="Black Bolt Booster Box (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-0169dacd-6547-4063-a36e-e4cee66e3347.jpg" alt="Black Bolt Booster Box (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">Black Bolt Booster Box (Versión Coreana)</div>
@@ -642,7 +660,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="11" tabindex="0" aria-label="Inferno X Booster Box (Versión Coreana)">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-bca4a0aa-012f-4599-ab3c-5a2de4ce768c.jpg" alt="Inferno X Booster Box (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-bca4a0aa-012f-4599-ab3c-5a2de4ce768c.jpg" alt="Inferno X Booster Box (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">Inferno X Booster Box (Versión Coreana)</div>
@@ -659,7 +677,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="12" tabindex="0" aria-label="Black Crystal Blazing Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-bc35fe6e-1cc3-4d79-9083-efab0bdf6580.jpg" alt="Black Crystal Blazing Booster Box" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-bc35fe6e-1cc3-4d79-9083-efab0bdf6580.jpg" alt="Black Crystal Blazing Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">Black Crystal Blazing Booster Box</div>
@@ -676,7 +694,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="13" tabindex="0" aria-label="Nine Colors Gathering Card Case Keychain Blind Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-8f1c8e1d-f0cf-4bb5-ac4a-6ea0524fe5be.jpg" alt="Nine Colors Gathering Card Case Keychain Blind Box" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-8f1c8e1d-f0cf-4bb5-ac4a-6ea0524fe5be.jpg" alt="Nine Colors Gathering Card Case Keychain Blind Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Blind Box</div>
             <div class="card-title">Nine Colors Gathering Card Case Keychain Blind Box</div>
@@ -693,7 +711,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="14" tabindex="0" aria-label="Pikachu V-Union Gift Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-c244c443-0e5d-4ef9-a190-6702ed48f18a.jpg" alt="Pikachu V-Union Gift Box" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-c244c443-0e5d-4ef9-a190-6702ed48f18a.jpg" alt="Pikachu V-Union Gift Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Colección Especial</div>
             <div class="card-title">Pikachu V-Union Gift Box</div>
@@ -710,7 +728,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="15" tabindex="0" aria-label="Brave Stars Card Case Keychain Blind Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-f33f3644-8c7c-454f-abdd-0803bc9f9d4e.jpg" alt="Brave Stars Card Case Keychain Blind Box" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-f33f3644-8c7c-454f-abdd-0803bc9f9d4e.jpg" alt="Brave Stars Card Case Keychain Blind Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Blind Box</div>
             <div class="card-title">Brave Stars Card Case Keychain Blind Box</div>
@@ -727,7 +745,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="16" tabindex="0" aria-label="First Partner 30th Aniversario">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-94c95fd8-1f7b-47db-9ac3-7ae18935097c.jpg" alt="First Partner 30th Aniversario" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-94c95fd8-1f7b-47db-9ac3-7ae18935097c.jpg" alt="First Partner 30th Aniversario" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Colección Especial</div>
             <div class="card-title">First Partner 30th Aniversario</div>
@@ -744,7 +762,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="17" tabindex="0" aria-label="Gem Pack Vol. 4 Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-48ffe159-364c-4e3e-980b-e799ba757cfd.jpg" alt="Gem Pack Vol. 4 Booster Box" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-48ffe159-364c-4e3e-980b-e799ba757cfd.jpg" alt="Gem Pack Vol. 4 Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Booster Box</div>
             <div class="card-title">Gem Pack Vol. 4 Booster Box</div>
@@ -761,7 +779,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="18" tabindex="0" aria-label="First Partner S2 30th Aniversario">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-9b69beb4-fea3-41b1-9b1e-1b93fbe1328c.jpg" alt="First Partner S2 30th Aniversario" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-9b69beb4-fea3-41b1-9b1e-1b93fbe1328c.jpg" alt="First Partner S2 30th Aniversario" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Colección Especial</div>
             <div class="card-title">First Partner S2 30th Aniversario</div>
@@ -778,7 +796,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="19" tabindex="0" aria-label="Ascended Heroes 2 Pack Blister">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-f44aa989-5d63-4050-a8d7-20d7f40546de.jpg" alt="Ascended Heroes 2 Pack Blister" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-f44aa989-5d63-4050-a8d7-20d7f40546de.jpg" alt="Ascended Heroes 2 Pack Blister" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Blister</div>
             <div class="card-title">Ascended Heroes 2 Pack Blister</div>
@@ -795,7 +813,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="20" tabindex="0" aria-label="Phantasmal Flames Booster Bundle">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-904c79a9-d5bc-43a5-a887-ffb11f5d0995.jpg" alt="Phantasmal Flames Booster Bundle" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-904c79a9-d5bc-43a5-a887-ffb11f5d0995.jpg" alt="Phantasmal Flames Booster Bundle" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Bundle</div>
             <div class="card-title">Phantasmal Flames Booster Bundle</div>
@@ -812,7 +830,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="21" tabindex="0" aria-label="Destined Rivals Booster Bundle">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-49262ded-06f7-4892-affd-758f03e22f69.jpg" alt="Destined Rivals Booster Bundle" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-49262ded-06f7-4892-affd-758f03e22f69.jpg" alt="Destined Rivals Booster Bundle" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Bundle</div>
             <div class="card-title">Destined Rivals Booster Bundle</div>
@@ -829,7 +847,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="22" tabindex="0" aria-label="First Partner Illustration Collection Series 1">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-1777a0e5-632b-4771-815c-a61bf67783b5.jpg" alt="First Partner Illustration Collection Series 1" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-1777a0e5-632b-4771-815c-a61bf67783b5.jpg" alt="First Partner Illustration Collection Series 1" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Colección Especial</div>
             <div class="card-title">First Partner Illustration Collection Series 1</div>
@@ -846,7 +864,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="23" tabindex="0" aria-label="Ascended Heroes Premium Poster Collection Mega Lucario">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-aa6ec87b-abbb-4969-b85e-fb13accc55d3.jpg" alt="Ascended Heroes Premium Poster Collection Mega Lucario" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-aa6ec87b-abbb-4969-b85e-fb13accc55d3.jpg" alt="Ascended Heroes Premium Poster Collection Mega Lucario" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Colección Especial</div>
             <div class="card-title">Ascended Heroes Premium Poster Collection Mega Lucario</div>
@@ -863,7 +881,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="24" tabindex="0" aria-label="Ascended Heroes Caja de 10 Mini Latas">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-b52d27a3-43e4-4ce5-94bf-adb5e898d03c.jpg" alt="Ascended Heroes Caja de 10 Mini Latas" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-b52d27a3-43e4-4ce5-94bf-adb5e898d03c.jpg" alt="Ascended Heroes Caja de 10 Mini Latas" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Mini Latas</div>
             <div class="card-title">Ascended Heroes Caja de 10 Mini Latas</div>
@@ -880,7 +898,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="25" tabindex="0" aria-label="Carpetas / Portafolios (varios diseños)">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-8f8ae70b-362c-43d5-891e-94b3d9ba9d54.png" alt="Carpetas / Portafolios (varios diseños)" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-8f8ae70b-362c-43d5-891e-94b3d9ba9d54.png" alt="Carpetas / Portafolios (varios diseños)" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Accesorios</div>
             <div class="card-title">Carpetas / Portafolios (varios diseños)</div>
@@ -897,7 +915,7 @@ header h1 span {
         </div>
       
         <div class="card" role="listitem" data-id="26" tabindex="0" aria-label="Combo Funda + Top Loader">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-3253e0a6-f999-4278-93a4-d5203072e47d.png" alt="Combo Funda + Top Loader" loading="lazy" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-3253e0a6-f999-4278-93a4-d5203072e47d.png" alt="Combo Funda + Top Loader" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">Accesorios</div>
             <div class="card-title">Combo Funda + Top Loader</div>
@@ -1030,6 +1048,7 @@ header h1 span {
   ];
 
   let nextId = 27;
+  let adminVisible = false;
 
   const catalogGrid = document.getElementById('catalogGrid');
   const modalOverlay = document.getElementById('modalOverlay');
@@ -1092,7 +1111,7 @@ header h1 span {
       catalogGrid.innerHTML = filtered.map(p => `
         <div class="card" role="listitem" data-id="${p.id}" tabindex="0" aria-label="${escapeHtml(p.name)}">
           <img class="card-img" src="${escapeHtml(p.image || '')}" alt="${escapeHtml(p.name)}" loading="lazy"
-               onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">
+               onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
           <div class="card-body">
             <div class="card-category">${escapeHtml(p.category)}</div>
             <div class="card-title">${escapeHtml(p.name)}</div>
@@ -1101,10 +1120,11 @@ header h1 span {
               <span class="badge badge-price">$${escapeHtml(p.price)}</span>
             </div>
             ${p.desc ? `<div class="card-desc">${escapeHtml(p.desc)}</div>` : ''}
+            ${adminVisible ? `
             <div class="card-actions">
               <button class="btn btn-warning" data-edit="${p.id}">Editar</button>
               <button class="btn btn-danger" data-delete="${p.id}">Eliminar</button>
-            </div>
+            </div>` : ''}
           </div>
         </div>
       `).join('');
@@ -1119,11 +1139,13 @@ header h1 span {
       const id = parseInt(card.dataset.id);
 
       card.addEventListener('click', function(e) {
+        if (!adminVisible) return;
         if (e.target.closest('.card-actions')) return;
         openEditModal(id);
       });
 
       card.addEventListener('keydown', function(e) {
+        if (!adminVisible) return;
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           if (e.target.closest('.card-actions')) return;
@@ -1135,6 +1157,7 @@ header h1 span {
     catalogGrid.querySelectorAll('[data-edit]').forEach(btn => {
       btn.addEventListener('click', function(e) {
         e.stopPropagation();
+        if (!adminVisible) return;
         openEditModal(parseInt(this.dataset.edit));
       });
     });
@@ -1142,11 +1165,22 @@ header h1 span {
     catalogGrid.querySelectorAll('[data-delete]').forEach(btn => {
       btn.addEventListener('click', function(e) {
         e.stopPropagation();
+        if (!adminVisible) return;
         if (confirm('¿Eliminar este producto?')) {
           deleteProduct(parseInt(this.dataset.edit));
         }
       });
     });
+  }
+
+  function toggleAdmin(show) {
+    adminVisible = show;
+    const panel = document.getElementById('adminPanel');
+    const toggleBtn = document.getElementById('btnToggleAdmin');
+    panel.style.display = show ? 'flex' : 'none';
+    toggleBtn.textContent = show ? '🔒 Cerrar Admin' : '👤 Admin';
+    toggleBtn.style.background = show ? 'var(--danger)' : 'var(--accent)';
+    render();
   }
 
   function updateStats(showing) {
@@ -1478,12 +1512,20 @@ header h1 span {
   document.getElementById('btnDownloadCode').addEventListener('click', downloadCode);
   document.getElementById('btnCancel').addEventListener('click', closeModal);
   productForm.addEventListener('submit', saveProduct);
+  document.getElementById('btnToggleAdmin').addEventListener('click', function() {
+    toggleAdmin(!adminVisible);
+  });
 
   searchInput.addEventListener('input', render);
   filterCategory.addEventListener('change', render);
   filterLang.addEventListener('change', render);
 
   populateFilterOptions();
+
+  if (window.location.search.includes('admin')) {
+    toggleAdmin(true);
+  }
+
   render();
 })();
 </script>
