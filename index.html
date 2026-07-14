@@ -565,7 +565,24 @@ header h1 span {
 (function() {
   'use strict';
 
-  let products = [
+  const STORAGE_KEY = 'firehits_catalogo';
+
+  function loadProducts() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try { return JSON.parse(saved); } catch(e) {}
+    }
+    return null;
+  }
+
+  function saveProducts() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(products.map(p => ({
+      id: p.id, name: p.name, category: p.category, lang: p.lang,
+      price: p.price, desc: p.desc, image: p.image, imageName: p.imageName
+    }))));
+  }
+
+  let products = loadProducts() || [
     {id: 2, name: 'Mega Dream EX Booster Box', category: 'Booster Box', lang: 'Japonés', price: '110', desc: '10 packs por caja, 10 cartas por paquete', image: '', imageName: ''},
     {id: 3, name: 'Abyss Eye Booster Box', category: 'Booster Box', lang: 'Japonés', price: '145', desc: '30 paquetes por caja, 5 tarjetas por paquete', image: '', imageName: ''},
     {id: 4, name: 'Ninja Spinner Booster Box', category: 'Booster Box', lang: 'Japonés', price: '130', desc: '30 paquetes por caja, 5 tarjetas por paquete', image: '', imageName: ''},
@@ -863,6 +880,7 @@ header h1 span {
       showToast('Producto agregado');
     }
 
+    saveProducts();
     closeModal();
     populateFilterOptions();
     render();
@@ -870,6 +888,7 @@ header h1 span {
 
   function deleteProduct(id) {
     products = products.filter(p => p.id !== id);
+    saveProducts();
     populateFilterOptions();
     render();
     showToast('Producto eliminado');
@@ -951,6 +970,7 @@ header h1 span {
           imported++;
         }
 
+        saveProducts();
         populateFilterOptions();
         render();
         showToast(`${imported} producto(s) importado(s)`);
@@ -997,15 +1017,22 @@ header h1 span {
   }
 
   function downloadCode() {
-    const html = document.documentElement.outerHTML;
-    const blob = new Blob(['\uFEFF' + html], { type: 'text/html;charset=utf-8;' });
+    const productsJson = JSON.stringify(products.map(p => ({
+      id: p.id, name: p.name, category: p.category, lang: p.lang,
+      price: p.price, desc: p.desc, image: p.image, imageName: p.imageName
+    })), null, 2);
+    const newHtml = document.documentElement.outerHTML.replace(
+      /let products = \[[\s\S]*?\];/,
+      `let products = ${productsJson};`
+    );
+    const blob = new Blob(['\uFEFF' + newHtml], { type: 'text/html;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = 'catalogo_firehits.html';
     a.click();
     URL.revokeObjectURL(url);
-    showToast('Código descargado');
+    showToast('Código descargado - incluye tus cambios');
   }
 
   document.addEventListener('keydown', function(e) {
