@@ -178,7 +178,7 @@ let adminUnlocked = false;
 let products = [];
 let editingId = null;
 
-const defaultProducts = [
+/*TEMPLATE_MARKER*/const defaultProducts = [
   { id: 1, category: "Booster Box", name: "Mega Dream EX Booster Box", lang: "Japonés", price: "$110,00", desc: "10 packs por caja, 10 cartas por paquete", image: "" },
   { id: 2, category: "Booster Box", name: "Abyss Eye Booster Box", lang: "Japonés", price: "$145,00", desc: "30 paquetes por caja, 5 tarjetas por paquete", image: "" },
   { id: 3, category: "Booster Box", name: "Ninja Spinner Booster Box", lang: "Japonés", price: "$130,00", desc: "30 paquetes por caja, 5 tarjetas por paquete", image: "" },
@@ -204,7 +204,7 @@ const defaultProducts = [
   { id: 23, category: "Mini Latas", name: "Ascended Heroes Caja de 10 Mini Latas", lang: "Español", price: "$200,00", desc: "2 paquetes por mini lata, 10 cartas por paquete", image: "" },
   { id: 24, category: "Accesorios", name: "Carpetas / Portafolios (varios diseños)", lang: "N/A", price: "Consultar", desc: "Carpetas porta-cartas en varios diseños", image: "" },
   { id: 25, category: "Accesorios", name: "Combo Funda + Top Loader", lang: "N/A", price: "$0,30", desc: "(Precio por unidad) 1 top loader y 1 funda (sleeve)", image: "" }
-];
+];/*TEMPLATE_MARKER_END*/
 
 function loadData() {
   const stored = localStorage.getItem(STORAGE_KEY);
@@ -425,12 +425,11 @@ function exportCSV() {
 
 function downloadCode() {
   const productsStr = JSON.stringify(products, null, 2);
-  const htmlContent = document.documentElement.outerHTML;
-  const updatedHtml = htmlContent.replace(
-    /const defaultProducts = \[[\s\S]*?\];/,
-    `const defaultProducts = ${productsStr};`
-  );
-  const blob = new Blob(['\uFEFF' + updatedHtml], { type: 'text/html;charset=utf-8;' });
+  const html = document.documentElement.outerHTML;
+  const parts = html.split('/*TEMPLATE_MARKER*/');
+  const parts2 = parts[1].split('/*TEMPLATE_MARKER_END*/');
+  const updatedHtml = parts[0] + '/*TEMPLATE_MARKER*/const defaultProducts = ' + productsStr + ';/*TEMPLATE_MARKER_END*/' + parts2[1];
+  const blob = new Blob([updatedHtml], { type: 'text/html;charset=utf-8;' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'index.html';
