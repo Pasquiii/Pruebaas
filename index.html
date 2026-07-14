@@ -69,6 +69,11 @@ header h1 span { color: #e63946; }
 .empty-state h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
 .empty-state p { font-size: 0.9rem; }
 
+.admin-panel { display: none; }
+.admin-panel.show { display: flex; }
+.admin-btn { position: fixed; bottom: 1rem; right: 1rem; background: #1a1a2e; border: 1px solid #333; color: #555; padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.75rem; cursor: pointer; z-index: 100; opacity: 0.5; transition: opacity 0.2s; }
+.admin-btn:hover { opacity: 1; color: #e63946; border-color: #e63946; }
+
 .toast { position: fixed; bottom: 2rem; right: 2rem; background: #2d6a4f; color: #fff; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600; z-index: 2000; opacity: 0; transform: translateY(20px); transition: all 0.3s; }
 .toast.show { opacity: 1; transform: translateY(0); }
 .toast.error { background: #9b2226; }
@@ -85,11 +90,13 @@ header h1 span { color: #e63946; }
 <header>
   <h1>Fire <span>Hits</span> TCG</h1>
   <div class="actions">
-    <button class="btn btn-primary" onclick="openModal()">+ Agregar Producto</button>
-    <button class="btn btn-secondary" onclick="exportCSV()">Exportar CSV</button>
-    <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">Importar CSV</button>
-    <input type="file" id="importFile" accept=".csv" style="display:none" onchange="importCSV(event)">
-    <button class="btn btn-success" onclick="downloadCode()">Descargar Código</button>
+    <div class="admin-panel" id="adminPanel">
+      <button class="btn btn-primary" onclick="openModal()">+ Agregar Producto</button>
+      <button class="btn btn-secondary" onclick="exportCSV()">Exportar CSV</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">Importar CSV</button>
+      <input type="file" id="importFile" accept=".csv" style="display:none" onchange="importCSV(event)">
+      <button class="btn btn-success" onclick="downloadCode()">Descargar Código</button>
+    </div>
   </div>
 </header>
 
@@ -160,10 +167,13 @@ header h1 span { color: #e63946; }
   </div>
 </div>
 
+<button class="admin-btn" id="adminBtn" onclick="promptPassword()">🔒 Admin</button>
 <div class="toast" id="toast"></div>
 
 <script>
 const STORAGE_KEY = 'firehits_catalog';
+const ADMIN_PASSWORD = 'admin123';
+let adminUnlocked = false;
 let products = [];
 let editingId = null;
 
@@ -220,6 +230,18 @@ function showToast(msg, isError = false) {
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
+function promptPassword() {
+  const pwd = prompt('Ingrese la contraseña de administrador:');
+  if (pwd === ADMIN_PASSWORD) {
+    adminUnlocked = true;
+    document.getElementById('adminPanel').classList.add('show');
+    document.getElementById('adminBtn').textContent = '🔓 Admin';
+    showToast('Panel admin activado');
+  } else if (pwd !== null) {
+    showToast('Contraseña incorrecta', true);
+  }
+}
+
 function populateFilters() {
   const cats = [...new Set(products.map(p => p.category))];
   const langs = [...new Set(products.map(p => p.lang))];
@@ -271,8 +293,7 @@ function render() {
         </div>
         <div class="card-desc">${p.desc}</div>
         <div class="card-actions">
-          <button class="btn btn-warning" onclick="openModal(${p.id})">Editar</button>
-          <button class="btn btn-danger" onclick="deleteProduct(${p.id})">Eliminar</button>
+          ${adminUnlocked ? `<button class="btn btn-warning" onclick="openModal(${p.id})">Editar</button><button class="btn btn-danger" onclick="deleteProduct(${p.id})">Eliminar</button>` : ''}
         </div>
       </div>
     </div>
