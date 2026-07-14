@@ -429,7 +429,7 @@ function downloadCode() {
   const parts = html.split('/*TEMPLATE_MARKER*/');
   const parts2 = parts[1].split('/*TEMPLATE_MARKER_END*/');
   const updatedHtml = parts[0] + '/*TEMPLATE_MARKER*/const defaultProducts = ' + productsStr + ';/*TEMPLATE_MARKER_END*/' + parts2[1];
-  const blob = new Blob([updatedHtml], { type: 'text/html;charset=utf-8;' });
+  const blob = new Blob([updatedHtml], { type: 'text/plain;charset=utf-8;' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'codigo_catalogo.txt';
