@@ -189,17 +189,34 @@ header h1 span {
   box-shadow: var(--shadow);
 }
 
-.card-img {
+.card-img-wrap {
+  position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: contain;
-  background: var(--bg-card);
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
-  font-size: 0.8rem;
+  overflow: hidden;
+}
+
+.card-img-wrap .img-placeholder {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: 0.25;
+  user-select: none;
+  pointer-events: none;
+}
+
+.card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   padding: 0.5rem;
+  z-index: 2;
 }
 
 .card-body { padding: 1rem; }
@@ -446,23 +463,128 @@ header h1 span {
   border: 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   header {
     flex-direction: column;
     align-items: stretch;
     text-align: center;
+    padding: 0.75rem 1rem;
   }
   .header-left {
     justify-content: center;
+    gap: 0.75rem;
+  }
+  header .logo {
+    height: 40px;
+  }
+  header h1 {
+    font-size: 1.2rem;
+  }
+  .container {
+    padding: 0.75rem;
   }
   .grid {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .stats {
+    gap: 0.5rem;
+  }
+  .stat-card {
+    padding: 0.6rem 1rem;
+    min-width: 80px;
+  }
+  .stat-card p {
+    font-size: 1.1rem;
+  }
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .filters label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+  }
+  .filters select,
+  .filters input {
+    width: 100%;
+    font-size: 16px;
+    padding: 0.7rem 0.75rem;
+    min-height: 44px;
+  }
+  .card {
+    cursor: default;
+  }
+  .card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .card-img-wrap {
+    aspect-ratio: 16 / 9;
+  }
+  .card-title {
+    font-size: 1rem;
   }
   .modal {
-    padding: 1.5rem;
+    padding: 1.25rem;
+    margin: 0.5rem;
+    max-height: 85vh;
   }
-  .admin-panel.show {
-    justify-content: center;
+  .modal h2 {
+    font-size: 1.1rem;
+  }
+  .form-actions {
+    flex-direction: column;
+  }
+  .form-actions .btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    min-height: 48px;
+  }
+  .admin-btn {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 1rem;
+    min-height: 44px;
+  }
+  .admin-panel {
+    flex-direction: column;
+  }
+  .admin-panel .btn {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 0.95rem;
+    min-height: 44px;
+  }
+  .actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .toast {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    text-align: center;
+    border-radius: 12px;
+  }
+  .card-img-wrap .img-placeholder {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .stat-card p {
+    font-size: 1rem;
+  }
+  .card-title {
+    font-size: 0.9rem;
+  }
+  .card-desc {
+    font-size: 0.8rem;
   }
 }
 </style>
@@ -506,431 +628,7 @@ header h1 span {
   </div>
 
   <div class="grid" id="catalogGrid" role="list" aria-label="Lista de productos">
-        <div class="card" role="listitem" data-id="2" tabindex="0" aria-label="Mega Dream EX Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-b6c4a203-67eb-4c5e-8adb-293133b91c40.jpg" alt="Mega Dream EX Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">Mega Dream EX Booster Box</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Japonés</span>
-              <span class="badge badge-price">$110</span>
-            </div>
-            <div class="card-desc">10 packs por caja, 10 cartas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="2">Editar</button>
-              <button class="btn btn-danger" data-delete="2">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="3" tabindex="0" aria-label="Abyss Eye Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-7e3715dd-b112-4f2c-a450-b8fda756f609.jpg" alt="Abyss Eye Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">Abyss Eye Booster Box</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Japonés</span>
-              <span class="badge badge-price">$145</span>
-            </div>
-            <div class="card-desc">30 paquetes por caja, 5 tarjetas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="3">Editar</button>
-              <button class="btn btn-danger" data-delete="3">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="4" tabindex="0" aria-label="Ninja Spinner Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-3c49f6f2-5dee-4a40-a0c4-4c59362de788.jpg" alt="Ninja Spinner Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">Ninja Spinner Booster Box</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Japonés</span>
-              <span class="badge badge-price">$130</span>
-            </div>
-            <div class="card-desc">30 paquetes por caja, 5 tarjetas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="4">Editar</button>
-              <button class="btn btn-danger" data-delete="4">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="5" tabindex="0" aria-label="Terastal Festival Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-ea5a6318-055d-43eb-adc5-3594a7de62dd.jpg" alt="Terastal Festival Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">Terastal Festival Booster Box</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Coreano</span>
-              <span class="badge badge-price">$120</span>
-            </div>
-            <div class="card-desc">10 paquetes por caja, 10 tarjetas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="5">Editar</button>
-              <button class="btn btn-danger" data-delete="5">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="6" tabindex="0" aria-label="The Glory of Team Rocket Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-20e837d9-4128-4194-97e8-8f81619cc64d.jpg" alt="The Glory of Team Rocket Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">The Glory of Team Rocket Booster Box</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Coreano</span>
-              <span class="badge badge-price">$90</span>
-            </div>
-            <div class="card-desc">30 paquetes por caja, 5 tarjetas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="6">Editar</button>
-              <button class="btn btn-danger" data-delete="6">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="7" tabindex="0" aria-label="Heat Wave Arena Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-3cb0b512-ffcf-4be9-bc76-a3b46e12d13e.jpg" alt="Heat Wave Arena Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">Heat Wave Arena Booster Box</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Coreano</span>
-              <span class="badge badge-price">$75</span>
-            </div>
-            <div class="card-desc">30 paquetes por caja, 5 tarjetas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="7">Editar</button>
-              <button class="btn btn-danger" data-delete="7">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="8" tabindex="0" aria-label="Mega - Ninja Spinner (Versión Coreana)">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-0f7167cb-e502-4214-849d-b41aadfb322e.jpg" alt="Mega - Ninja Spinner (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">Mega - Ninja Spinner (Versión Coreana)</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Coreano</span>
-              <span class="badge badge-price">$75</span>
-            </div>
-            <div class="card-desc">30 paquetes por caja, 5 tarjetas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="8">Editar</button>
-              <button class="btn btn-danger" data-delete="8">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="9" tabindex="0" aria-label="Mega Brave Booster Box (Versión Coreana)">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-954e7f7b-1285-4083-b3f0-4459f05ce01d.jpg" alt="Mega Brave Booster Box (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">Mega Brave Booster Box (Versión Coreana)</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Coreano</span>
-              <span class="badge badge-price">$150</span>
-            </div>
-            <div class="card-desc">30 paquetes por caja, 5 tarjetas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="9">Editar</button>
-              <button class="btn btn-danger" data-delete="9">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="10" tabindex="0" aria-label="Black Bolt Booster Box (Versión Coreana)">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-0169dacd-6547-4063-a36e-e4cee66e3347.jpg" alt="Black Bolt Booster Box (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">Black Bolt Booster Box (Versión Coreana)</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Coreano</span>
-              <span class="badge badge-price">$85</span>
-            </div>
-            <div class="card-desc">20 paquetes por caja, 5 tarjetas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="10">Editar</button>
-              <button class="btn btn-danger" data-delete="10">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="11" tabindex="0" aria-label="Inferno X Booster Box (Versión Coreana)">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-bca4a0aa-012f-4599-ab3c-5a2de4ce768c.jpg" alt="Inferno X Booster Box (Versión Coreana)" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">Inferno X Booster Box (Versión Coreana)</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Coreano</span>
-              <span class="badge badge-price">$85</span>
-            </div>
-            <div class="card-desc">30 paquetes por caja, 5 tarjetas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="11">Editar</button>
-              <button class="btn btn-danger" data-delete="11">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="12" tabindex="0" aria-label="Black Crystal Blazing Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-bc35fe6e-1cc3-4d79-9083-efab0bdf6580.jpg" alt="Black Crystal Blazing Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">Black Crystal Blazing Booster Box</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Chino</span>
-              <span class="badge badge-price">$45</span>
-            </div>
-            <div class="card-desc">15 paquetes por caja, 5 tarjetas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="12">Editar</button>
-              <button class="btn btn-danger" data-delete="12">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="13" tabindex="0" aria-label="Nine Colors Gathering Card Case Keychain Blind Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-8f1c8e1d-f0cf-4bb5-ac4a-6ea0524fe5be.jpg" alt="Nine Colors Gathering Card Case Keychain Blind Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Blind Box</div>
-            <div class="card-title">Nine Colors Gathering Card Case Keychain Blind Box</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Chino</span>
-              <span class="badge badge-price">$30</span>
-            </div>
-            <div class="card-desc">1 tarjeta promocional; 1 estuche con llavero; 1 paquete de refuerzo</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="13">Editar</button>
-              <button class="btn btn-danger" data-delete="13">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="14" tabindex="0" aria-label="Pikachu V-Union Gift Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-c244c443-0e5d-4ef9-a190-6702ed48f18a.jpg" alt="Pikachu V-Union Gift Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Colección Especial</div>
-            <div class="card-title">Pikachu V-Union Gift Box</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Chino</span>
-              <span class="badge badge-price">$45</span>
-            </div>
-            <div class="card-desc">2 slim booster pack de Primordial Arts (Blastoise y Venusaur); 1 tarjeta Jumbo especial de conexión de Pikachu; 1 soporte de exhibición temático de Pikachu</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="14">Editar</button>
-              <button class="btn btn-danger" data-delete="14">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="15" tabindex="0" aria-label="Brave Stars Card Case Keychain Blind Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-f33f3644-8c7c-454f-abdd-0803bc9f9d4e.jpg" alt="Brave Stars Card Case Keychain Blind Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Blind Box</div>
-            <div class="card-title">Brave Stars Card Case Keychain Blind Box</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Chino</span>
-              <span class="badge badge-price">$30</span>
-            </div>
-            <div class="card-desc">1 tarjeta promocional; 1 estuche con llavero; 1 paquete de refuerzo</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="15">Editar</button>
-              <button class="btn btn-danger" data-delete="15">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="16" tabindex="0" aria-label="First Partner 30th Aniversario">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-94c95fd8-1f7b-47db-9ac3-7ae18935097c.jpg" alt="First Partner 30th Aniversario" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Colección Especial</div>
-            <div class="card-title">First Partner 30th Aniversario</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Chino</span>
-              <span class="badge badge-price">$25</span>
-            </div>
-            <div class="card-desc">1 promo especial de ilustración rara; 1 estuche acrílico magnético; 1 slim booster pack</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="16">Editar</button>
-              <button class="btn btn-danger" data-delete="16">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="17" tabindex="0" aria-label="Gem Pack Vol. 4 Booster Box">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-48ffe159-364c-4e3e-980b-e799ba757cfd.jpg" alt="Gem Pack Vol. 4 Booster Box" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Booster Box</div>
-            <div class="card-title">Gem Pack Vol. 4 Booster Box</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Chino</span>
-              <span class="badge badge-price">$40</span>
-            </div>
-            <div class="card-desc">18 paquetes por caja, 4 tarjetas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="17">Editar</button>
-              <button class="btn btn-danger" data-delete="17">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="18" tabindex="0" aria-label="First Partner S2 30th Aniversario">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-9b69beb4-fea3-41b1-9b1e-1b93fbe1328c.jpg" alt="First Partner S2 30th Aniversario" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Colección Especial</div>
-            <div class="card-title">First Partner S2 30th Aniversario</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Chino</span>
-              <span class="badge badge-price">$25</span>
-            </div>
-            <div class="card-desc">1 promocional de Charmander o Gastly; 1 hoja de pegatinas; 3 paquetes de Ascended Heroes</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="18">Editar</button>
-              <button class="btn btn-danger" data-delete="18">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="19" tabindex="0" aria-label="Ascended Heroes 2 Pack Blister">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-f44aa989-5d63-4050-a8d7-20d7f40546de.jpg" alt="Ascended Heroes 2 Pack Blister" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Blister</div>
-            <div class="card-title">Ascended Heroes 2 Pack Blister</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Español</span>
-              <span class="badge badge-price">$55</span>
-            </div>
-            <div class="card-desc">1 promocional de Larry's Komala; 1 moneda Pokémon con Larry; 2 paquetes de Ascended Heroes</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="19">Editar</button>
-              <button class="btn btn-danger" data-delete="19">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="20" tabindex="0" aria-label="Phantasmal Flames Booster Bundle">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-904c79a9-d5bc-43a5-a887-ffb11f5d0995.jpg" alt="Phantasmal Flames Booster Bundle" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Bundle</div>
-            <div class="card-title">Phantasmal Flames Booster Bundle</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Español</span>
-              <span class="badge badge-price">$58</span>
-            </div>
-            <div class="card-desc">6 paquetes de Phantasmal Flames</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="20">Editar</button>
-              <button class="btn btn-danger" data-delete="20">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="21" tabindex="0" aria-label="Destined Rivals Booster Bundle">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-49262ded-06f7-4892-affd-758f03e22f69.jpg" alt="Destined Rivals Booster Bundle" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Bundle</div>
-            <div class="card-title">Destined Rivals Booster Bundle</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Español</span>
-              <span class="badge badge-price">$58</span>
-            </div>
-            <div class="card-desc">6 paquetes de Destined Rivals</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="21">Editar</button>
-              <button class="btn btn-danger" data-delete="21">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="22" tabindex="0" aria-label="First Partner Illustration Collection Series 1">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-1777a0e5-632b-4771-815c-a61bf67783b5.jpg" alt="First Partner Illustration Collection Series 1" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Colección Especial</div>
-            <div class="card-title">First Partner Illustration Collection Series 1</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Español</span>
-              <span class="badge badge-price">$55</span>
-            </div>
-            <div class="card-desc">1 booster pack de 3 cartas promo; 2 booster packs; 1 sticker</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="22">Editar</button>
-              <button class="btn btn-danger" data-delete="22">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="23" tabindex="0" aria-label="Ascended Heroes Premium Poster Collection Mega Lucario">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-aa6ec87b-abbb-4969-b85e-fb13accc55d3.jpg" alt="Ascended Heroes Premium Poster Collection Mega Lucario" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Colección Especial</div>
-            <div class="card-title">Ascended Heroes Premium Poster Collection Mega Lucario</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Español</span>
-              <span class="badge badge-price">$115</span>
-            </div>
-            <div class="card-desc">1 promocional de aluminio con Mega Lucario ex; 1 póster; 10 paquetes de Ascended Heroes</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="23">Editar</button>
-              <button class="btn btn-danger" data-delete="23">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="24" tabindex="0" aria-label="Ascended Heroes Caja de 10 Mini Latas">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-b52d27a3-43e4-4ce5-94bf-adb5e898d03c.jpg" alt="Ascended Heroes Caja de 10 Mini Latas" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Mini Latas</div>
-            <div class="card-title">Ascended Heroes Caja de 10 Mini Latas</div>
-            <div class="card-meta">
-              <span class="badge badge-lang">Español</span>
-              <span class="badge badge-price">$200</span>
-            </div>
-            <div class="card-desc">2 paquetes por mini lata, 10 cartas por paquete</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="24">Editar</button>
-              <button class="btn btn-danger" data-delete="24">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="25" tabindex="0" aria-label="Carpetas / Portafolios (varios diseños)">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-8f8ae70b-362c-43d5-891e-94b3d9ba9d54.png" alt="Carpetas / Portafolios (varios diseños)" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Accesorios</div>
-            <div class="card-title">Carpetas / Portafolios (varios diseños)</div>
-            <div class="card-meta">
-              
-              <span class="badge badge-price">$0</span>
-            </div>
-            <div class="card-desc">(Consultar precio) Carpetas porta-cartas en varios diseños; el catálogo no especifica un precio individual</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="25">Editar</button>
-              <button class="btn btn-danger" data-delete="25">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card" role="listitem" data-id="26" tabindex="0" aria-label="Combo Funda + Top Loader">
-          <img class="card-img" src="https://cdn.phototourl.com/member/2026-07-14-3253e0a6-f999-4278-93a4-d5203072e47d.png" alt="Combo Funda + Top Loader" loading="lazy" onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
-          <div class="card-body">
-            <div class="card-category">Accesorios</div>
-            <div class="card-title">Combo Funda + Top Loader</div>
-            <div class="card-meta">
-              
-              <span class="badge badge-price">$0.30</span>
-            </div>
-            <div class="card-desc">(Precio por unidad) 1 top loader y 1 funda (sleeve)</div>
-            <div class="card-actions">
-              <button class="btn btn-warning" data-edit="26">Editar</button>
-              <button class="btn btn-danger" data-delete="26">Eliminar</button>
-            </div>
-          </div>
-        </div>
-      </div>
+  </div>
 </div>
 
 <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -1108,10 +806,16 @@ header h1 span {
     if (filtered.length === 0) {
       catalogGrid.innerHTML = '<div class="empty-state"><h2>Sin resultados</h2><p>No se encontraron productos con los filtros seleccionados.</p></div>';
     } else {
-      catalogGrid.innerHTML = filtered.map(p => `
+      catalogGrid.innerHTML = filtered.map(p => {
+        const initial = p.name ? p.name.charAt(0).toUpperCase() : '?';
+        const imgSrc = escapeHtml(p.image || '');
+        return `
         <div class="card" role="listitem" data-id="${p.id}" tabindex="0" aria-label="${escapeHtml(p.name)}">
-          <img class="card-img" src="${escapeHtml(p.image || '')}" alt="${escapeHtml(p.name)}" loading="lazy"
-               onerror="this.src='';this.style.background='#1a1a1a';this.style.display='flex';this.innerHTML='Sin imagen'">
+          <div class="card-img-wrap">
+            <div class="img-placeholder">${initial}</div>
+            <img class="card-img" src="${imgSrc}" alt="${escapeHtml(p.name)}" loading="lazy"
+                 onerror="this.style.display='none';this.parentElement.querySelector('.img-placeholder').style.opacity='1'">
+          </div>
           <div class="card-body">
             <div class="card-category">${escapeHtml(p.category)}</div>
             <div class="card-title">${escapeHtml(p.name)}</div>
@@ -1127,7 +831,7 @@ header h1 span {
             </div>` : ''}
           </div>
         </div>
-      `).join('');
+      `}).join('');
     }
 
     updateStats(filtered.length);
