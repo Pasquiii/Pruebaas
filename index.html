@@ -161,6 +161,7 @@ header h1 span { color: #e63946; }
       </div>
     </div>
     <div class="form-actions">
+      <button class="btn btn-danger" id="deleteBtn" style="display:none; margin-right:auto;" onclick="deleteFromModal()">Eliminar</button>
       <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
       <button class="btn btn-primary" onclick="saveProduct()">Guardar</button>
     </div>
@@ -236,6 +237,7 @@ function promptPassword() {
     adminUnlocked = true;
     document.getElementById('adminPanel').classList.add('show');
     document.getElementById('adminBtn').textContent = '🔓 Admin';
+    render();
     showToast('Panel admin activado');
   } else if (pwd !== null) {
     showToast('Contraseña incorrecta', true);
@@ -282,7 +284,7 @@ function render() {
   }
 
   grid.innerHTML = filtered.map(p => `
-    <div class="card">
+    <div class="card" ${adminUnlocked ? `onclick="openModal(${p.id})" style="cursor:pointer"` : ''}>
       ${p.image ? `<img class="card-img" src="${p.image}" alt="${p.name}" onerror="this.src='';this.style.background='#2a2a4a';this.style.display='flex';this.innerHTML='Sin imagen'">` : `<div class="card-img">Sin imagen</div>`}
       <div class="card-body">
         <div class="card-category">${p.category}</div>
@@ -292,9 +294,6 @@ function render() {
           <span class="badge badge-price">${p.price}</span>
         </div>
         <div class="card-desc">${p.desc}</div>
-        <div class="card-actions">
-          ${adminUnlocked ? `<button class="btn btn-warning" onclick="openModal(${p.id})">Editar</button><button class="btn btn-danger" onclick="deleteProduct(${p.id})">Eliminar</button>` : ''}
-        </div>
       </div>
     </div>
   `).join('');
@@ -315,11 +314,13 @@ function openModal(id = null) {
     document.getElementById('editPrice').value = p.price;
     document.getElementById('editDesc').value = p.desc;
     document.getElementById('editImage').value = p.image || '';
+    document.getElementById('deleteBtn').style.display = 'inline-block';
     if (p.image) {
       document.getElementById('previewImg').src = p.image;
       document.getElementById('imagePreview').style.display = 'block';
     }
   } else {
+    document.getElementById('deleteBtn').style.display = 'none';
     document.getElementById('editId').value = '';
     document.getElementById('editCategory').value = 'Booster Box';
     document.getElementById('editName').value = '';
@@ -357,6 +358,17 @@ function removeImage() {
   document.getElementById('editImage').value = '';
   document.getElementById('editImageFile').value = '';
   document.getElementById('imagePreview').style.display = 'none';
+}
+
+function deleteFromModal() {
+  const id = document.getElementById('editId').value;
+  if (id && confirm('¿Eliminar este producto?')) {
+    products = products.filter(p => p.id !== Number(id));
+    saveData();
+    closeModal();
+    render();
+    showToast('Producto eliminado');
+  }
 }
 
 function saveProduct() {
