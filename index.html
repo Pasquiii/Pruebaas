@@ -566,29 +566,34 @@ header h1 span {
   'use strict';
 
   let products = [
-    {
-      id: 1,
-      name: 'Mega Dream EX Booster Box',
-      category: 'Booster Box',
-      lang: 'Japonés',
-      price: '110,00',
-      desc: '10 packs por caja, 10 cartas por paquete',
-      image: 'images/producto1.png',
-      imageName: 'producto1.png'
-    },
-    {
-      id: 2,
-      name: 'Shiny Treasure EX Box',
-      category: 'Blind Box',
-      lang: 'Coreano',
-      price: '65,00',
-      desc: '15 sobres por caja, 5 cartas por sobre',
-      image: 'images/producto2.webp',
-      imageName: 'producto2.webp'
-    }
+    {id: 2, name: 'Mega Dream EX Booster Box', category: 'Booster Box', lang: 'Japonés', price: '110', desc: '10 packs por caja, 10 cartas por paquete', image: '', imageName: ''},
+    {id: 3, name: 'Abyss Eye Booster Box', category: 'Booster Box', lang: 'Japonés', price: '145', desc: '30 paquetes por caja, 5 tarjetas por paquete', image: '', imageName: ''},
+    {id: 4, name: 'Ninja Spinner Booster Box', category: 'Booster Box', lang: 'Japonés', price: '130', desc: '30 paquetes por caja, 5 tarjetas por paquete', image: '', imageName: ''},
+    {id: 5, name: 'Terastal Festival Booster Box', category: 'Booster Box', lang: 'Coreano', price: '120', desc: '10 paquetes por caja, 10 tarjetas por paquete', image: '', imageName: ''},
+    {id: 6, name: 'The Glory of Team Rocket Booster Box', category: 'Booster Box', lang: 'Coreano', price: '90', desc: '30 paquetes por caja, 5 tarjetas por paquete', image: '', imageName: ''},
+    {id: 7, name: 'Heat Wave Arena Booster Box', category: 'Booster Box', lang: 'Coreano', price: '75', desc: '30 paquetes por caja, 5 tarjetas por paquete', image: '', imageName: ''},
+    {id: 8, name: 'Mega - Ninja Spinner (Versión Coreana)', category: 'Booster Box', lang: 'Coreano', price: '75', desc: '30 paquetes por caja, 5 tarjetas por paquete', image: '', imageName: ''},
+    {id: 9, name: 'Mega Brave Booster Box (Versión Coreana)', category: 'Booster Box', lang: 'Coreano', price: '150', desc: '30 paquetes por caja, 5 tarjetas por paquete', image: '', imageName: ''},
+    {id: 10, name: 'Black Bolt Booster Box (Versión Coreana)', category: 'Booster Box', lang: 'Coreano', price: '85', desc: '20 paquetes por caja, 5 tarjetas por paquete', image: '', imageName: ''},
+    {id: 11, name: 'Inferno X Booster Box (Versión Coreana)', category: 'Booster Box', lang: 'Coreano', price: '85', desc: '30 paquetes por caja, 5 tarjetas por paquete', image: '', imageName: ''},
+    {id: 12, name: 'Black Crystal Blazing Booster Box', category: 'Booster Box', lang: 'Chino', price: '45', desc: '15 paquetes por caja, 5 tarjetas por paquete', image: '', imageName: ''},
+    {id: 13, name: 'Nine Colors Gathering Card Case Keychain Blind Box', category: 'Blind Box', lang: 'Chino', price: '30', desc: '1 tarjeta promocional; 1 estuche con llavero; 1 paquete de refuerzo', image: '', imageName: ''},
+    {id: 14, name: 'Pikachu V-Union Gift Box', category: 'Colección Especial', lang: 'Chino', price: '45', desc: '2 slim booster pack de Primordial Arts (Blastoise y Venusaur); 1 tarjeta Jumbo especial de conexión de Pikachu; 1 soporte de exhibición temático de Pikachu', image: '', imageName: ''},
+    {id: 15, name: 'Brave Stars Card Case Keychain Blind Box', category: 'Blind Box', lang: 'Chino', price: '30', desc: '1 tarjeta promocional; 1 estuche con llavero; 1 paquete de refuerzo', image: '', imageName: ''},
+    {id: 16, name: 'First Partner 30th Aniversario', category: 'Colección Especial', lang: 'Chino', price: '25', desc: '1 promo especial de ilustración rara; 1 estuche acrílico magnético; 1 slim booster pack', image: '', imageName: ''},
+    {id: 17, name: 'Gem Pack Vol. 4 Booster Box', category: 'Booster Box', lang: 'Chino', price: '40', desc: '18 paquetes por caja, 4 tarjetas por paquete', image: '', imageName: ''},
+    {id: 18, name: 'First Partner S2 30th Aniversario', category: 'Colección Especial', lang: 'Chino', price: '25', desc: '1 promocional de Charmander o Gastly; 1 hoja de pegatinas; 3 paquetes de Ascended Heroes', image: '', imageName: ''},
+    {id: 19, name: 'Ascended Heroes 2 Pack Blister', category: 'Blister', lang: 'Español', price: '55', desc: '1 promocional de Larry\'s Komala; 1 moneda Pokémon con Larry; 2 paquetes de Ascended Heroes', image: '', imageName: ''},
+    {id: 20, name: 'Phantasmal Flames Booster Bundle', category: 'Bundle', lang: 'Español', price: '58', desc: '6 paquetes de Phantasmal Flames', image: '', imageName: ''},
+    {id: 21, name: 'Destined Rivals Booster Bundle', category: 'Bundle', lang: 'Español', price: '58', desc: '6 paquetes de Destined Rivals', image: '', imageName: ''},
+    {id: 22, name: 'First Partner Illustration Collection Series 1', category: 'Colección Especial', lang: 'Español', price: '55', desc: '1 booster pack de 3 cartas promo; 2 booster packs; 1 sticker', image: '', imageName: ''},
+    {id: 23, name: 'Ascended Heroes Premium Poster Collection Mega Lucario', category: 'Colección Especial', lang: 'Español', price: '115', desc: '1 promocional de aluminio con Mega Lucario ex; 1 póster; 10 paquetes de Ascended Heroes', image: '', imageName: ''},
+    {id: 24, name: 'Ascended Heroes Caja de 10 Mini Latas', category: 'Mini Latas', lang: 'Español', price: '200', desc: '2 paquetes por mini lata, 10 cartas por paquete', image: '', imageName: ''},
+    {id: 25, name: 'Carpetas / Portafolios (varios diseños)', category: 'Accesorios', lang: 'N/A', price: 'Consultar', desc: '(Consultar precio) Carpetas porta-cartas en varios diseños; el catálogo no especifica un precio individual', image: '', imageName: ''},
+    {id: 26, name: 'Combo Funda + Top Loader', category: 'Accesorios', lang: 'N/A', price: '0.3', desc: '(Precio por unidad) 1 top loader y 1 funda (sleeve)', image: '', imageName: ''}
   ];
 
-  let nextId = 3;
+  let nextId = 27;
 
   const catalogGrid = document.getElementById('catalogGrid');
   const modalOverlay = document.getElementById('modalOverlay');
