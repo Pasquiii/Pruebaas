@@ -74,6 +74,17 @@ header h1 span {
   color: var(--accent);
 }
 
+header .subtitle {
+  font-size: 0.75rem;
+  color: var(--accent);
+  background: rgba(255, 140, 0, 0.15);
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
 .actions {
   display: flex;
   gap: 0.75rem;
@@ -404,6 +415,35 @@ header h1 span {
   font-size: 0.9rem;
 }
 
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: transparent;
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.social-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.social-btn[aria-label="Instagram"]:hover {
+  border-color: #e4405f;
+  color: #e4405f;
+}
+.social-btn[aria-label="WhatsApp"]:hover {
+  border-color: #25d366;
+  color: #25d366;
+}
+
 .admin-btn {
   background: var(--accent);
   color: #000;
@@ -545,8 +585,10 @@ header h1 span {
     font-size: 1rem;
     min-height: 48px;
   }
-  .admin-btn {
+  .admin-btn,
+  .social-btn {
     width: 100%;
+    justify-content: center;
     padding: 0.7rem;
     font-size: 1rem;
     min-height: 44px;
@@ -595,8 +637,11 @@ header h1 span {
   <div class="header-left">
     <img class="logo" src="logo.png" alt="Fire Hits TCG Logo">
     <h1>Fire <span>Hits</span> TCG</h1>
+    <span class="subtitle">Catálogo al Mayor</span>
   </div>
   <div class="actions">
+    <a class="social-btn" href="https://www.instagram.com/firehits.tcg/" target="_blank" rel="noopener" aria-label="Instagram">📷 Instagram</a>
+    <a class="social-btn" href="https://wa.me/584243178117" target="_blank" rel="noopener" aria-label="WhatsApp">💬 WhatsApp</a>
     <button class="admin-btn" id="btnToggleAdmin" aria-label="Activar modo administrador">👤 Admin</button>
     <div class="admin-panel" id="adminPanel" role="toolbar" aria-label="Panel de administración">
       <button class="btn btn-primary" id="btnAddProduct" aria-label="Agregar nuevo producto">+ Agregar Producto</button>
@@ -609,12 +654,6 @@ header h1 span {
 </header>
 
 <div class="container">
-  <div class="stats" id="stats" role="status" aria-live="polite">
-    <div class="stat-card"><h3>Total</h3><p id="statTotal">25</p></div>
-    <div class="stat-card"><h3>Categorías</h3><p id="statCategories">7</p></div>
-    <div class="stat-card"><h3>Mostrando</h3><p id="statShowing">25</p></div>
-  </div>
-
   <div class="filters">
     <label for="searchInput">Buscar:
       <input type="text" id="searchInput" placeholder="Nombre..." aria-label="Buscar producto por nombre">
@@ -765,9 +804,7 @@ header h1 span {
   const filterCategory = document.getElementById('filterCategory');
   const filterLang = document.getElementById('filterLang');
   const toast = document.getElementById('toast');
-  const statTotal = document.getElementById('statTotal');
-  const statCategories = document.getElementById('statCategories');
-  const statShowing = document.getElementById('statShowing');
+
 
   function populateFilterOptions() {
     const cats = new Set();
@@ -835,7 +872,6 @@ header h1 span {
       `}).join('');
     }
 
-    updateStats(filtered.length);
     attachCardEvents();
   }
 
@@ -886,13 +922,6 @@ header h1 span {
     toggleBtn.textContent = show ? '🔒 Cerrar Admin' : '👤 Admin';
     toggleBtn.style.background = show ? 'var(--danger)' : 'var(--accent)';
     render();
-  }
-
-  function updateStats(showing) {
-    statTotal.textContent = products.length;
-    statShowing.textContent = showing;
-    const cats = new Set(products.map(p => p.category).filter(Boolean));
-    statCategories.textContent = cats.size;
   }
 
   function escapeHtml(str) {
