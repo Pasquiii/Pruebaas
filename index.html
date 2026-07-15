@@ -415,6 +415,29 @@ header .subtitle {
   font-size: 0.9rem;
 }
 
+.admin-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+}
+.admin-footer:hover {
+  opacity: 1;
+}
+.admin-footer .admin-btn {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.8rem;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.admin-footer .admin-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: transparent;
+}
+
 .social-btn {
   display: inline-flex;
   align-items: center;
@@ -585,7 +608,6 @@ header .subtitle {
     font-size: 1rem;
     min-height: 48px;
   }
-  .admin-btn,
   .social-btn {
     width: 100%;
     justify-content: center;
@@ -642,7 +664,6 @@ header .subtitle {
   <div class="actions">
     <a class="social-btn" href="https://www.instagram.com/firehits.tcg/" target="_blank" rel="noopener" aria-label="Instagram">📷 Instagram</a>
     <a class="social-btn" href="https://wa.me/584243178117" target="_blank" rel="noopener" aria-label="WhatsApp">💬 WhatsApp</a>
-    <button class="admin-btn" id="btnToggleAdmin" aria-label="Activar modo administrador">👤 Admin</button>
     <div class="admin-panel" id="adminPanel" role="toolbar" aria-label="Panel de administración">
       <button class="btn btn-primary" id="btnAddProduct" aria-label="Agregar nuevo producto">+ Agregar Producto</button>
       <button class="btn btn-secondary" id="btnExportCSV">Exportar CSV</button>
@@ -667,6 +688,10 @@ header .subtitle {
   </div>
 
   <div class="grid" id="catalogGrid" role="list" aria-label="Lista de productos">
+  </div>
+
+  <div class="admin-footer">
+    <button class="admin-btn" id="btnToggleAdmin" aria-label="Activar modo administrador">👤 Admin</button>
   </div>
 </div>
 
