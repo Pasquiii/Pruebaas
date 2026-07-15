@@ -623,7 +623,7 @@ header h1 span {
       <select id="filterCategory" aria-label="Filtrar por categoría"><option value="">Todas</option><option value="Accesorios">Accesorios</option><option value="Blind Box">Blind Box</option><option value="Blister">Blister</option><option value="Booster Box">Booster Box</option><option value="Bundle">Bundle</option><option value="Colección Especial">Colección Especial</option><option value="Mini Latas">Mini Latas</option></select>
     </label>
     <label for="filterLang">Idioma:
-      <select id="filterLang" aria-label="Filtrar por idioma"><option value="">Todos</option><option value="Chino">Chino</option><option value="Coreano">Coreano</option><option value="Español">Español</option><option value="Japonés">Japonés</option></select>
+      <select id="filterLang" aria-label="Filtrar por idioma"><option value="">🌐 Todos</option><option value="Chino">🇨🇳 Chino</option><option value="Coreano">🇰🇷 Coreano</option><option value="Español">🇪🇸 Español</option><option value="Japonés">🇯🇵 Japonés</option></select>
     </label>
   </div>
 
@@ -747,6 +747,7 @@ header h1 span {
 
   let nextId = 27;
   let adminVisible = false;
+  const langFlags = { 'Japonés': '🇯🇵', 'Coreano': '🇰🇷', 'Chino': '🇨🇳', 'Español': '🇪🇸', 'N/A': '🌐' };
 
   const catalogGrid = document.getElementById('catalogGrid');
   const modalOverlay = document.getElementById('modalOverlay');
@@ -778,7 +779,7 @@ header h1 span {
     const catSelect = filterCategory;
     const langSelect = filterLang;
     catSelect.innerHTML = '<option value="">Todas</option>';
-    langSelect.innerHTML = '<option value="">Todos</option>';
+    langSelect.innerHTML = '<option value="">🌐 Todos</option>';
     [...cats].sort().forEach(c => {
       const opt = document.createElement('option');
       opt.value = c; opt.textContent = c;
@@ -786,7 +787,7 @@ header h1 span {
     });
     [...langs].sort().forEach(l => {
       const opt = document.createElement('option');
-      opt.value = l; opt.textContent = l;
+      opt.value = l; opt.textContent = (langFlags[l] || '') + ' ' + l;
       langSelect.appendChild(opt);
     });
   }
@@ -820,7 +821,7 @@ header h1 span {
             <div class="card-category">${escapeHtml(p.category)}</div>
             <div class="card-title">${escapeHtml(p.name)}</div>
             <div class="card-meta">
-              ${p.lang ? `<span class="badge badge-lang">${escapeHtml(p.lang)}</span>` : ''}
+              ${p.lang ? `<span class="badge badge-lang">${langFlags[p.lang] || ''} ${escapeHtml(p.lang)}</span>` : ''}
               <span class="badge badge-price">$${escapeHtml(p.price)}</span>
             </div>
             ${p.desc ? `<div class="card-desc">${escapeHtml(p.desc)}</div>` : ''}
